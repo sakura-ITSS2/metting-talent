@@ -5,13 +5,13 @@ export const checkAuth = async (email, pass, role) => {
     try{
         const userSnapshot = await getDocs(collection(db, 'User'));
         const listUser = userSnapshot.docs.map(doc => doc.data());
-        
+
         if(role === 'Manager'){
-            let check = listUser[0].Data.map(user => user.email===email && user.pass === pass);
+            let check = listUser[0].Data.filter(user => user.email===email && user.pass === pass);
             if (check.length > 0) return check[0];
             else return false;
         }else if(role === 'Talent'){
-            let check = listUser[1].Data.map(user => user.email===email && user.pass === pass);
+            let check = listUser[1].Data.filter(user => user.email===email && user.pass === pass);
             if (check.length > 0) return check[0];
             else return false;
         }else return false;
@@ -27,7 +27,7 @@ export const createUser = async (email, pass, role) => {
 
         if(role === 'Manager'){
             let listManager = [...listUser[0].Data];
-            
+
             if(listManager.filter(manager => manager.email === email).length >0) return false;
             else{
                 listManager = [...listManager, { email: email, pass: pass }];
