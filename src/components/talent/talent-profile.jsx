@@ -1,5 +1,5 @@
-import {useState, useRef, useEffect} from 'react'
-import {getProfile, updateProfile} from '../../Services/ProfileService'
+import { useState, useRef, useEffect } from 'react'
+import { getProfile, updateProfile, uploadAvatar } from '../../Services/ProfileService'
 import {
     Container,
     Row,
@@ -7,7 +7,8 @@ import {
     Image,
     Button,
     Modal,
-    Form
+    Form,
+    Spinner
 } from "react-bootstrap";
 
 import {
@@ -21,7 +22,7 @@ const TalentProfile = () => {
     const [edit, setEdit] = useState(false)
     const [user, setUser] = useState({
         email: '',
-        avatar: '',
+        avatar: DefaultAvatar,
         skill: '',
         advantage: '',
         disAdvantage: '',
@@ -56,6 +57,8 @@ const TalentProfile = () => {
         }
     ]
     const imageRef = useRef();
+    const [imageAvatar, setImageAvatar] = useState();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function fetchData(params) {
@@ -63,7 +66,7 @@ const TalentProfile = () => {
 
             setUser({
                 email: temp.email ? temp.email : '',
-                avatar: temp.avt ? temp.avt : 'https://ix-www.imgix.net/hp/snowshoe.jpg?q=70&w=1800&auto=compress%2Cenhance&fm=jpeg',
+                avatar: temp.avt ? temp.avt : DefaultAvatar,
                 skill: temp.skill ? temp.skill : '',
                 advantage: temp.advantage ? temp.advantage : '',
                 disAdvantage: temp.disAdvantage ? temp.disAdvantage : '',
@@ -91,6 +94,7 @@ const TalentProfile = () => {
     }
 
     const fileUploadHandle = (event) => {
+        setImageAvatar(event.target.files[0]);
         const file = URL.createObjectURL(event.target.files[0]);
         setUserEdit({
             ...userEdit,
@@ -100,8 +104,21 @@ const TalentProfile = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await updateProfile(userEdit)
+        setLoading(true);
+        if (imageAvatar) {
+            const formData = new FormData();
+            formData.append('image', imageAvatar);
+
+            const image = await uploadAvatar(formData);
+            setUserEdit({
+                ...userEdit,
+                avatar: image.url
+            })
+        }
+        await updateProfile(userEdit);
+
         setUser({...userEdit});
+        setLoading(false);
         handleCloseModal();
     }
 
@@ -116,7 +133,7 @@ const TalentProfile = () => {
                     </Row>
                     <Row className='profile-card'>
                         <Col md='5' className='profile-card__avatar'>
-                            <Image src={user.avatar ? user.avatar : 'https://ix-www.imgix.net/hp/snowshoe.jpg?q=70&w=1800&auto=compress%2Cenhance&fm=jpeg'} thumbnail />
+                            <Image src={user.avatar} thumbnail />
                         </Col>
                         <Col md='7' className='profile-card__info'>
                             {
@@ -150,7 +167,7 @@ const TalentProfile = () => {
                         <Form onSubmit={handleSubmit}>
                             <Row className="justify-content-md-center">
                                 <Col md='3' className='profile-card__avatar'>
-                                    <Image src={userEdit.avatar} rounded />
+                                    <Image src={userEdit.avatar ? user.avatar : DefaultAvatar} rounded />
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
@@ -196,8 +213,17 @@ const TalentProfile = () => {
 
                             <Row className='justify-content-md-center'>
                                 <Col md='2'>
-                                    <Button style={{width: '80%'}} variant="primary" type="submit">
-                                        編集
+                                    <Button style={{width: '80%'}} variant="primary" type="submit" disabled={loading}>
+                                        {
+                                            loading ?
+                                            <Spinner
+                                                as="span"
+                                                animation="border"
+                                                size="sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            /> : '編集'
+                                        }
                                     </Button>
                                 </Col>
                             </Row>
