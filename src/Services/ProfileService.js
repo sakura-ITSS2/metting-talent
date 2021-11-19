@@ -1,5 +1,6 @@
 import {db} from '../utils/firebase'
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore/lite';
+import axios from 'axios'
 
 export const getProfile = async (id, role) => {
     try{
@@ -42,4 +43,15 @@ export const updateProfile = async (data) => {
     }catch(err){
         return false;
     }
+}
+
+export const uploadAvatar = async (formData) => {
+    const apiKey = '2563133ba7263096e8a107725a295a35';
+    const baseURL = `https://api.imgbb.com/1/upload?key=${apiKey}`
+    let data;
+
+    await axios.post(baseURL, formData)
+        .then(res => data = res.data);
+
+    return data;
 }
