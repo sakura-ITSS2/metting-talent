@@ -110,14 +110,15 @@ const TalentProfile = () => {
             formData.append('image', imageAvatar);
 
             const image = await uploadAvatar(formData);
-            setUserEdit({
+            await updateProfile({
                 ...userEdit,
-                avatar: image.url
-            })
+                avatar: image.data.url
+            });
+            setUser({...userEdit, avatar: image.data.url})
+        } else {
+            await updateProfile(userEdit);
+            setUser({...userEdit})
         }
-        await updateProfile(userEdit);
-
-        setUser({...userEdit});
         setLoading(false);
         handleCloseModal();
     }
@@ -167,7 +168,7 @@ const TalentProfile = () => {
                         <Form onSubmit={handleSubmit}>
                             <Row className="justify-content-md-center">
                                 <Col md='3' className='profile-card__avatar'>
-                                    <Image src={userEdit.avatar ? user.avatar : DefaultAvatar} rounded />
+                                    <Image src={userEdit.avatar} rounded />
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
