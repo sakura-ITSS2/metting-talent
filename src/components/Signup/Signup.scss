@@ -1,0 +1,28 @@
+.signup-page {
+  padding: 20px;
+
+  .signup-form {
+    max-width: 600px;
+    height: auto;
+    padding: 100px 50px;
+    margin: auto;
+  
+    .signup-link {
+      font-weight: 500;
+  
+      a {
+        text-decoration: none;
+        color: #0652DD;
+        font-weight: 600;
+      }
+    }
+  
+    .btn-primary {
+      background-color: #0652DD;
+    }
+  }
+
+  .banner {
+    border-radius: 25px;
+  }
+}
