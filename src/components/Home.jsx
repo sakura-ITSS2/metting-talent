@@ -13,8 +13,24 @@ function Home() {
 
     return (
         <div className="Home">
-            <button onClick={handleRedirectLogin}>Login</button><br />
-            <button onClick={handleRedirectSignup}>Signup</button><br />
+            <header>
+                <div className="logo">
+                    <a href="/">
+                        <img style={{height: 50,}} src="/logo192.png"/>
+                    </a>
+                </div>
+                <div className="header-inner">
+                </div>
+                <button className="loginButton" onClick={handleRedirectLogin}>ログイン</button><br />
+                <button className="signupButton" onClick={handleRedirectSignup}>サインアップ</button><br />
+            </header>
+            <div className="content">  
+                <div class="hero-image">
+                    <div class="hero-text">
+                        <h1>Sakura Team</h1>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
