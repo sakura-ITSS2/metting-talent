@@ -29,16 +29,11 @@ function Login() {
         });
     };
 
-    const handleChangeRole = (event) => {
-        setUser({
-            ...user,
-            role: event.target.value,
-        });
-    };
+ 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        let authUser = await checkAuth(user.email, user.pass, user.role);
+        let authUser = await checkAuth(user.email, user.pass);
         if (authUser) {
             localStorage.setItem('id', authUser.id);
             localStorage.setItem('role', user.role);

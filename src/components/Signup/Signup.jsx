@@ -18,6 +18,7 @@ function SignUp() {
     const [errorMessage, setErrorMessage] = useState(false);
 
     const handleChangeEMail = (event) => {
+        setErrorMessage(false);
         setUser({
             ...user,
             email: event.target.value,
@@ -54,9 +55,9 @@ function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        let authUser = await createUser(user.email, user.pass, user.role);
+        let authUser = await createUser(user.email, user.pass, user.role, user.name);
         if (authUser) {
-            history.push('/signup');
+            history.push('/login');
         } else {
             setErrorMessage(true);
         }
