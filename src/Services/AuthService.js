@@ -7,13 +7,19 @@ export const checkAuth = async (email, pass, role) => {
         const listUser = userSnapshot.docs.map(doc => doc.data());
 
         let checkManager = listUser[0].Data.filter(user => user.email===email && user.pass === pass);
-        if (checkManager.length > 0) return checkManager[0];
-       
+        if (checkManager.length > 0) {
+            const authUser = { ...checkManager[0], role: 'Manager' };
+            return authUser;
+        }
+
         let checkTalent = listUser[1].Data.filter(user => user.email===email && user.pass === pass);
-        if (checkTalent.length > 0) return checkTalent[0];
-        
+        if (checkTalent.length > 0) {
+            const authUser = { ...checkTalent[0], role: 'Talent' };
+            return authUser;
+        }
+
         return false;
-        
+
     }catch(err){
         return false;
     }
@@ -32,7 +38,7 @@ export const createUser = async (email, pass, role, name) => {
         let listTalent = [...listUser[1].Data];
         if(listTalent.filter(talent => talent.email === email).length >0) return false;
 
-        if(role === 'Manager'){  
+        if(role === 'Manager'){
             listManager = [...listManager, {id:randomID, email: email, pass: pass, name: name, list_post: []}];
             const managerRef = doc(db, 'User/Manager');
             await updateDoc(managerRef, "Data", listManager);
@@ -43,7 +49,7 @@ export const createUser = async (email, pass, role, name) => {
             listTalent = [...listTalent, {id:randomID, email: email, pass: pass, name: name, list_post: []}];
             const talentRef = doc(db, 'User/Talent');
             await updateDoc(talentRef, "Data", listTalent);
-            return true;   
+            return true;
         }
     }catch(err){
         return false;
