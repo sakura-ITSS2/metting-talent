@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
+import validator from 'validator';
 import banner from '../../images/top_talent.jpg';
 import { checkAuth } from '../../Services/AuthService';
 import './Login.scss';
@@ -12,10 +13,13 @@ function Login() {
         pass: '',
         role: 'Manager',
     });
-
     const [errorMessage, setErrorMessage] = useState(false);
+    const [invalidEmail, setInvalidEmail] = useState(false);
 
     const handleChangeEMail = (event) => {
+        validator.isEmail(event.target.value)
+            ? setInvalidEmail(false)
+            : setInvalidEmail(true);
         setUser({
             ...user,
             email: event.target.value,
@@ -73,6 +77,12 @@ function Login() {
                                     placeholder="メールアドレスを入力してください"
                                     onChange={handleChangeEMail}
                                 />
+                                <Form.Text className="text-danger">
+                                    {invalidEmail
+                                        ? '有効なメールアドレスを入力してください。'
+                                        : ''
+                                    }
+                                </Form.Text>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="password">
                                 <Form.Label>パスワード</Form.Label>
@@ -91,6 +101,7 @@ function Login() {
                                 variant="primary"
                                 className="rounded-pill w-100 mt-5"
                                 onClick={handleSubmit}
+                                disabled={invalidEmail ? true : false}
                             >
                                 ログイン
                             </Button>

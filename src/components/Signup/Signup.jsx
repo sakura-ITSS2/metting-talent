@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
+import validator from 'validator';
 import banner from '../../images/top_talent.jpg';
 import { createUser } from '../../Services/AuthService';
 import './Signup.scss';
@@ -14,11 +15,14 @@ function SignUp() {
         rePass: '',
         role: 'Manager',
     });
-
     const [errorMessage, setErrorMessage] = useState(false);
+    const [invalidEmail, setInvalidEmail] = useState(false);
 
     const handleChangeEMail = (event) => {
         setErrorMessage(false);
+        validator.isEmail(event.target.value)
+            ? setInvalidEmail(false)
+            : setInvalidEmail(true);
         setUser({
             ...user,
             email: event.target.value,
@@ -94,6 +98,11 @@ function SignUp() {
                                     placeholder="メールアドレスを入力してください"
                                     onChange={handleChangeEMail}
                                 />
+                                <Form.Text className="text-danger">
+                                    {invalidEmail
+                                        ? '有効なメールアドレスを入力してください。'
+                                        : ''}
+                                </Form.Text>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="name">
                                 <Form.Label>ユーザー名</Form.Label>
@@ -155,7 +164,9 @@ function SignUp() {
                                 className="rounded-pill w-100 mt-5"
                                 onClick={handleSubmit}
                                 disabled={
-                                    user.pass !== user.rePass ? true : false
+                                    user.pass !== user.rePass || invalidEmail
+                                        ? true
+                                        : false
                                 }
                             >
                                 登録

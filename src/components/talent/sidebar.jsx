@@ -107,6 +107,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                     className="sidebar-btn-wrapper"
                     style={{
                         padding: '20px 24px',
+                        cursor: 'pointer'
                     }}
                 >
                     <a
