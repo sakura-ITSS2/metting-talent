@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { useEffect } from 'react'
 import './App.css';
 import Home from './components/Home';
 import Login from './components/Login/Login';
@@ -9,6 +10,7 @@ import ManagerRoute from './routes/ManagerRoute';
 import TalentRoute from './routes/TalentRoute';
 
 function App() {
+
     return (
         <div className="App">
             <Router>

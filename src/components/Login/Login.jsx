@@ -29,20 +29,28 @@ function Login() {
         });
     };
 
- 
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         let authUser = await checkAuth(user.email, user.pass);
         if (authUser) {
             localStorage.setItem('id', authUser.id);
-            localStorage.setItem('role', user.role);
-            if (user.role === 'Manager') history.push('/manager');
-            if (user.role === 'Talent') history.push('/talent');
+            localStorage.setItem('role', authUser.role);
+            if (authUser.role === 'Manager') history.push('/manager');
+            if (authUser.role === 'Talent') history.push('/talent');
         } else {
             setErrorMessage(true);
         }
     };
+
+    if (localStorage.getItem('role') === 'Talent') {
+        history?.push('/talent')
+    }
+
+    if (localStorage.getItem('role') === 'Manager') {
+        history?.push('/manager')
+    }
 
     return (
         <Container fluid className="login-page">

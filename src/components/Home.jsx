@@ -11,6 +11,14 @@ function Home() {
         history.push('/signup');
     }
 
+    if (localStorage.getItem('role') === 'Talent') {
+        history?.push('/talent')
+    }
+
+    if (localStorage.getItem('role') === 'Manager') {
+        history?.push('/manager')
+    }
+
     return (
         <div className="Home">
             <header>
@@ -24,7 +32,7 @@ function Home() {
                 <button className="loginButton" onClick={handleRedirectLogin}>ログイン</button><br />
                 <button className="signupButton" onClick={handleRedirectSignup}>サインアップ</button><br />
             </header>
-            <div className="content">  
+            <div className="content">
                 <div class="ocean">
                     <div class="wave"></div>
                     <div class="wave"></div>

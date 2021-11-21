@@ -19,11 +19,20 @@ import {
     // FaEdit
 } from "react-icons/fa";
 
+
+import {RiLogoutBoxLine} from 'react-icons/ri'
+
 import {CgProfile} from "react-icons/cg"
 
 const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
     const history = useHistory();
-    console.log(history, 'history');
+    // console.log(history, 'history');
+
+    const handleLogout = async () => {
+        await localStorage.clear();
+        history.push('/');
+    }
+
     return (
         <ProSidebar
             image={false}
@@ -101,7 +110,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                     }}
                 >
                     <a
-                        href="https://github.com/sakura-ITSS2/metting-talent"
+                        onClick={handleLogout}
                         target="_blank"
                         className="sidebar-btn"
                         rel="noopener noreferrer"
@@ -111,9 +120,9 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             border: '1px solid',
                         }}
                     >
-                        <FaGithub />
+                        <RiLogoutBoxLine />
                         <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginLeft: '4px' }}>
-                            ソースコード
+                            ログアウト
                         </span>
                     </a>
                 </div>

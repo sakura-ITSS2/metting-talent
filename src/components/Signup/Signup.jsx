@@ -63,6 +63,14 @@ function SignUp() {
         }
     };
 
+    if (localStorage.getItem('role') === 'Talent') {
+        history?.push('/talent')
+    }
+
+    if (localStorage.getItem('role') === 'Manager') {
+        history?.push('/manager')
+    }
+
     return (
         <Container fluid className="signup-page">
             <Row>

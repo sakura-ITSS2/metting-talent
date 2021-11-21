@@ -63,7 +63,7 @@ const TalentProfile = () => {
     useEffect(() => {
         async function fetchData(params) {
             const temp = await getProfile(localStorage.getItem('id'), 'Talent')
-
+            console.log(temp);
             setUser({
                 email: temp.email ? temp.email : '',
                 avatar: temp.avt ? temp.avt : DefaultAvatar,
