@@ -1,0 +1,106 @@
+.Home {
+    background-color: #cfd6d1;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    box-shadow: 1px 1px 1px 1px rgba(116, 110, 110, 0.199);
+    background: linear-gradient(0deg, rgba(28,112,147,1) 6%, rgba(34,193,195,1) 100%);
+}
+
+.logo {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.header-inner {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.loginButton {
+    margin-right: 20px;
+    color: #1e90ff;
+    background-color: #add8e6;
+    font-size: 16px;
+    margin-bottom: 17px;
+    border-style: solid; 
+    border-color: white; 
+    border-radius: 5px;
+    border-width: 1px;
+    width: 150px;
+    height: 32px;
+}
+
+.signupButton {
+    margin-right: 30px;
+    color: #1e90ff;
+    background-color: #add8e6;
+    font-size: 16px;
+    margin-bottom: 17px;
+    border-style: solid; 
+    border-color: white; 
+    border-radius: 5px;
+    border-width: 1px;
+    width: 150px;
+    height: 32px;
+}
+
+.content{
+    margin-top: 70px;
+    height: 900px;
+    width:100%;
+    background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);
+    overflow: hidden;
+}
+
+.ocean { 
+    height: 5%;
+    width:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
+    background: #015871;
+}
+  
+.wave {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x; 
+    position: absolute;
+    top: -198px;
+    width: 6400px;
+    height: 198px;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+}
+
+.wave:nth-of-type(2) {
+    top: -175px;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 1;
+}
+
+@keyframes wave {
+    0% {
+        margin-left: 0;
+    }
+    100% {
+        margin-left: -1600px;
+    }
+}
+
+@keyframes swell {
+    0%, 100% {
+        transform: translate3d(0,-25px,0);
+    }
+    50% {
+        transform: translate3d(0,5px,0);
+    }
+}

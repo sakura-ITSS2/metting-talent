@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import { useEffect } from 'react'
 import './App.css';
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import ManagerHome from './components/ManagerHome';
 import SignUp from './components/Signup/Signup';

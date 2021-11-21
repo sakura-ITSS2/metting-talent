@@ -1,4 +1,7 @@
 import { useHistory } from "react-router-dom";
+import banner from '../../images/top_talent.jpg';
+import './Home.scss';
+import './3Dtext.scss';
 
 function Home() {
     let history = useHistory();
@@ -24,7 +27,7 @@ function Home() {
             <header>
                 <div className="logo">
                     <a href="/">
-                        <img style={{height: 50,}} src="/logo192.png"/>
+                        <img style={{height: 50,}} src={banner}/>
                     </a>
                 </div>
                 <div className="header-inner">
@@ -37,9 +40,9 @@ function Home() {
                     <div class="wave"></div>
                     <div class="wave"></div>
                 </div>
-                <div class="hero-text">
-                    <h1>Top Talent</h1>
-                </div>
+                <h1 data-heading="Top Talent">
+                    <span contenteditable data-heading="Top Talent">Top Talent</span>
+                </h1>
             </div>
         </div>
     )
