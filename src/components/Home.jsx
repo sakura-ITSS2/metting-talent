@@ -25,10 +25,12 @@ function Home() {
                 <button className="signupButton" onClick={handleRedirectSignup}>サインアップ</button><br />
             </header>
             <div className="content">  
-                <div class="hero-image">
-                    <div class="hero-text">
-                        <h1>Sakura Team</h1>
-                    </div>
+                <div class="ocean">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="hero-text">
+                    <h1>Top Talent</h1>
                 </div>
             </div>
         </div>
