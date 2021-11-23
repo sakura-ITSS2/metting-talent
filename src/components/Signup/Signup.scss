@@ -1,16 +1,25 @@
 .signup-page {
   padding: 20px;
   height: 1000px;
-  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(218,218,231,1) 50%, rgba(1,106,128,1) 100%);
   .signup-form {
     max-width: 600px;
-    height: auto;
-    padding: 100px 50px;
+    padding: 25px 50px;
     margin: auto;
+    background: #adadda;
+    position: relative;
+    height: 630px;
+    box-shadow: 0px 0px 24px #5c5696;
+    top: 7.5%;
+
+    .signup-text{
+      font-weight: 700!important;
+      margin-bottom: 1.5rem!important;
+    }
   
     .signup-link {
       font-weight: 500;
-  
+      margin-bottom: 1rem!important;
       a {
         text-decoration: none;
         color: #0652DD;
@@ -20,6 +29,7 @@
   
     .btn-primary {
       background-color: #0652DD;
+      margin-top: 1rem!important;
     }
   }
 

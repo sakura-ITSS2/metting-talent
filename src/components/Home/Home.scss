@@ -2,30 +2,6 @@
     background-color: #cfd6d1;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    height: 70px;
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    box-shadow: 1px 1px 1px 1px rgba(116, 110, 110, 0.199);
-    background: linear-gradient(0deg, rgba(28,112,147,1) 6%, rgba(34,193,195,1) 100%);
-}
-
-.logo {
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-
-.header-inner {
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .loginButton {
     margin-right: 20px;
     color: #1e90ff;
@@ -41,7 +17,7 @@ header {
 }
 
 .signupButton {
-    margin-right: 30px;
+    margin-right: 35px;
     color: #1e90ff;
     background-color: #add8e6;
     font-size: 16px;

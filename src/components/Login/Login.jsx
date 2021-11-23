@@ -58,60 +58,60 @@ function Login() {
 
     return (
         <Container fluid className="login-page">
-            <Row>
-                <Col lg={6} md={6}>
-                    <div className="login-form">
-                        <h2 className="fw-bold mb-5">サインイン</h2>
-                        <div className="mb-5 signup-link">
-                            <span className="mb-2">
-                                アカウントをお持ちでない場合は、
-                            </span>
-                            <br />
-                            <Link to="/signup">ここから登録してください。</Link>
+            <header>
+                <div className="logo">
+                    <a href="/">
+                        <img style={{height: 50,}} src={banner}/>
+                    </a>
+                </div>
+            </header>
+            <div className="login-form">
+                <h2 className="fw-bold mb-5">サインイン</h2>
+                <div className="mb-5 signup-link">
+                    <span className="mb-2">
+                        アカウントをお持ちでない場合は、
+                    </span>
+                    <br />
+                    <Link to="/signup">ここから登録してください。</Link>
+                </div>
+                <Form>
+                    <Form.Group className="mb-3" controlId="email">
+                        <Form.Label>メールアドレス</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="メールアドレスを入力してください"
+                            onChange={handleChangeEMail}
+                        />
+                        <Form.Text className="text-danger">
+                            {invalidEmail
+                                ? '有効なメールアドレスを入力してください。'
+                                : ''
+                            }
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="password">
+                        <Form.Label>パスワード</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="パスワードを入力してください"
+                            onChange={handleChangePass}
+                        />
+                    </Form.Group>
+                    {errorMessage && (
+                        <div className="text-danger">
+                            メールアドレスまたはパスワードが正しくありません。
                         </div>
-                        <Form>
-                            <Form.Group className="mb-3" controlId="email">
-                                <Form.Label>メールアドレス</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="メールアドレスを入力してください"
-                                    onChange={handleChangeEMail}
-                                />
-                                <Form.Text className="text-danger">
-                                    {invalidEmail
-                                        ? '有効なメールアドレスを入力してください。'
-                                        : ''
-                                    }
-                                </Form.Text>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="password">
-                                <Form.Label>パスワード</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="パスワードを入力してください"
-                                    onChange={handleChangePass}
-                                />
-                            </Form.Group>
-                            {errorMessage && (
-                                <div className="text-danger">
-                                    メールアドレスまたはパスワードが正しくありません。
-                                </div>
-                            )}
-                            <Button
-                                variant="primary"
-                                className="rounded-pill w-100 mt-5"
-                                onClick={handleSubmit}
-                                disabled={invalidEmail ? true : false}
-                            >
-                                ログイン
-                            </Button>
-                        </Form>
-                    </div>
-                </Col>
-                <Col lg={6} md={6}>
-                    <Image src={banner} fluid className="banner" />
-                </Col>
-            </Row>
+                    )}
+                    <Button
+                        variant="primary"
+                        className="rounded-pill w-100 mt-5"
+                        onClick={handleSubmit}
+                        disabled={invalidEmail ? true : false}
+                    >
+                        ログイン
+                    </Button>
+                </Form>
+            </div>
         </Container>
     );
 }
