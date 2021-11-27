@@ -1,0 +1,20 @@
+.pro-sidebar > .pro-sidebar-inner > .pro-sidebar-layout{
+    background-image: url(bg_1.jpg);
+}
+.pro-sidebar > .pro-sidebar-inner > .pro-sidebar-layout .pro-sidebar-header {
+    border-bottom: 1px solid #fff;
+}
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
+    font-size: 21px;
+}
+.pro-sidebar .pro-menu {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.pro-sidebar > .pro-sidebar-inner > .pro-sidebar-layout .pro-sidebar-footer {
+    border-top: 1px solid #fff;
+}
+.sidebar-btn {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,11,2,0.3) 100%, rgba(0,0,0,1) 100%, rgba(0,212,255,1) 100%);   
+}
