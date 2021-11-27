@@ -8,6 +8,7 @@ import {
     SidebarFooter,
     SidebarContent
 } from "react-pro-sidebar";
+import './sidebar.scss';
 
 import {
     // FaTachometerAlt,
@@ -41,7 +42,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             toggled={toggled}
             breakPoint="md"
             onToggle={handleToggleSidebar}
-            style={{width: '200px', minWidth: '100px'}}
+            style={{width: '200px', minWidth: '200px', color: '#fff'}}
         >
             <SidebarHeader>
                 <div
@@ -50,14 +51,14 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         textTransform: "uppercase",
                         fontWeight: "bold",
                         fontSize: 20,
-                        letterSpacing: "1px",
+                        letterSpacing: "2px",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
                         textAlign: 'center'
                     }}
                 >
-                    さくらチーム
+                    Top Talent
                 </div>
             </SidebarHeader>
 
@@ -107,7 +108,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                     className="sidebar-btn-wrapper"
                     style={{
                         padding: '20px 24px',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
                     }}
                 >
                     <a
@@ -119,10 +120,11 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             textDecoration: 'none',
                             padding: '5px',
                             border: '1px solid',
+                            color:'#fff',
                         }}
                     >
                         <RiLogoutBoxLine />
-                        <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginLeft: '4px' }}>
+                        <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginLeft: '4px', color:'#fff' }}>
                             ログアウト
                         </span>
                     </a>
