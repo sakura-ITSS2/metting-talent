@@ -18,7 +18,7 @@ function Talent() {
     return (
         <Container fluid>
             <Row style={{backgroundColor: '#E5E5E5'}}>
-                <Col lg='2' style={{paddingLeft: '0', height: '100vh'}} >
+                <Col lg='2' style={{paddingLeft: '0', height: '100vh', width: '190px'}} >
                     <Sidebar />
                 </Col>
                 <Col lg='10'>
