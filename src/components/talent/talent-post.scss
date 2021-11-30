@@ -1,0 +1,97 @@
+.talent-right {
+    overflow: auto;
+    height: 100vh;
+    padding-top: 20px;
+
+    .talent-post {
+        margin-bottom: 20px;
+        .post-card {
+            height: 500px;
+
+            &__image {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+            }
+
+            &__title {
+                .h5 {
+                    font-size: 24px;
+                }
+            }
+
+            &__status {
+                padding: 0;
+                text-align: center;
+
+                > span {
+                    border: 1px solid;
+                    padding: 5px 10px;
+                    font-family: Open Sans;
+                    font-weight: bold;
+                    font-size: 15px;
+                    color: white;
+                    border-radius: 5px;
+                }
+
+                &-pending {
+                    background-color: #F2994A;
+                }
+
+                &-accept {
+                    background-color: #2F80ED;
+                }
+
+                &-decline {
+                    background-color: #EB5757;
+                }
+            }
+
+            &__description {
+                margin-top: 10px;
+                height: 75px;
+
+                > span {
+                    color: #6E798C;
+                    font-size: 16px;
+                }
+
+                > p {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+        }
+
+    }
+}
+
+.modal-detail {
+    &__status {
+        text-align: center;
+
+        > span {
+            border: 1px solid;
+            padding: 5px 10px;
+            font-family: Open Sans;
+            font-weight: bold;
+            font-size: 15px;
+            color: white;
+            border-radius: 5px;
+        }
+
+        &-pending {
+            background-color: #F2994A;
+        }
+
+        &-accept {
+            background-color: #2F80ED;
+        }
+
+        &-decline {
+            background-color: #EB5757;
+        }
+    }
+}

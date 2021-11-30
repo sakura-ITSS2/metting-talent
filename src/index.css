@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+header {
+  position: fixed;
+  top: 0;
+  height: 70px;
+  width: 102%;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(0deg, rgba(28,112,147,1) 6%, rgba(34,193,195,1) 100%);
+  margin-left: -15px;
+}
+
+.header-inner {
+  width: 90%;
+}
+
+.logo {
+  margin-left: 25px;
+  margin-bottom: 10px;
+}

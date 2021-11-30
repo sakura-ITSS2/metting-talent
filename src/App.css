@@ -4,5 +4,14 @@
 }
 
 .isActive {
-  background-color: orange;
+  background-color: #E5E5E5;
+  color: #1d1d1d;
+}
+
+.isActive .pro-item-content:hover  {
+  color: #1d1d1d;
+}
+
+.isActive .pro-inner-item:hover {
+  color: #1d1d1d !important;
 }

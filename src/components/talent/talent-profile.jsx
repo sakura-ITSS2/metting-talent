@@ -18,17 +18,9 @@ import {
 import './talent-profile.scss'
 import DefaultAvatar from './default-avatar.png'
 
-const TalentProfile = () => {
+const TalentProfile = ({profile}) => {
     const [edit, setEdit] = useState(false)
-    const [user, setUser] = useState({
-        email: '',
-        avatar: DefaultAvatar,
-        skill: '',
-        advantage: '',
-        disAdvantage: '',
-        phone: '',
-        hobby: ''
-    })
+    const [user, setUser] = useState({})
     const [userEdit, setUserEdit] = useState({...user})
     const userShow = [
         {
@@ -61,21 +53,16 @@ const TalentProfile = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        async function fetchData(params) {
-            const temp = await getProfile(localStorage.getItem('id'), 'Talent')
-            console.log(temp);
-            setUser({
-                email: temp.email ? temp.email : '',
-                avatar: temp.avt ? temp.avt : DefaultAvatar,
-                skill: temp.skill ? temp.skill : '',
-                advantage: temp.advantage ? temp.advantage : '',
-                disAdvantage: temp.disAdvantage ? temp.disAdvantage : '',
-                phone: temp.phone ? temp.phone : '',
-                hobby: temp.hobby ? temp.hobby : ''
-            })
-        }
-        fetchData()
-    }, [])
+        setUser({
+            email: profile.email,
+            avatar: profile.avt ? profile.avt : DefaultAvatar,
+            skill: profile.skill,
+            advantage: profile.advantage,
+            disAdvantage: profile.disAdvantage,
+            phone: profile.phone,
+            hobby: profile.hobby
+        })
+    }, [profile])
 
     const handleCloseModal = () => {
         setEdit(!edit);

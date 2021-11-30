@@ -8,25 +8,22 @@ import {
     SidebarFooter,
     SidebarContent
 } from "react-pro-sidebar";
+// import './sidebar.scss';
 
 import {
     // FaTachometerAlt,
     FaGem,
     // FaList,
-    FaGithub,
+    // FaGithub,
     // FaRegLaughWink,
     // FaHeart,
     // FaEdit
 } from "react-icons/fa";
-
-
 import {RiLogoutBoxLine} from 'react-icons/ri'
-
 import {CgProfile} from "react-icons/cg"
 
 const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
     const history = useHistory();
-    // console.log(history, 'history');
 
     const handleLogout = async () => {
         await localStorage.clear();
@@ -41,7 +38,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             toggled={toggled}
             breakPoint="md"
             onToggle={handleToggleSidebar}
-            style={{width: '200px', minWidth: '100px'}}
+            style={{width: '200px', minWidth: '200px', color: '#fff'}}
         >
             <SidebarHeader>
                 <div
@@ -50,25 +47,24 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         textTransform: "uppercase",
                         fontWeight: "bold",
                         fontSize: 20,
-                        letterSpacing: "1px",
+                        letterSpacing: "2px",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
                         textAlign: 'center'
                     }}
                 >
-                    さくらチーム
+                    Top Talent
                 </div>
             </SidebarHeader>
 
             <SidebarContent>
                 <Menu iconShape="circle">
                     <MenuItem
-                        icon={<CgProfile />}
+                        // icon={<CgProfile />}
                         style={{
                             padding: "20px",
-                            fontWeight: "bold",
-                            fontSize: 18,
+                            fontSize: 20,
                             letterSpacing: "1px",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
@@ -77,18 +73,16 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         onClick={() => history.push('/talent')}
                         className={history.location.pathname === '/talent' ? 'isActive' : ''}
                     >
-                        情報
+                        <CgProfile style={{fontSize: '23px'}} /> 情報
                     </MenuItem>
                 </Menu>
                 <Menu />
 
                 <Menu iconShape="circle">
                     <MenuItem
-                        icon={<FaGem />}
                         style={{
                             padding: "20px",
-                            fontWeight: "bold",
-                            fontSize: 18,
+                            fontSize: 20,
                             letterSpacing: "1px",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
@@ -97,7 +91,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         onClick={() => history.push('/talent/posts')}
                         className={history.location.pathname.includes('/talent/posts') ? 'isActive' : ''}
                     >
-                        投稿
+                        <FaGem style={{fontSize: '20px'}} /> 投稿
                     </MenuItem>
                 </Menu>
             </SidebarContent>
@@ -107,7 +101,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                     className="sidebar-btn-wrapper"
                     style={{
                         padding: '20px 24px',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
                     }}
                 >
                     <a
@@ -119,10 +113,11 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             textDecoration: 'none',
                             padding: '5px',
                             border: '1px solid',
+                            color:'#fff',
                         }}
                     >
                         <RiLogoutBoxLine />
-                        <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginLeft: '4px' }}>
+                        <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginLeft: '4px', color:'#fff' }}>
                             ログアウト
                         </span>
                     </a>
