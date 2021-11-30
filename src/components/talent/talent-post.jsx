@@ -144,7 +144,7 @@ function TalentPost({profile}) {
         <div className='talent-post'>
             <Row xs={1} md={3} className="g-4" style={{marginRight: '6%'}}>
                 {posts.map((post) => (
-                    <Col>
+                    <Col key={post.id}>
                         <Card className='post-card'>
                             <Card.Img variant="top" src={DefaultPost} className='post-card__image' />
                             <Card.Body>

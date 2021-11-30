@@ -4,29 +4,32 @@ import { toast } from 'react-toastify';
 
 export const getAllPost = async (registerPost) => {
     try{
-        const postSnapshot = await getDocs(collection(db, 'Post'));
-        const listPost = postSnapshot.docs.map(doc => doc.data())[0].Data;
-        const userPostSnapshot = await getDocs(collection(db, 'UserPost'));
-        const listUserPost = userPostSnapshot.docs.map(doc => doc.data())[0];
-        let resultPost = listPost;
+        if (registerPost) {
+            const postSnapshot = await getDocs(collection(db, 'Post'));
+            const listPost = postSnapshot.docs.map(doc => doc.data())[0].Data;
+            const userPostSnapshot = await getDocs(collection(db, 'UserPost'));
+            const listUserPost = userPostSnapshot.docs.map(doc => doc.data())[0];
+            let resultPost = listPost;
 
-        registerPost.forEach(postId => {
-            const temp = getDataCurrentPost(listUserPost[postId]);
-            resultPost = resultPost.map(post => {
-                if (post.id === postId) {
-                    return {...post,
-                        status: temp.status,
-                        link_meeting: temp.link_meeting,
-                        time: temp.time,
-                        pass_meeting: temp.pass_meeting
+            registerPost.forEach(postId => {
+                const temp = getDataCurrentPost(listUserPost[postId]);
+                resultPost = resultPost.map(post => {
+                    if (post.id === postId) {
+                        return {...post,
+                            status: temp?.status,
+                            link_meeting: temp?.link_meeting,
+                            time: temp?.time,
+                            pass_meeting: temp?.pass_meeting
+                        }
                     }
-                }
 
-                return {...post, status: post?.status, link_meeting: post?.link_meeting, time: post?.time, pass_meeting: post?.pass_meeting}
+                    return {...post, status: post?.status, link_meeting: post?.link_meeting, time: post?.time, pass_meeting: post?.pass_meeting}
+                })
             })
-        })
 
-        return resultPost;
+            return resultPost;
+        }
+        return [];
     }catch(err){
         console.log(err);
         return [];
@@ -45,7 +48,6 @@ export const sendRequestPost = async (postId) => {
         const userId = localStorage.getItem('id');
 
         listTalent = listTalent.map((user) => {
-            console.log(user.list_post.indexOf(userId));
             if (user.id === userId)
                 user.list_post.indexOf(postId) === -1 && user.list_post.push(postId);
 
@@ -67,7 +69,7 @@ export const sendRequestPost = async (postId) => {
         };
 
         if (Object.keys(listUserPost).includes(postId)) {
-            listUserPost[postId].find(e => e.id_talent === userId).length === 0 && listUserPost[postId].push(item);
+            listUserPost[postId].filter(e => e.id_talent === userId).length === 0 && listUserPost[postId].push(item);
         } else {
             listUserPost = {
                 ...listUserPost,
