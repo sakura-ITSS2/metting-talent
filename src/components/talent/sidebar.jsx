@@ -8,26 +8,22 @@ import {
     SidebarFooter,
     SidebarContent
 } from "react-pro-sidebar";
-import './sidebar.scss';
+// import './sidebar.scss';
 
 import {
     // FaTachometerAlt,
     FaGem,
     // FaList,
-    FaGithub,
+    // FaGithub,
     // FaRegLaughWink,
     // FaHeart,
     // FaEdit
 } from "react-icons/fa";
-
-
 import {RiLogoutBoxLine} from 'react-icons/ri'
-
 import {CgProfile} from "react-icons/cg"
 
 const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
     const history = useHistory();
-    // console.log(history, 'history');
 
     const handleLogout = async () => {
         await localStorage.clear();
@@ -65,11 +61,10 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             <SidebarContent>
                 <Menu iconShape="circle">
                     <MenuItem
-                        icon={<CgProfile />}
+                        // icon={<CgProfile />}
                         style={{
                             padding: "20px",
-                            fontWeight: "bold",
-                            fontSize: 18,
+                            fontSize: 20,
                             letterSpacing: "1px",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
@@ -78,18 +73,16 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         onClick={() => history.push('/talent')}
                         className={history.location.pathname === '/talent' ? 'isActive' : ''}
                     >
-                        情報
+                        <CgProfile style={{fontSize: '23px'}} /> 情報
                     </MenuItem>
                 </Menu>
                 <Menu />
 
                 <Menu iconShape="circle">
                     <MenuItem
-                        icon={<FaGem />}
                         style={{
                             padding: "20px",
-                            fontWeight: "bold",
-                            fontSize: 18,
+                            fontSize: 20,
                             letterSpacing: "1px",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
@@ -98,7 +91,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         onClick={() => history.push('/talent/posts')}
                         className={history.location.pathname.includes('/talent/posts') ? 'isActive' : ''}
                     >
-                        投稿
+                        <FaGem style={{fontSize: '20px'}} /> 投稿
                     </MenuItem>
                 </Menu>
             </SidebarContent>

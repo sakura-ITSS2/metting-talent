@@ -1,6 +1,7 @@
 import {db} from '../utils/firebase'
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore/lite';
-import axios from 'axios'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const getProfile = async (id, role) => {
     try{
@@ -39,6 +40,15 @@ export const updateProfile = async (data) => {
 
         const talentRef = doc(db, 'User/Talent');
         await updateDoc(talentRef, "Data", listTalent);
+        toast.success("プロフィール更新に成功しました", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
         return true;
     }catch(err){
         return false;
