@@ -20,7 +20,6 @@ header {
   display: flex;
   align-items: flex-end;
   background: linear-gradient(0deg, rgba(28,112,147,1) 6%, rgba(34,193,195,1) 100%);
-  margin-left: -15px;
 }
 
 .header-inner {
