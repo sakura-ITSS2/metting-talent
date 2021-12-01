@@ -95,12 +95,12 @@ export const DetailTalent = (props) => {
                 </Col>
                 <Col lg='1' />
             </Row>
-            <div>
+            <div class="btn">
                 <button onClick={() => setShow(true)}>
-                    Accept
+                    承認
                 </button>
                 <button onClick={() => handleDecline()}>
-                    Decline
+                    リジェクト
                 </button>
 
                 <Modal show={show} onHide={handleClose}>

@@ -36,4 +36,11 @@
   .banner {
     border-radius: 25px;
   }
+  header {
+    margin-left: -15px;
+    .logo {
+      position: relative;
+      right: 47%;
+    }
+  }
 }
