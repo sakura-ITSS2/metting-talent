@@ -7,7 +7,8 @@ import {
     Spinner
 } from "react-bootstrap";
 import { useState, useEffect } from 'react';
-import { getAllPost, sendRequestPost } from '../../Services/TalentPostService'
+import { getAllPost, sendRequestPost } from '../../Services/TalentPostService';
+import Loader from "react-loader-spinner";
 import DefaultPost from './default-post.jpeg'
 import './talent-post.scss'
 
@@ -117,11 +118,16 @@ function TalentPost({profile}) {
     const [show, setShow] = useState(false);
     const [posts, setPosts] = useState([]);
     const [dataDetail, setDataDetail] = useState({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
+            setLoading(true);
             const data = await getAllPost(profile.list_post);
             setPosts([...data]);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1500);
         }
 
         fetchData();
@@ -142,44 +148,60 @@ function TalentPost({profile}) {
 
     return (
         <div className='talent-post'>
-            <Row xs={1} md={3} className="g-4" style={{marginRight: '6%'}}>
-                {posts.map((post) => (
-                    <Col key={post.id}>
-                        <Card className='post-card'>
-                            <Card.Img variant="top" src={DefaultPost} className='post-card__image' />
-                            <Card.Body>
-                                <Row>
-                                    <Col md='9' className='post-card__title'>
-                                        <Card.Title>{post.title}</Card.Title>
-                                    </Col>
-                                    {
-                                        post.status ?
-                                        (<Col md='3' className='post-card__status'>
-                                            <span className={`post-card__status-${post.status}`}>{status[post.status]}</span>
-                                        </Col>)
-                                        :
-                                        null
-                                    }
-                                </Row>
-                                <Row className='post-card__description'>
-                                    <span>記述</span>
-                                    <Card.Text>
-                                        {post.des}
-                                    </Card.Text>
-                                </Row>
-                                <Row>
+            {
+                loading ?
+                    <Loader
+                        type="Oval"
+                        color="#00BFFF"
+                        height={100}
+                        width={100}
+                        style={{
+                            position: 'fixed',
+                            top: '50%',
+                            left: '55%',
+                            transform: 'translate(-50%, -50%)'
+                        }}
+                    />
+                    :
+                    (<Row xs={1} md={3} className="g-4" style={{marginRight: '6%'}}>
+                        {posts.map((post) => (
+                            <Col key={post.id}>
+                                <Card className='post-card'>
+                                    <Card.Img variant="top" src={DefaultPost} className='post-card__image' />
+                                    <Card.Body>
+                                        <Row>
+                                            <Col md='9' className='post-card__title'>
+                                                <Card.Title>{post.title}</Card.Title>
+                                            </Col>
+                                            {
+                                                post.status ?
+                                                (<Col md='3' className='post-card__status'>
+                                                    <span className={`post-card__status-${post.status}`}>{status[post.status]}</span>
+                                                </Col>)
+                                                :
+                                                null
+                                            }
+                                        </Row>
+                                        <Row className='post-card__description'>
+                                            <span>記述</span>
+                                            <Card.Text>
+                                                {post.des}
+                                            </Card.Text>
+                                        </Row>
+                                        <Row>
 
-                                </Row>
-                                <Row className='justify-content-md-center' style={{marginTop: '15px'}}>
-                                    <Col md='4'>
-                                        <Button variant='light' style={{border: '1px solid #1d1d1d', width: '130px'}} onClick={() => handleShowDetail(post)}>もっと見せる</Button>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
+                                        </Row>
+                                        <Row className='justify-content-md-center' style={{marginTop: '15px'}}>
+                                            <Col md='4'>
+                                                <Button variant='light' style={{border: '1px solid #1d1d1d', width: '130px'}} onClick={() => handleShowDetail(post)}>もっと見せる</Button>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>)
+            }
             <DetailsPopup
                 show={show}
                 handleClosePopup={handleClosePopup}

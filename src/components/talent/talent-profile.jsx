@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { getProfile, updateProfile, uploadAvatar } from '../../Services/ProfileService'
+import { updateProfile, uploadAvatar } from '../../Services/ProfileService';
+import validator from 'validator';
 import {
     Container,
     Row,
@@ -28,6 +29,10 @@ const TalentProfile = ({profile}) => {
             value: user.email
         },
         {
+            name: 'ユーザ名',
+            value: user.name
+        },
+        {
             name: 'スキル',
             value: user.skill
         },
@@ -51,10 +56,14 @@ const TalentProfile = ({profile}) => {
     const imageRef = useRef();
     const [imageAvatar, setImageAvatar] = useState();
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState({
+        phone: null
+    })
 
     useEffect(() => {
         setUser({
             email: profile.email,
+            name: profile.name,
             avatar: profile.avt ? profile.avt : DefaultAvatar,
             skill: profile.skill,
             advantage: profile.advantage,
@@ -70,6 +79,12 @@ const TalentProfile = ({profile}) => {
     }
 
     const handleChangeInput = (event) => {
+        if (event.target.id === 'phone') {
+            validator.isMobilePhone(event.target.value, 'vi-VN') ?
+                setError({...error, phone: null})
+                : setError({...error, phone: '許可な電話番号を入力してください。'})
+        }
+
         setUserEdit({
             ...userEdit,
             [event.target.id]: event.target.value
@@ -143,6 +158,7 @@ const TalentProfile = ({profile}) => {
                 show={edit}
                 centered
                 onHide={handleCloseModal}
+                scrollable
                 className='modal'
             >
                 <Modal.Header closeButton>
@@ -174,6 +190,11 @@ const TalentProfile = ({profile}) => {
                                 </Form.Text>
                             </Form.Group>
 
+                            <Form.Group className="mb-3" controlId="name">
+                                <Form.Label>ユーザ名</Form.Label>
+                                <Form.Control type="text" value={userEdit.name} onChange={handleChangeInput} placeholder="ユーザ名を入力します" />
+                            </Form.Group>
+
                             <Form.Group className="mb-3" controlId="skill">
                                 <Form.Label>スキル</Form.Label>
                                 <Form.Control type="text" value={userEdit.skill} onChange={handleChangeInput} placeholder="スキルを入力します" />
@@ -196,12 +217,15 @@ const TalentProfile = ({profile}) => {
 
                             <Form.Group className="mb-3" controlId="phone">
                                 <Form.Label>電話番号</Form.Label>
-                                <Form.Control type="text" value={userEdit.phone} onChange={handleChangeInput} placeholder="電話番号を入力します" />
+                                <Form.Control type="text" value={userEdit.phone} onChange={handleChangeInput} placeholder="電話番号を入力します" isInvalid={!!error.phone} />
+                                <Form.Control.Feedback type="invalid">
+                                    {error.phone}
+                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Row className='justify-content-md-center'>
                                 <Col md='2'>
-                                    <Button style={{width: '80%'}} variant="primary" type="submit" disabled={loading}>
+                                    <Button style={{width: '80%'}} variant="primary" type="submit" disabled={loading || !!error.phone}>
                                         {
                                             loading ?
                                             <Spinner
