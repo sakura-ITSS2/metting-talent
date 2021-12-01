@@ -1,0 +1,82 @@
+.talent-profile {
+  // background: white;
+  // width: 110%;
+  height: 96vh;
+
+  .profile {
+    background-color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 65%;
+    border-radius: 10px;
+    width: 55%;
+    border: outset;
+    border-color: antiquewhite;
+    &-card {
+      height: 100%;
+
+      &__avatar {
+        text-align: center;
+
+        img {
+          height: 200px;
+          width: 200px;
+          margin-top: 45%;
+          object-fit:cover;
+          border-radius: 50%;
+        }
+      }
+
+      &__info {
+        padding-top: 10%;
+
+        .row {
+          height: 60px;
+          font-size: 20px;
+        }
+        .col-3 {
+          width: 30%;
+        }
+        .col-8 {
+          line-height: 1.5em;
+          height: 1.5em;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          color: gray;
+        }
+      }
+    }
+
+    &-edit {
+      float: right;
+      cursor: pointer;
+      font-size: 25px;
+    }
+  }
+}
+
+.modal {
+  .profile-card__avatar {
+    text-align: center;
+
+    img {
+      height: 150px;
+      width: 150px;
+      object-fit:cover;
+    }
+
+    &-change {
+      text-align: center;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    &-change:hover {
+      color: aqua;
+    }
+  }
+  .text-muted {
+    color: red !important;
+  }
+}

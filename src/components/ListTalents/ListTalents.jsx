@@ -10,6 +10,7 @@ import {
 } from '../../utils/constants';
 import Header from '../Header/Header';
 import './ListTalents.scss';
+import {DetailTalent} from "../DetailTalent/DetailTalent";
 
 function ListTalents(props) {
     const [listTalents, setListTalents] = useState([]);
@@ -18,7 +19,7 @@ function ListTalents(props) {
     useEffect(() => {
         const fetchlistTalents = async (id) => {
             const data = await getListTalents(id);
-            setListTalents(data);
+            setListTalents(data)
         };
 
         fetchlistTalents(id);
@@ -30,11 +31,15 @@ function ListTalents(props) {
             <div className="list-talents-container">
                 <h2>{id}</h2>
                 <div className="list-talents">
-                    {listTalents.map((talent) => (
+                    {listTalents?.map((talent) => (
                         <div className="talent-item" key={talent.id_talent}>
                             <Link
-                                to={`detail-talent/${talent.id_talent}`}
+                                to={{
+                                    pathname: `detail-talent/${talent.id_talent}`,
+                                    idPost: id
+                                }}
                                 className="profile"
+                                params={{ idPost: id }}
                             >
                                 <Image
                                     src={talent.avt || defaultAvatar}
@@ -58,8 +63,12 @@ function ListTalents(props) {
                                 </div>
                             )}
                             <Link
-                                to={`detail-talent/${talent.id_talent}`}
+                                to={{
+                                    pathname: `detail-talent/${talent.id_talent}`,
+                                    idPost: id
+                                }}
                                 className={`status--${talent.status}`}
+                                params={{ idPost: id }}
                             >
                                 {talent.status === 'accept'
                                     ? STATUS_ACCEPT

@@ -8,6 +8,8 @@ import SignUp from './components/Signup/Signup';
 import Talent from './pages/Talent';
 import ManagerRoute from './routes/ManagerRoute';
 import TalentRoute from './routes/TalentRoute';
+import ListTalents from "./components/ListTalents/ListTalents";
+import {DetailTalent} from "./components/DetailTalent/DetailTalent";
 
 function App() {
 
@@ -17,22 +19,32 @@ function App() {
             <Router>
                 <Switch>
                     {/* public routes */}
-                    <Route path="/" exact component={Home}></Route>
-                    <Route path="/login" component={Login}></Route>
-                    <Route path="/signup" component={SignUp}></Route>
+                    <Route path="/" exact component={Home}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={SignUp}/>
 
                     {/* Manager routes */}
                     <ManagerRoute
                         path="/manager"
                         exact
                         component={ManagerHome}
-                    ></ManagerRoute>
+                    />
+                    <ManagerRoute
+                        path="/listTalent"
+                        exact
+                        component={ListTalents}
+                    />
+                    <ManagerRoute
+                        path="/detail-talent/:id"
+                        exact
+                        component={DetailTalent}
+                    />
 
                     {/* Talent routes */}
                     <TalentRoute
                         path="/talent"
                         component={Talent}
-                    ></TalentRoute>
+                    />
                 </Switch>
             </Router>
         </div>
