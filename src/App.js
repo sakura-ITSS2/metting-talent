@@ -10,6 +10,7 @@ import ManagerRoute from './routes/ManagerRoute';
 import TalentRoute from './routes/TalentRoute';
 import ListTalents from "./components/ListTalents/ListTalents";
 import {DetailTalent} from "./components/DetailTalent/DetailTalent";
+import ListPost from "./components/manager/ListPost";
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
                         component={ManagerHome}
                     />
                     <ManagerRoute
-                        path="/listTalent"
+                        path="/listTalent/:id"
                         exact
                         component={ListTalents}
                     />
@@ -38,6 +39,11 @@ function App() {
                         path="/detail-talent/:id"
                         exact
                         component={DetailTalent}
+                    />
+                    <ManagerRoute
+                        path="/manager/post"
+                        exact
+                        component={ListPost}
                     />
 
                     {/* Talent routes */}
