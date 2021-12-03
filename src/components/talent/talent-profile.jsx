@@ -135,10 +135,10 @@ const TalentProfile = ({profile}) => {
                         </Col>
                     </Row>
                     <Row className='profile-card'>
-                        <Col md='5' className='profile-card__avatar'>
+                        <Col md='4' className='profile-card__avatar'>
                             <Image src={user.avatar} thumbnail />
                         </Col>
-                        <Col md='7' className='profile-card__info'>
+                        <Col md='8' className='profile-card__info'>
                             {
                                 userShow.map(user => (
                                     <Row>

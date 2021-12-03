@@ -7,6 +7,7 @@ import {acceptTalent} from "../../Services/PostService";
 import DatePicker from 'react-date-picker';
 import TimePicker from 'react-time-picker';
 import {useHistory} from "react-router-dom";
+import Header from '../Header/Header';
 
 export const DetailTalent = (props) => {
     const [user, setUser] = useState({})
@@ -74,19 +75,20 @@ export const DetailTalent = (props) => {
     }
 
     return(
-        <div className='talent-profile'>
+        <div className='detail-talent-profile'>
+            <Header />
             <Row className='justify-content-md-center' style={{height: '100%', verticalAlign: 'center'}}>
                 <Col lg='8' className='profile'>
                     <Row className='profile-card'>
-                        <Col md='5' className='profile-card__avatar'>
+                        <Col md='3' className='profile-card__avatar'>
                             <Image src={user.avt} thumbnail/>
                         </Col>
-                        <Col md='7' className='profile-card__info'>
+                        <Col md='9' className='profile-card__info'>
                             {
                                 userShow.map(user => (
                                     <Row>
-                                        <Col xs='3'>{user.name}</Col>
-                                        <Col xs='8'>{user.value ? user.value : '未登録'}</Col>
+                                        <Col xs='2' style={{color: 'lightslategray'}}>{user.name}</Col>
+                                        <Col xs='9'>{user.value ? user.value : '未登録'}</Col>
                                     </Row>
                                 ))
                             }
@@ -96,16 +98,16 @@ export const DetailTalent = (props) => {
                 <Col lg='1' />
             </Row>
             <div class="btn">
-                <button onClick={() => setShow(true)}>
+                <button className="accept" onClick={() => setShow(true)}>
                     承認
                 </button>
-                <button onClick={() => handleDecline()}>
+                <button className="reject" onClick={() => handleDecline()}>
                     リジェクト
                 </button>
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Pick time meeting</Modal.Title>
+                        <Modal.Title>会議の日程を指定してください❕</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <DatePicker
@@ -119,10 +121,10 @@ export const DetailTalent = (props) => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
-                            Close
+                            キャンセル
                         </Button>
                         <Button variant="primary" onClick={() => handleSave()}>
-                            Save Changes
+                            保存
                         </Button>
                     </Modal.Footer>
                 </Modal>

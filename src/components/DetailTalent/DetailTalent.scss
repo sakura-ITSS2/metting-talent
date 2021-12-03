@@ -1,4 +1,4 @@
-.talent-profile {
+.detail-talent-profile {
   // background: white;
   // width: 110%;
   height: 96vh;
@@ -7,11 +7,10 @@
     background-color: white;
     margin-top: auto;
     margin-bottom: auto;
-    height: 65%;
     border-radius: 10px;
-    width: 55%;
     border: outset;
     border-color: antiquewhite;
+    margin-left: 10%;
     &-card {
       height: 100%;
 
@@ -21,29 +20,18 @@
         img {
           height: 200px;
           width: 200px;
-          margin-top: 45%;
+          margin-top: 25%;
           object-fit:cover;
           border-radius: 50%;
         }
       }
 
       &__info {
-        padding-top: 10%;
+        padding-top: 3%;
 
         .row {
           height: 60px;
           font-size: 20px;
-        }
-        .col-3 {
-          width: 30%;
-        }
-        .col-8 {
-          line-height: 1.5em;
-          height: 1.5em;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          color: gray;
         }
       }
     }
@@ -56,32 +44,26 @@
   }
   .btn {
     position: relative;
-    bottom: 120px;
+    bottom: 20%;
     left: 41%;
+    .accept{
+      background-color: deepskyblue;
+      color: white;
+      width: 100px
+    }
+    .reject{
+      background-color: red;
+      color: white;
+      width: 100px
+    }
   }
 }
-
-.modal {
-  .profile-card__avatar {
-    text-align: center;
-
-    img {
-      height: 150px;
-      width: 150px;
-      object-fit:cover;
-    }
-
-    &-change {
-      text-align: center;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    &-change:hover {
-      color: aqua;
-    }
+.modal-content{
+  margin-top: 15%;
+  .modal-title{
+    font-size: 1.25rem;
   }
-  .text-muted {
-    color: red !important;
+  .btn-primary{
+    width: 110px;
   }
 }
