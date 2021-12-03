@@ -14,11 +14,14 @@ export const getListTalents = async (id) => {
             listTalentId.includes(talent.id)
         );
 
-        const listPostTalents = listPosts[id].map((item, index) => ({
-            ...item,
-            name: filteredTalent[index].name,
-            avt: filteredTalent[index].avt,
-        }));
+        const listPostTalents = listPosts[id].map((item) => {
+            const talent = filteredTalent.find((e) => e.id === item.id_talent);
+            return {
+                ...item,
+                name: talent.name,
+                avt: talent.avt,
+            };
+        });
 
         return listPostTalents;
     } catch (err) {
