@@ -8,7 +8,7 @@ import {
     SidebarFooter,
     SidebarContent
 } from "react-pro-sidebar";
-// import './sidebar.scss';
+import './sidebar.scss';
 
 import {
     // FaTachometerAlt,

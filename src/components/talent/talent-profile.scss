@@ -1,15 +1,11 @@
 .talent-profile {
-    // background: white;
-    // width: 110%;
     height: 96vh;
 
     .profile {
         background-color: white;
         margin-top: auto;
         margin-bottom: auto;
-        height: 65%;
         border-radius: 10px;
-        width: 55%;
         border: outset;
         border-color: antiquewhite;
         &-card {
@@ -21,14 +17,14 @@
                 img {
                     height: 200px;
                     width: 200px;
-                    margin-top: 45%;
+                    margin-top: 30%;
                     object-fit:cover;
                     border-radius: 50%;
                 }
             }
 
             &__info {
-                padding-top: 10%;
+                padding-top: 3%;
 
                 .row {
                     height: 60px;
