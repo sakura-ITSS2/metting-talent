@@ -38,6 +38,8 @@
           flex-direction: row;
           align-items: center;
 
+          width: 250px;
+
           margin-left: 20px;
           text-decoration: none;
           color: black;
@@ -45,6 +47,7 @@
           img {
             height: 70px;
             width: 70px;
+            object-fit: cover;
           }
 
           p {
