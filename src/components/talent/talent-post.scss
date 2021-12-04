@@ -15,18 +15,20 @@
             }
 
             &__title {
+                padding-right: 0;
+
                 .h5 {
                     font-size: 24px;
                     display: -webkit-box;
-                    -webkit-line-clamp: 2;
+                    -webkit-line-clamp: 1;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                 }
             }
 
             &__status {
-                padding: 0;
-                text-align: center;
+                padding-left: 0;
+                text-align: right;
 
                 > span {
                     border: 1px solid;
@@ -67,6 +69,18 @@
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
+                }
+            }
+
+            &__button {
+                display: flex;
+                justify-content: center;
+
+                > button {
+                    background-color: rgb(64, 115, 158);
+                    // #00BFFF;
+                    border: 1px solid #40739e;
+                    color: white;
                 }
             }
         }

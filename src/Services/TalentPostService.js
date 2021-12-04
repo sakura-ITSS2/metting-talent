@@ -81,6 +81,23 @@ export const sendRequestPost = async (postId) => {
         const userPostRef = doc(db, 'UserPost/Data');
         await updateDoc(userPostRef, postId, listUserPost[postId]);
 
+        const postSnapshot = await getDocs(collection(db, 'Post'));
+        const listPost = postSnapshot.docs.map(doc => doc.data())[0].Data;
+
+        const listPostNew = listPost.map(e => {
+            return e.id === postId ?
+                {
+                    ...e,
+                    numberApplied: e.numberApplied + 1
+                }
+                :
+                e
+        })
+
+        // update numberApplied in Post table
+        const postRef = doc(db, 'Post/Post');
+        await updateDoc(postRef, 'Data', listPostNew);
+
         toast.success("リクエストが送信されました。", {
             position: "top-right",
             autoClose: 3000,

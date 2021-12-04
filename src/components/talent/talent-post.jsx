@@ -38,6 +38,7 @@ const DetailsPopup = ({...props}) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            scrollable
             onHide={props.handleClosePopup}
         >
             <Modal.Header closeButton>
@@ -167,15 +168,15 @@ function TalentPost({profile}) {
                         {posts.map((post) => (
                             <Col key={post.id}>
                                 <Card className='post-card'>
-                                    <Card.Img variant="top" src={DefaultPost} className='post-card__image' />
+                                    <Card.Img variant="top" src={post.image ? post.image : DefaultPost} className='post-card__image' />
                                     <Card.Body>
                                         <Row>
-                                            <Col md='7' className='post-card__title'>
+                                            <Col md={post.status ? '7' : '12'} lg={post.status ? '8' : '12'} className='post-card__title'>
                                                 <Card.Title>{post.title}</Card.Title>
                                             </Col>
                                             {
                                                 post.status ?
-                                                (<Col md='5' className='post-card__status'>
+                                                (<Col md='5' lg='4' className='post-card__status'>
                                                     <span className={`post-card__status-${post.status}`}>{status[post.status]}</span>
                                                 </Col>)
                                                 :
@@ -192,8 +193,8 @@ function TalentPost({profile}) {
 
                                         </Row>
                                         <Row className='justify-content-md-center' style={{marginTop: '15px'}}>
-                                            <Col md='4'>
-                                                <Button variant='light' style={{border: '1px solid #87CEFA', width: '130px',backgroundColor:'#00BFFF', color: '#E0FFFF', marginLeft: '-25px' }} onClick={() => handleShowDetail(post)}>もっと見せる</Button>
+                                            <Col md='6' className='post-card__button'>
+                                                <Button onClick={() => handleShowDetail(post)} >もっと見せる</Button>
                                             </Col>
                                         </Row>
                                     </Card.Body>

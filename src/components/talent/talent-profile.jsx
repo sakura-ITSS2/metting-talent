@@ -80,7 +80,7 @@ const TalentProfile = ({profile}) => {
 
     const handleChangeInput = (event) => {
         if (event.target.id === 'phone') {
-            validator.isMobilePhone(event.target.value, 'vi-VN') ?
+            validator.isMobilePhone(event.target.value) ?
                 setError({...error, phone: null})
                 : setError({...error, phone: '許可な電話番号を入力してください。'})
         }
