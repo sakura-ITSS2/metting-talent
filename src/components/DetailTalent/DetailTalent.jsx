@@ -80,6 +80,7 @@ export const DetailTalent = (props) => {
             <Row className='justify-content-md-center' style={{height: '100%', verticalAlign: 'center'}}>
                 <Col lg='8' className='profile'>
                     <Row className='profile-card'>
+                        <hr />
                         <Col md='0' className='profile-card__avatar'>
                             <Image src={user.avt} thumbnail/>
                         </Col>
@@ -94,42 +95,41 @@ export const DetailTalent = (props) => {
                             }
                         </Col>
                     </Row>
-                </Col>
-                <Col lg='1' />
-                <div class="btn">
-                    <button className="accept" onClick={() => setShow(true)}>
-                        承認
-                    </button>
-                    <button className="reject" onClick={() => handleDecline()}>
-                        リジェクト
-                    </button>
+                    <Col lg='1' />
+                    <div class="btn">
+                        <button className="accept" onClick={() => setShow(true)}>
+                            承認
+                        </button>
+                        <button className="reject" onClick={() => handleDecline()}>
+                            リジェクト
+                        </button>
 
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>会議の日程を指定してください❕</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <DatePicker
-                                onChange={onDate}
-                                value={date}
-                            />
-                            <TimePicker
-                                onChange={onTime}
-                                value={time}
-                            />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                キャンセル
-                            </Button>
-                            <Button variant="primary" onClick={() => handleSave()}>
-                                保存
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>会議の日程を指定してください❕</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <DatePicker
+                                    onChange={onDate}
+                                    value={date}
+                                />
+                                <TimePicker
+                                    onChange={onTime}
+                                    value={time}
+                                />
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    キャンセル
+                                </Button>
+                                <Button variant="primary" onClick={() => handleSave()}>
+                                    保存
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                    </Col>
             </Row>
-            
         </div>
     )
 }
