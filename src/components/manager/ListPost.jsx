@@ -58,7 +58,7 @@ function ListPost() {
             <Header />
             <div className="listPost">
                 <div className="btn">
-                    <button type="button" onClick={() => setCreate(true)}>Create</button>
+                    <button type="button" onClick={() => setCreate(true)}>新しい投稿</button>
                 </div>
                 <div className="posts">
                     {
