@@ -106,9 +106,7 @@ function ListPost() {
         <div className="wrapper">
             <Header />
             <div className="listPost">
-                <div className="btn">
-                    <button type="button" onClick={() => setCreate(true)}>新しい投稿</button>
-                </div>
+                <button className="createButton" type="button" onClick={() => setCreate(true)}>新しい投稿</button>
                 <div className="posts">
                     {
                         isLoading && listPost.map(post =>{
@@ -117,11 +115,13 @@ function ListPost() {
                                     <img className="defaultpost" src={post.image?post.image:default_post}/>
                                     <div className="post-body">
                                         <div className="title" style = {{cursor:'pointer'}} onClick = {() => history.push('manager/listTalent/'+post.id)}>{post.title}</div>
-                                        <div className="description">Description: {post.des}</div>
+                                        <div className="description">記述: {post.des}</div>
                                         <div className="apply">Applied: {post.numberApplied}</div>
-                                        <button onClick={() =>handleShowDetail(post.id)}>motto miru</button>
-                                        <button onClick={() =>handleEdit(post.id)}>Edit</button>
-                                        <button onClick={() =>handleDelete(post.id)}>Delete</button>
+                                        <div className="buttons">
+                                            <button className="seeButton" onClick={() =>handleShowDetail(post.id)}>もっと見せる</button>
+                                            <button className="editButton" onClick={() =>handleEdit(post.id)}>編集</button>
+                                            <button className="deleteButton" onClick={() =>handleDelete(post.id)}>削除</button>
+                                        </div>
                                     </div>
                                 </div>
                             )
@@ -156,7 +156,7 @@ function ListPost() {
                                     <Form.Group controlId="avatar" className="mb-3">
                                         <Form.Control ref={imageRef} type="file" onChange={fileUploadHandle} hidden />
                                     </Form.Group>
-                                    <span onClick={handleChangAvatar}>アバターを変更</span>
+                                    <span onClick={handleChangAvatar}>イメージを変更</span>
                                 </Col>
                             </Row>
                             <Form.Group className="mb-3" controlId="title">

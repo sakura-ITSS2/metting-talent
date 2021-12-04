@@ -38,12 +38,12 @@ function DetailModal(props) {
                         <Form >
                             
                             <Form.Group className="mb-3" controlId="title">
-                                <Form.Label>タイトル</Form.Label>
+                                <Form.Label style={{color: 'dodgerblue'}}>タイトル</Form.Label>
                                 <p>{currentPost?.title}</p>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="description">
-                                <Form.Label>説明</Form.Label>
+                                <Form.Label style={{color: 'dodgerblue'}}>説明</Form.Label>
                                 <p>{currentPost?.des}</p>
                             </Form.Group>
                         </Form>
