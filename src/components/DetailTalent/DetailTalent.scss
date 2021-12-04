@@ -4,14 +4,16 @@
 
   .profile {
     background-color: white;
-    margin-top: auto;
+    margin-top: 85px;
     margin-bottom: auto;
     border-radius: 10px;
     border: outset;
     border-color: antiquewhite;
     margin-left: 10%;
+    height: 85%;
     &-card {
-      height: 100%;
+      height: 95%;
+      overflow: scroll;
 
       &__avatar {
         text-align: center;
@@ -19,7 +21,6 @@
         img {
           height: 200px;
           width: 200px;
-          margin-top: 25%;
           object-fit:cover;
           border-radius: 50%;
         }
@@ -29,7 +30,6 @@
         padding-top: 3%;
 
         .row {
-          height: 60px;
           font-size: 20px;
         }
       }
@@ -43,12 +43,13 @@
   }
   .btn {
     position: relative;
-    bottom: 20%;
-    left: 41%;
+    bottom: 5%;
+
     .accept{
       background-color: deepskyblue;
       color: white;
-      width: 100px
+      width: 100px;
+      margin-left: 300px;
     }
     .reject{
       background-color: red;
@@ -58,7 +59,6 @@
   }
 }
 .modal-content{
-  margin-top: 15%;
   .modal-title{
     font-size: 1.25rem;
   }

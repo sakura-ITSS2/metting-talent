@@ -205,3 +205,4 @@ export const deletePost = async (id) => {
         return err;
     }
 }
+

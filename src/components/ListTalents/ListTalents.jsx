@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import defaultAvatar from '../../images/default-avatar.png';
-import { getListTalents } from '../../Services/PostService';
+import { getListTalents, getPostTitle } from '../../Services/PostService';
 import {
     STATUS_ACCEPT,
     STATUS_DECLINE,
@@ -10,18 +10,20 @@ import {
 } from '../../utils/constants';
 import Header from '../Header/Header';
 import './ListTalents.scss';
-import {DetailTalent} from "../DetailTalent/DetailTalent";
 
 function ListTalents(props) {
     const [listTalents, setListTalents] = useState([]);
-    const {id} = useParams();
+    const [postTitle, setPostTitle] = useState('');
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchlistTalents = async (id) => {
+            const postTitle = await getPostTitle(id);
             const data = await getListTalents(id);
-            if(data){
-                setListTalents(data)
+            if (data) {
+                setListTalents(data);
             }
+            setPostTitle(postTitle);
         };
 
         fetchlistTalents(id);
@@ -31,14 +33,14 @@ function ListTalents(props) {
         <div className="wrapper">
             <Header />
             <div className="list-talents-container">
-                <h2>{id}</h2>
+                <h2>{postTitle}</h2>
                 <div className="list-talents">
                     {listTalents?.map((talent) => (
                         <div className="talent-item" key={talent.id_talent}>
                             <Link
                                 to={{
                                     pathname: `detail-talent/${talent.id_talent}`,
-                                    idPost: id
+                                    idPost: id,
                                 }}
                                 className="profile"
                                 params={{ idPost: id }}
@@ -66,8 +68,8 @@ function ListTalents(props) {
                             )}
                             <Link
                                 to={{
-                                    pathname: `/detail-talent/${talent.id_talent}`,
-                                    idPost: id
+                                    pathname: `detail-talent/${talent.id_talent}`,
+                                    idPost: id,
                                 }}
                                 className={`status--${talent.status}`}
                                 params={{ idPost: id }}
