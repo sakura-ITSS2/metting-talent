@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import defaultAvatar from '../../images/default-avatar.png';
 import { getListTalents } from '../../Services/PostService';
 import {
@@ -14,16 +14,18 @@ import {DetailTalent} from "../DetailTalent/DetailTalent";
 
 function ListTalents(props) {
     const [listTalents, setListTalents] = useState([]);
-    const id = 'p1';
+    const {id} = useParams();
 
     useEffect(() => {
         const fetchlistTalents = async (id) => {
             const data = await getListTalents(id);
-            setListTalents(data)
+            if(data){
+                setListTalents(data)
+            }
         };
 
         fetchlistTalents(id);
-    }, []);
+    }, [id]);
 
     return (
         <div className="wrapper">
@@ -64,7 +66,7 @@ function ListTalents(props) {
                             )}
                             <Link
                                 to={{
-                                    pathname: `detail-talent/${talent.id_talent}`,
+                                    pathname: `/detail-talent/${talent.id_talent}`,
                                     idPost: id
                                 }}
                                 className={`status--${talent.status}`}
