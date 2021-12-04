@@ -54,6 +54,9 @@ function EditModal(props){
             props.handleCloseEditModal();
         }else{
             await updatePost(post.id, {...post, des: post.des, title: post.title});
+            const id = localStorage.getItem('id');
+            const posts = await getListPosts(id);
+            props.setListPost(posts);
             props.handleCloseEditModal();
         }
     }

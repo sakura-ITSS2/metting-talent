@@ -2,7 +2,15 @@ import {collection, doc, getDoc, getDocs, updateDoc,deleteField} from 'firebase/
 import { db } from '../utils/firebase';
 import { toast } from 'react-toastify';
 
-
+export const getPostTitle = async (id) => {
+    try {
+        const postSnap = await getDoc(doc(db, 'Post', 'Post'));
+        const allPosts = postSnap.data().Data;
+        return allPosts.find((post) => post.id === id).title;
+    } catch (err) {
+        return false;
+    }
+};
 export const getListTalents = async (id) => {
     try {
         const postSnap = await getDoc(doc(db, 'UserPost', 'Data'));
