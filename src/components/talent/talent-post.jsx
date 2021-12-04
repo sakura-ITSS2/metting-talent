@@ -170,12 +170,12 @@ function TalentPost({profile}) {
                                     <Card.Img variant="top" src={DefaultPost} className='post-card__image' />
                                     <Card.Body>
                                         <Row>
-                                            <Col md='9' className='post-card__title'>
+                                            <Col md='7' className='post-card__title'>
                                                 <Card.Title>{post.title}</Card.Title>
                                             </Col>
                                             {
                                                 post.status ?
-                                                (<Col md='3' className='post-card__status'>
+                                                (<Col md='5' className='post-card__status'>
                                                     <span className={`post-card__status-${post.status}`}>{status[post.status]}</span>
                                                 </Col>)
                                                 :
@@ -193,7 +193,7 @@ function TalentPost({profile}) {
                                         </Row>
                                         <Row className='justify-content-md-center' style={{marginTop: '15px'}}>
                                             <Col md='4'>
-                                                <Button variant='light' style={{border: '1px solid #1d1d1d', width: '130px'}} onClick={() => handleShowDetail(post)}>もっと見せる</Button>
+                                                <Button variant='light' style={{border: '1px solid #87CEFA', width: '130px',backgroundColor:'#00BFFF', color: '#E0FFFF', marginLeft: '-25px' }} onClick={() => handleShowDetail(post)}>もっと見せる</Button>
                                             </Col>
                                         </Row>
                                     </Card.Body>

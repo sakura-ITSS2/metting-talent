@@ -44,10 +44,12 @@
   .btn {
     position: relative;
     bottom: 5%;
+
     .accept{
       background-color: deepskyblue;
       color: white;
-      width: 100px
+      width: 100px;
+      margin-left: 300px;
     }
     .reject{
       background-color: red;
