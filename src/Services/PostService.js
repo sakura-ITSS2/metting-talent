@@ -1,4 +1,4 @@
-import {collection, doc, getDoc, getDocs, updateDoc} from 'firebase/firestore/lite';
+import {collection, doc, getDoc, getDocs, updateDoc,deleteField} from 'firebase/firestore/lite';
 import { db } from '../utils/firebase';
 import { toast } from 'react-toastify';
 
@@ -81,7 +81,7 @@ export const getListPosts = async (id) => {
     }
 }
 
-export const createPost = async (description, title, id) => {
+export const createPost = async (description, title, id, image) => {
     try {
         const postSnap = await getDoc(doc(db, 'Post', 'Post'));
         const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
@@ -91,7 +91,7 @@ export const createPost = async (description, title, id) => {
         const currentManagerIndex = listAllManager.findIndex(manager => manager.id ===id);
 
         const randomID = Math.random().toString(32).substring(2);
-        const newPost = {des: description, title, id: randomID, numberApplied: 0}
+        const newPost = {des: description, title, id: randomID, numberApplied: 0, image}
         const newlistPost = [...listAllPost, newPost];
         const postRef = doc(db, 'Post/Post');
         await updateDoc(postRef, 'Data', newlistPost);
@@ -117,3 +117,91 @@ export const createPost = async (description, title, id) => {
     }
 }
 
+export const getPostById = async (id) => {
+    try{
+        const postSnap = await getDoc(doc(db, 'Post', 'Post'));
+        const listAllPost = postSnap.data().Data;
+
+        return listAllPost.filter(post => post.id === id)[0];
+    }catch (err) {
+        return err;
+    }
+}
+
+export const updatePost = async (id, post) => {
+    try{
+        const postSnap = await getDoc(doc(db, 'Post', 'Post'));
+        const listAllPost = postSnap.data().Data;
+    
+        const index = listAllPost.findIndex(post => post.id ===id);
+        listAllPost[index] = post;
+    
+        const postRef = doc(db, 'Post/Post');
+        await updateDoc(postRef, 'Data', listAllPost);
+    
+    
+        toast.success("edit post success", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }catch (err) {
+        return err;
+    }
+}
+
+export const deletePost = async (id) => {
+    try{
+        const postSnap = await getDoc(doc(db, 'Post', 'Post'));
+        const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
+        const talentSnap = await getDoc(doc(db, 'User', 'Talent'));
+        
+
+        const listAllPost = postSnap.data().Data;
+        const listAllManager = managerSnap.data().Data;
+        const listAllTalent = talentSnap.data().Data;
+        
+
+
+        const newListPost = listAllPost.filter(post=> post.id !== id);
+        for(let i =0; i< listAllManager.length; i++){
+            listAllManager[i].list_post = listAllManager[i].list_post.filter(post=> post !== id)
+        }
+        for(let i =0; i< listAllTalent.length; i++){
+            listAllTalent[i].list_post = listAllTalent[i].list_post.filter(post=> post !== id)
+        }
+        
+       
+
+        const postRef = doc(db, 'Post/Post');
+        await updateDoc(postRef, 'Data', newListPost);
+
+        const managerRef = doc(db, 'User/Manager');
+        await updateDoc(managerRef, 'Data', listAllManager);
+
+        const talentRef = doc(db, 'User/Talent');
+        await updateDoc(talentRef, 'Data', listAllTalent);
+
+        const userPostRef = doc(db, 'UserPost/Data');
+        await updateDoc(userPostRef,{
+            [id] : deleteField()
+        })
+
+        toast.success("delete post success", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
+    }catch (err) {
+        return err;
+    }
+}
