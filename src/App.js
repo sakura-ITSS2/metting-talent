@@ -28,22 +28,17 @@ function App() {
                     <ManagerRoute
                         path="/manager"
                         exact
-                        component={ManagerHome}
+                        component={ListPost}
                     />
                     <ManagerRoute
-                        path="/listTalent/:id"
+                        path="/manager/listTalent/:id"
                         exact
                         component={ListTalents}
                     />
                     <ManagerRoute
-                        path="/detail-talent/:id"
+                        path="/manager/listTalent/detail-talent/:id"
                         exact
                         component={DetailTalent}
-                    />
-                    <ManagerRoute
-                        path="/manager/post"
-                        exact
-                        component={ListPost}
                     />
 
                     {/* Talent routes */}
