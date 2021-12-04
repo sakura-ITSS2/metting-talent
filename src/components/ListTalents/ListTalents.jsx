@@ -66,7 +66,7 @@ function ListTalents(props) {
                             )}
                             <Link
                                 to={{
-                                    pathname: `/detail-talent/${talent.id_talent}`,
+                                    pathname: `detail-talent/${talent.id_talent}`,
                                     idPost: id
                                 }}
                                 className={`status--${talent.status}`}
