@@ -80,15 +80,15 @@ export const DetailTalent = (props) => {
             <Row className='justify-content-md-center' style={{height: '100%', verticalAlign: 'center'}}>
                 <Col lg='8' className='profile'>
                     <Row className='profile-card'>
-                        <Col md='3' className='profile-card__avatar'>
+                        <Col md='0' className='profile-card__avatar'>
                             <Image src={user.avt} thumbnail/>
                         </Col>
-                        <Col md='9' className='profile-card__info'>
+                        <Col md='12' className='profile-card__info'>
                             {
                                 userShow.map(user => (
                                     <Row>
                                         <Col xs='2' style={{color: 'lightslategray'}}>{user.name}</Col>
-                                        <Col xs='9'>{user.value ? user.value : '未登録'}</Col>
+                                        <Col xs='10'>{user.value ? user.value : '未登録'}</Col>
                                     </Row>
                                 ))
                             }
@@ -96,39 +96,40 @@ export const DetailTalent = (props) => {
                     </Row>
                 </Col>
                 <Col lg='1' />
-            </Row>
-            <div class="btn">
-                <button className="accept" onClick={() => setShow(true)}>
-                    承認
-                </button>
-                <button className="reject" onClick={() => handleDecline()}>
-                    リジェクト
-                </button>
+                <div class="btn">
+                    <button className="accept" onClick={() => setShow(true)}>
+                        承認
+                    </button>
+                    <button className="reject" onClick={() => handleDecline()}>
+                        リジェクト
+                    </button>
 
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>会議の日程を指定してください❕</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <DatePicker
-                            onChange={onDate}
-                            value={date}
-                        />
-                        <TimePicker
-                            onChange={onTime}
-                            value={time}
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            キャンセル
-                        </Button>
-                        <Button variant="primary" onClick={() => handleSave()}>
-                            保存
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>会議の日程を指定してください❕</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <DatePicker
+                                onChange={onDate}
+                                value={date}
+                            />
+                            <TimePicker
+                                onChange={onTime}
+                                value={time}
+                            />
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                キャンセル
+                            </Button>
+                            <Button variant="primary" onClick={() => handleSave()}>
+                                保存
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+            </Row>
+            
         </div>
     )
 }
