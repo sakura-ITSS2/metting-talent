@@ -89,7 +89,7 @@ function EditModal(props){
                                     <Form.Group controlId="avatar" className="mb-3">
                                         <Form.Control ref={imageRef} type="file" onChange={fileUploadHandle} hidden />
                                     </Form.Group>
-                                    <span onClick={handleChangeImage}>アバターを変更</span>
+                                    <span onClick={handleChangeImage}>イメージを変更</span>
                                 </Col>
                             </Row>
                             <Form.Group className="mb-3" controlId="title">

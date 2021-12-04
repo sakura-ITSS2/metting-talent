@@ -109,7 +109,7 @@ export const createPost = async (description, title, id, image) => {
         await updateDoc(managerRef, "Data", listAllManager);
 
 
-        toast.success("create post success", {
+        toast.success("投稿の作成に成功しました。", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -148,7 +148,7 @@ export const updatePost = async (id, post) => {
         await updateDoc(postRef, 'Data', listAllPost);
     
     
-        toast.success("edit post success", {
+        toast.success("投稿の更新に成功しました。", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -199,7 +199,7 @@ export const deletePost = async (id) => {
             [id] : deleteField()
         })
 
-        toast.success("delete post success", {
+        toast.success("投稿の削除に成功しました。", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,

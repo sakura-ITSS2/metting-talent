@@ -9,17 +9,13 @@
         margin-top: 70px;
         max-width: 1930px;
         overflow: auto;
-        .btn {
-            margin-bottom: 10px;
-            width: 100%;
-            
-            button {
-                position: fixed;
-                right: 55px;
-                background-color: darkseagreen;
-                color: white;
-                border: none;
-            }
+        .createButton {
+            position: fixed;
+            right: 55px;
+            background-color: darkseagreen;
+            color: white;
+            border: none;
+            margin-top: 10px;
         }
         
         .post{
@@ -37,7 +33,7 @@
             background-clip: border-box;
             border: 5px solid rgba(0,0,0,.125);
             border-radius: .25rem;
-            margin-top: 30px;
+            margin-top: 40px;
             margin-bottom: 20px;
             .defaultpost{
                 width: 100%;
@@ -53,7 +49,7 @@
                     display: inline-block;
                     overflow: hidden;
                     white-space: nowrap;
-                    max-width: 450px; 
+                    max-width: 400px; 
                     text-overflow: ellipsis;
                 }
                 .description{
@@ -67,6 +63,26 @@
                     line-height: 1.8em;
                     
                 }
+                .buttons{
+                    position: absolute;
+                    left: 25%;
+                    .seeButton{
+                        background-color: rgb(64, 115, 158);
+                        border: 1px solid #40739e;
+                        color: white;
+                    }
+                    .editButton{
+                        background-color: cornflowerblue;
+                        border: 1px solid #40739e;
+                        color: white;
+                    }
+                    .deleteButton{
+                        background-color: indianred;
+                        border: 1px solid #40739e;
+                        color: white;
+                    }
+                }
+                
             }
             
         }
