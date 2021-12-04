@@ -2,17 +2,23 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    
 
     .listPost{
         width: 100%;
         margin-top: 70px;
-        max-width: 1900px;
+        max-width: 1930px;
+        overflow: auto;
         .btn {
             margin-bottom: 10px;
             width: 100%;
+            
             button {
-                float: right;
+                position: fixed;
+                right: 55px;
+                background-color: darkseagreen;
+                color: white;
+                border: none;
             }
         }
         
@@ -29,8 +35,10 @@
             word-wrap: break-word;
             background-color: #fff;
             background-clip: border-box;
-            border: 1px solid rgba(0,0,0,.125);
+            border: 5px solid rgba(0,0,0,.125);
             border-radius: .25rem;
+            margin-top: 30px;
+            margin-bottom: 20px;
             .defaultpost{
                 width: 100%;
                 height: 300px;
@@ -41,16 +49,31 @@
                 .title {
                     font-size: 24px;
                     text-align: center;
+                    clear: both;
+                    display: inline-block;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    max-width: 450px; 
+                    text-overflow: ellipsis;
                 }
                 .description{
                     margin-top: 10px;
                     height: 75px;
-                    display: flex;
-                    flex-wrap: wrap;
+                    display: block;
+                    text-overflow: ellipsis;
+                    word-wrap: break-word;
+                    overflow: hidden;
+                    max-height: 3.6em;
+                    line-height: 1.8em;
+                    
                 }
             }
             
         }
         
     }
+}
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
