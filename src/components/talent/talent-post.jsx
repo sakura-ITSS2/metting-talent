@@ -171,12 +171,12 @@ function TalentPost({profile}) {
                                     <Card.Img variant="top" src={post.image ? post.image : DefaultPost} className='post-card__image' />
                                     <Card.Body>
                                         <Row>
-                                            <Col md={post.status ? '7' : '12'} lg={post.status ? '8' : '12'} className='post-card__title'>
+                                            <Col md={post.status ? '7' : '12'} className='post-card__title'>
                                                 <Card.Title>{post.title}</Card.Title>
                                             </Col>
                                             {
                                                 post.status ?
-                                                (<Col md='5' lg='4' className='post-card__status'>
+                                                (<Col md='5' className='post-card__status'>
                                                     <span className={`post-card__status-${post.status}`}>{status[post.status]}</span>
                                                 </Col>)
                                                 :
