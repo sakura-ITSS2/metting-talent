@@ -17,6 +17,7 @@ function App() {
     //     localStorage.clear();
     //  }
 
+
     var hours = 2;   // Reset when storage is more than 2 hours
     var now = new Date().getTime();
     var setupTime = localStorage.getItem('setupTime');
