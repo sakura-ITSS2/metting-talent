@@ -11,8 +11,8 @@ function SignUp() {
     const [user, setUser] = useState({
         email: '',
         name: '',
-        pass: '',
-        rePass: '',
+        pass: ' ',
+        rePass: ' ',
         role: 'Manager',
     });
     const [errorMessage, setErrorMessage] = useState(false);
@@ -59,7 +59,12 @@ function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        let authUser = await createUser(user.email, user.pass, user.role, user.name);
+        let authUser = await createUser(
+            user.email,
+            user.pass,
+            user.role,
+            user.name
+        );
         if (authUser) {
             history.push('/login');
         } else {
@@ -68,11 +73,11 @@ function SignUp() {
     };
 
     if (localStorage.getItem('role') === 'Talent') {
-        history?.push('/talent')
+        history?.push('/talent');
     }
 
     if (localStorage.getItem('role') === 'Manager') {
-        history?.push('/manager')
+        history?.push('/manager');
     }
 
     return (
@@ -80,7 +85,7 @@ function SignUp() {
             <header>
                 <div className="logo">
                     <a href="/">
-                        <img style={{height: 50,}} src={banner}/>
+                        <img style={{ height: 50 }} src={banner} />
                     </a>
                 </div>
             </header>
@@ -91,9 +96,7 @@ function SignUp() {
                         すでにアカウントをお持ちの場合は、
                     </span>
                     <br />
-                    <Link to="/login">
-                        ここからログインしてください。
-                    </Link>
+                    <Link to="/login">ここからログインしてください。</Link>
                 </div>
                 <Form>
                     <Form.Group className="mb-3" controlId="email">
@@ -124,6 +127,11 @@ function SignUp() {
                             placeholder="パスワードを入力してください"
                             onChange={handleChangePass}
                         />
+                        <Form.Text className="text-danger">
+                            {user.pass === ''
+                                ? 'パスワードを入力してください'
+                                : ''}
+                        </Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="password">
                         <Form.Label>パスワード（確認用）</Form.Label>
@@ -169,7 +177,9 @@ function SignUp() {
                         className="rounded-pill w-100"
                         onClick={handleSubmit}
                         disabled={
-                            user.pass !== user.rePass || invalidEmail
+                            user.pass !== user.rePass ||
+                            invalidEmail ||
+                            user.pass === ''
                                 ? true
                                 : false
                         }
