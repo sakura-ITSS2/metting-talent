@@ -2,7 +2,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    
+
 
     .listPost{
         width: 100%;
@@ -17,7 +17,7 @@
             border: none;
             margin-top: 10px;
         }
-        
+
         .post{
             float:left;;
             width:30.99999%;
@@ -49,7 +49,7 @@
                     display: inline-block;
                     overflow: hidden;
                     white-space: nowrap;
-                    max-width: 400px; 
+                    max-width: 400px;
                     text-overflow: ellipsis;
                 }
                 .description{
@@ -61,32 +61,41 @@
                     overflow: hidden;
                     max-height: 3.6em;
                     line-height: 1.8em;
-                    
+
                 }
                 .buttons{
-                    position: absolute;
                     left: 25%;
+                    justify-content: center;
+                    display: flex;
+                    margin-top: 10px;
+
                     .seeButton{
                         background-color: rgb(64, 115, 158);
                         border: 1px solid #40739e;
                         color: white;
+                        margin-right: 8px;
+                        border-radius: 10px;
+
                     }
                     .editButton{
-                        background-color: cornflowerblue;
-                        border: 1px solid #40739e;
+                        background-color: #1E90FF;
+                        border: 1px solid #1E90FF;
                         color: white;
+                        margin-right: 8px;
+                        border-radius: 10px;
                     }
                     .deleteButton{
-                        background-color: indianred;
-                        border: 1px solid #40739e;
+                        background-color: #B22222;
+                        border: 1px solid #B22222;
                         color: white;
+                        border-radius: 10px;
                     }
                 }
-                
+
             }
-            
+
         }
-        
+
     }
 }
 ::-webkit-scrollbar {

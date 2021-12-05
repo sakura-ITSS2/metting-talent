@@ -106,7 +106,7 @@ function ListPost() {
         <div className="wrapper">
             <Header />
             <div className="listPost">
-                <button className="createButton" type="button" onClick={() => setCreate(true)}>新しい投稿</button>
+                <button className="btn btn-success createButton" type="button" onClick={() => setCreate(true)}>新しい投稿</button>
                 <div className="posts">
                     {
                         isLoading && listPost.map(post =>{
@@ -118,10 +118,11 @@ function ListPost() {
                                         <div className="description">記述: {post.des}</div>
                                         <div className="apply">Applied: {post.numberApplied}</div>
                                         <div className="buttons">
-                                            <button className="seeButton" onClick={() =>handleShowDetail(post.id)}>もっと見せる</button>
-                                            <button className="editButton" onClick={() =>handleEdit(post.id)}>編集</button>
-                                            <button className="deleteButton" onClick={() =>handleDelete(post.id)}>削除</button>
+                                            <button className="btn seeButton" onClick={() =>handleShowDetail(post.id)}>もっと見せる</button>
+                                            <button className="btn editButton" onClick={() =>handleEdit(post.id)}>編集</button>
+                                            <button className="btn deleteButton" onClick={() =>handleDelete(post.id)}>削除</button>
                                         </div>
+
                                     </div>
                                 </div>
                             )
@@ -183,7 +184,7 @@ function ListPost() {
             <DetailModal detail = {detail} id = {currentPost} handleCloseDetailModal = {handleCloseDetailModal} />
             <EditModal show = {edit} id = {currentPost} handleCloseEditModal = {handleCloseEditModal} setListPost = {setListPost}/>
         </div>
-        
+
     )
 }
 

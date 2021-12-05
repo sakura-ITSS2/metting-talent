@@ -42,14 +42,15 @@
     }
   }
   .btn {
-    position: relative;
+    justify-content: center;
+    display: flex;
     bottom: 2%;
+    position: relative;
 
     .accept{
       background-color: deepskyblue;
       color: white;
       width: 100px;
-      margin-left: 300px;
     }
     .reject{
       background-color: red;
