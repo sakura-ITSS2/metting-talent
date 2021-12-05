@@ -31,6 +31,7 @@ function ListPost() {
     const [imgFile, setImgFile] = useState();
     const [currentPost, setCurrentPost] = useState();
     const [invalidImage, setInvalidImage] = useState(false);
+    const [invalidTitle, setInvalidTitle] = useState(false);
 
     useEffect(() =>{
         const id = localStorage.getItem('id');
@@ -56,7 +57,11 @@ function ListPost() {
         const formData = new FormData();
         if(!imgFile){
             setInvalidImage(true);
-        }else{
+        }
+        if (title.length===0) {
+            setInvalidTitle(true);
+        }
+        if(imgFile&&title.length!==0){
             formData.append('image', imgFile);
             const image = await uploadAvatar(formData);
             const newPost = await createPost(description, title, id, image.data.url);
@@ -72,6 +77,7 @@ function ListPost() {
 
     const handleChangeTitle = (event) => {
         setTitle(event.target.value);
+        setInvalidTitle(false);
     }
 
     const handleChangeDescription = (event) =>{
@@ -86,6 +92,7 @@ function ListPost() {
         setImgFile(event.target.files[0]);
         const file = URL.createObjectURL(event.target.files[0]);
         setAvatar(file);
+        setInvalidImage(false);
     }
 
     const handleShowDetail= (id) => {
@@ -119,7 +126,7 @@ function ListPost() {
                         isLoading && listPost.map(post =>{
                             return(
                                 <div className="post">
-                                    <img className="defaultpost" src={post.image?post.image:default_post}/>
+                                    <img className="defaultpost" src={post.image?post.image:default_post} onClick = {() => history.push('manager/listTalent/'+post.id)}/>
                                     <div className="post-body">
                                         <div className="title" style = {{cursor:'pointer'}} onClick = {() => history.push('manager/listTalent/'+post.id)}>{post.title}</div>
                                         <div className="description">記述: {post.des}</div>
@@ -179,6 +186,11 @@ function ListPost() {
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>タイトル</Form.Label>
                                 <Form.Control type="text" value={title} onChange={handleChangeTitle} placeholder="タイトルを入力します" />
+                                <Form.Text className="text-danger"　>
+                                {invalidTitle
+                                    ? 'タイトルを入力してください'
+                                    : ''}
+                                </Form.Text>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="description">
