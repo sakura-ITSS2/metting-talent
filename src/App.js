@@ -13,6 +13,9 @@ import {DetailTalent} from "./components/DetailTalent/DetailTalent";
 import ListPost from "./components/manager/ListPost";
 
 function App() {
+    window.onbeforeunload = function() {
+        localStorage.clear();
+     }
 
     return (
         <div className="App">
