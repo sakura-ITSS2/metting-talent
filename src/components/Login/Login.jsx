@@ -43,6 +43,8 @@ function Login() {
             localStorage.setItem('role', authUser.role);
             if (authUser.role === 'Manager') history.push('/manager');
             if (authUser.role === 'Talent') history.push('/talent');
+            var now = new Date().getTime();
+            localStorage.setItem('setupTime', now)
         } else {
             setErrorMessage(true);
         }

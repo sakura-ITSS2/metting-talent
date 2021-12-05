@@ -13,9 +13,16 @@ import {DetailTalent} from "./components/DetailTalent/DetailTalent";
 import ListPost from "./components/manager/ListPost";
 
 function App() {
-    window.onbeforeunload = function() {
+    // window.onunload = function() {
+    //     localStorage.clear();
+    //  }
+
+    var hours = 0.02;   // Reset when storage is more than 2 hours
+    var now = new Date().getTime();
+    var setupTime = localStorage.getItem('setupTime');
+    if (setupTime && now - setupTime > hours*60*60*1000) {
         localStorage.clear();
-     }
+    }
 
     return (
         <div className="App">
