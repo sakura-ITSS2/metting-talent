@@ -30,6 +30,7 @@ function ListPost() {
     const [avatar, setAvatar] = useState('');
     const [imgFile, setImgFile] = useState();
     const [currentPost, setCurrentPost] = useState();
+    const [invalidImage, setInvalidImage] = useState(false);
 
     useEffect(() =>{
         const id = localStorage.getItem('id');
@@ -53,14 +54,20 @@ function ListPost() {
         event.preventDefault();
         const id = localStorage.getItem('id');
         const formData = new FormData();
-        formData.append('image', imgFile);
-        const image = await uploadAvatar(formData);
-        const newPost = await createPost(description, title, id, image.data.url);
-        handleCloseModal();
-        setListPost([...listPost, newPost]);
-        setAvatar('');
-        setDescription('');
-        setTitle('');
+        if(!imgFile){
+            setInvalidImage(true);
+        }else{
+            formData.append('image', imgFile);
+            const image = await uploadAvatar(formData);
+            const newPost = await createPost(description, title, id, image.data.url);
+            handleCloseModal();
+            setListPost([...listPost, newPost]);
+            setAvatar('');
+            setDescription('');
+            setTitle('');
+            setImgFile();
+        }
+        
     }
 
     const handleChangeTitle = (event) => {
@@ -150,6 +157,15 @@ function ListPost() {
                             <Row className="justify-content-md-center">
                                 <Col md='3' className='profile-card__avatar'>
                                     <Image src={avatar} rounded />
+                                </Col>
+                            </Row>
+                            <Row className="justify-content-md-center">
+                            <Col md='5' >
+                                <Form.Text className="text-danger "　>
+                                {invalidImage
+                                    ? 'イメージをアップロードしてください'
+                                    : ''}
+                                </Form.Text>
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
