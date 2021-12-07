@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Col, Image, Row, Modal, Button} from "react-bootstrap";
+import {Col, Image, Row, Modal, Button, Spinner} from "react-bootstrap";
 import './DetailTalent.scss'
 import {getProfile} from "../../Services/ProfileService";
 import { useParams } from 'react-router-dom'
@@ -14,6 +14,7 @@ export const DetailTalent = (props) => {
     const [date, onDate] = useState(new Date());
     const [time, onTime] = useState('10:00');
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState({accept: false, reject: false})
 
 
     const { id } = useParams()
@@ -95,13 +96,21 @@ export const DetailTalent = (props) => {
                             }
                         </Col>
                     </Row>
-                    <Col lg='1' />
-                    <div class="btn">
-                        <button className="accept" onClick={() => setShow(true)}>
+                    <div class="btns">
+                        <button className="btn btn-primary accept" onClick={() => setShow(true)}>
                             承認
                         </button>
-                        <button className="reject" onClick={() => handleDecline()}>
-                            リジェクト
+                        <button className="btn btn-danger reject" disabled={loading.reject} onClick={() => handleDecline()}>
+                            {
+                                loading.reject ?
+                                    <Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    /> : 'リジェクト'
+                            }
                         </button>
 
                         <Modal show={show} onHide={handleClose}>

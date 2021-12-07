@@ -5,6 +5,17 @@
 
     .talent-post {
         margin-bottom: 20px;
+
+        .filter {
+            margin-bottom: 10px;
+
+            button {
+                width: 150px;
+                background-color: rgb(64, 115, 158);
+                border: none;
+            }
+        }
+
         .post-card {
             height: 500px;
 

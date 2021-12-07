@@ -4,7 +4,9 @@ import {
     Card,
     Button,
     Modal,
-    Spinner
+    Spinner,
+    Dropdown,
+    DropdownButton
 } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import { getAllPost, sendRequestPost } from '../../Services/TalentPostService';
@@ -13,6 +15,7 @@ import DefaultPost from './default-post.jpeg'
 import './talent-post.scss'
 
 const status = {
+    all: 'すべて',
     pending: 'ペンディング',
     accept: '承認',
     decline: 'リジェクト'
@@ -118,14 +121,17 @@ const DetailsPopup = ({...props}) => {
 function TalentPost({profile}) {
     const [show, setShow] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [postsShow, setPostsShow] = useState([])
     const [dataDetail, setDataDetail] = useState({});
     const [loading, setLoading] = useState(false);
+    const [filter, setFilter] = useState('all')
 
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
             const data = await getAllPost(profile.list_post);
             setPosts([...data]);
+            setPostsShow([...data]);
             setTimeout(() => {
                 setLoading(false);
             }, 1500);
@@ -145,10 +151,35 @@ function TalentPost({profile}) {
 
     const updatePosts = (listPost) => {
         setPosts([...listPost]);
+        setPostsShow(listPost.filter(p => {
+            return filter === 'all' || p.status === filter ?
+                true : false;
+        }));
+    }
+
+    const handleSelect = (e) => {
+        setFilter(e);
+        setLoading(true);
+        setPostsShow(posts.filter(p => {
+            return e === 'all' || p.status === e ?
+                true : false;
+        }));
+        setTimeout(() => {
+            setLoading(false);
+        }, 500)
     }
 
     return (
         <div className='talent-post'>
+            <Row className='filter'>
+                <DropdownButton onSelect={handleSelect}  title={status[filter]}>
+                    <Dropdown.Item eventKey="all">{status.all}</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item eventKey="accept">{status.accept}</Dropdown.Item>
+                    <Dropdown.Item eventKey="pending">{status.pending}</Dropdown.Item>
+                    <Dropdown.Item eventKey="decline">{status.decline}</Dropdown.Item>
+                </DropdownButton>
+            </Row>
             {
                 loading ?
                     <Loader
@@ -164,44 +195,51 @@ function TalentPost({profile}) {
                         }}
                     />
                     :
-                    (<Row xs={1} md={3} className="g-4" style={{marginRight: '6%'}}>
-                        {posts.map((post) => (
-                            <Col key={post.id}>
-                                <Card className='post-card'>
-                                    <Card.Img variant="top" src={post.image ? post.image : DefaultPost} className='post-card__image' />
-                                    <Card.Body>
-                                        <Row>
-                                            <Col md={post.status ? '7' : '12'} className='post-card__title'>
-                                                <Card.Title>{post.title}</Card.Title>
-                                            </Col>
-                                            {
-                                                post.status ?
-                                                (<Col md='5' className='post-card__status'>
-                                                    <span className={`post-card__status-${post.status}`}>{status[post.status]}</span>
-                                                </Col>)
-                                                :
-                                                null
-                                            }
-                                        </Row>
-                                        <Row className='post-card__description'>
-                                            <span>記述</span>
-                                            <Card.Text>
-                                                {post.des}
-                                            </Card.Text>
-                                        </Row>
-                                        <Row>
+                    (
+                        postsShow.length ?
+                            (
+                                <Row xs={1} md={3} className="g-4" style={{marginRight: '6%'}}>
+                                    {postsShow.map((post) => (
+                                        <Col key={post.id}>
+                                            <Card className='post-card'>
+                                                <Card.Img variant="top" src={post.image ? post.image : DefaultPost} className='post-card__image' />
+                                                <Card.Body>
+                                                    <Row>
+                                                        <Col md={post.status ? '7' : '12'} className='post-card__title'>
+                                                            <Card.Title>{post.title}</Card.Title>
+                                                        </Col>
+                                                        {
+                                                            post.status ?
+                                                            (<Col md='5' className='post-card__status'>
+                                                                <span className={`post-card__status-${post.status}`}>{status[post.status]}</span>
+                                                            </Col>)
+                                                            :
+                                                            null
+                                                        }
+                                                    </Row>
+                                                    <Row className='post-card__description'>
+                                                        <span>記述</span>
+                                                        <Card.Text>
+                                                            {post.des}
+                                                        </Card.Text>
+                                                    </Row>
+                                                    <Row>
 
-                                        </Row>
-                                        <Row className='justify-content-md-center' style={{marginTop: '15px'}}>
-                                            <Col md='6' className='post-card__button'>
-                                                <Button onClick={() => handleShowDetail(post)} >もっと見せる</Button>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        ))}
-                    </Row>)
+                                                    </Row>
+                                                    <Row className='justify-content-md-center' style={{marginTop: '15px'}}>
+                                                        <Col md='6' className='post-card__button'>
+                                                            <Button onClick={() => handleShowDetail(post)} >もっと見せる</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    ))}
+                                </Row>
+                            )
+                            :
+                            `${status[filter]}した求人情報がありません。`
+                    )
             }
             <DetailsPopup
                 show={show}

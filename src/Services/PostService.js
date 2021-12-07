@@ -42,6 +42,7 @@ export const getListTalents = async (id) => {
 export const acceptTalent = async (idPost, idTalent, type, time) => {
     try {
         if (idPost){
+            console.log('abc');
             let ref = doc(db, 'UserPost/Data');
             let postSnap = await getDoc(doc(db, 'UserPost', 'Data'));
             let listPosts = postSnap.data();
@@ -69,6 +70,7 @@ export const acceptTalent = async (idPost, idTalent, type, time) => {
         }
         return false
     }catch (err) {
+        console.log(err);
         return false
     }
 }
@@ -93,7 +95,7 @@ export const createPost = async (description, title, id, image) => {
     try {
         const postSnap = await getDoc(doc(db, 'Post', 'Post'));
         const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
-        
+
         const listAllPost = postSnap.data().Data;
         const listAllManager =  managerSnap.data().Data
         const currentManagerIndex = listAllManager.findIndex(manager => manager.id ===id);
@@ -140,14 +142,14 @@ export const updatePost = async (id, post) => {
     try{
         const postSnap = await getDoc(doc(db, 'Post', 'Post'));
         const listAllPost = postSnap.data().Data;
-    
+
         const index = listAllPost.findIndex(post => post.id ===id);
         listAllPost[index] = post;
-    
+
         const postRef = doc(db, 'Post/Post');
         await updateDoc(postRef, 'Data', listAllPost);
-    
-    
+
+
         toast.success("投稿の更新に成功しました。", {
             position: "top-right",
             autoClose: 3000,
@@ -167,12 +169,12 @@ export const deletePost = async (id) => {
         const postSnap = await getDoc(doc(db, 'Post', 'Post'));
         const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
         const talentSnap = await getDoc(doc(db, 'User', 'Talent'));
-        
+
 
         const listAllPost = postSnap.data().Data;
         const listAllManager = managerSnap.data().Data;
         const listAllTalent = talentSnap.data().Data;
-        
+
 
 
         const newListPost = listAllPost.filter(post=> post.id !== id);
@@ -182,8 +184,8 @@ export const deletePost = async (id) => {
         for(let i =0; i< listAllTalent.length; i++){
             listAllTalent[i].list_post = listAllTalent[i].list_post.filter(post=> post !== id)
         }
-        
-       
+
+
 
         const postRef = doc(db, 'Post/Post');
         await updateDoc(postRef, 'Data', newListPost);
@@ -213,4 +215,3 @@ export const deletePost = async (id) => {
         return err;
     }
 }
-

@@ -9,11 +9,14 @@ import {
     Modal,
     Form,
     Image,
+    Spinner
 } from "react-bootstrap";
 function EditModal(props){
     const [post, setPost] = useState();
     const [imgFile, setImgFile] = useState();
+    const [loading, setLoading] = useState(false);
     const imageRef = useRef();
+
 
     useEffect(() =>{
         async function fetchData() {
@@ -43,6 +46,7 @@ function EditModal(props){
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
         if(imgFile){
             const formData = new FormData();
             formData.append('image', imgFile);
@@ -59,6 +63,7 @@ function EditModal(props){
             props.setListPost(posts);
             props.handleCloseEditModal();
         }
+        setLoading(false);
     }
 
     return(
@@ -104,8 +109,17 @@ function EditModal(props){
 
                             <Row className='justify-content-md-center'>
                                 <Col md='2'>
-                                    <Button style={{width: '80%'}} variant="primary" type="submit" >
-                                        編集
+                                    <Button style={{width: '80%'}} variant="primary" type="submit" disabled={loading}>
+                                        {
+                                            loading ?
+                                                <Spinner
+                                                    as="span"
+                                                    animation="border"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                /> : '編集'
+                                        }
                                     </Button>
                                 </Col>
                             </Row>

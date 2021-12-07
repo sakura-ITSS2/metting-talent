@@ -7,6 +7,7 @@ import './ListPost.scss';
 import default_post from '../../images/default-post.jpeg';
 import DetailModal from './DetailModal';
 import EditModal from './EditModal';
+import Loader from "react-loader-spinner";
 import {
     Container,
     Row,
@@ -14,7 +15,8 @@ import {
     Button,
     Modal,
     Form,
-    Image
+    Image,
+    Spinner
 } from "react-bootstrap";
 
 function ListPost() {
@@ -22,6 +24,8 @@ function ListPost() {
     const imageRef = useRef();
     const [listPost, setListPost] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [createLoading, setCreateLoading] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
     const [create, setCreate] = useState(false);
     const [detail, setDetail] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -36,9 +40,12 @@ function ListPost() {
     useEffect(() =>{
         const id = localStorage.getItem('id');
         async function fetchData() {
+            setIsLoading(true);
             const posts = await getListPosts(id);
             setListPost(posts);
-            setIsLoading(true);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 1000)
         }
         fetchData();
     },[])
@@ -53,6 +60,7 @@ function ListPost() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setCreateLoading(true);
         const id = localStorage.getItem('id');
         const formData = new FormData();
         if(!imgFile){
@@ -72,7 +80,7 @@ function ListPost() {
             setTitle('');
             setImgFile();
         }
-        
+        setCreateLoading(false);
     }
 
     const handleChangeTitle = (event) => {
@@ -110,10 +118,12 @@ function ListPost() {
     }
 
     const handleDelete = async (postId) => {
+        setDeleteLoading(true);
         await deletePost(postId);
         const id = localStorage.getItem('id');
         const posts = await getListPosts(id);
-            setListPost(posts);
+        setListPost(posts);
+        setDeleteLoading(false);
     }
 
     return(
@@ -123,24 +133,55 @@ function ListPost() {
                 <button className="btn btn-success createButton" type="button" onClick={() => setCreate(true)}>新しい投稿</button>
                 <div className="posts">
                     {
-                        isLoading && listPost.map(post =>{
-                            return(
-                                <div className="post">
-                                    <img className="defaultpost" src={post.image?post.image:default_post} onClick = {() => history.push('manager/listTalent/'+post.id)}/>
-                                    <div className="post-body">
-                                        <div className="title" style = {{cursor:'pointer'}} onClick = {() => history.push('manager/listTalent/'+post.id)}>{post.title}</div>
-                                        <div className="description">記述: {post.des}</div>
-                                        <div className="apply">Applied: {post.numberApplied}</div>
-                                        <div className="buttons">
-                                            <button className="btn seeButton" onClick={() =>handleShowDetail(post.id)}>もっと見せる</button>
-                                            <button className="btn editButton" onClick={() =>handleEdit(post.id)}>編集</button>
-                                            <button className="btn deleteButton" onClick={() =>handleDelete(post.id)}>削除</button>
-                                        </div>
+                        isLoading　?
+                        <Loader
+                            type="Oval"
+                            color="#00BFFF"
+                            height={100}
+                            width={100}
+                            style={{
+                                position: 'fixed',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)'
+                            }}
+                        />
+                        :
+                        listPost.length ?
+                            listPost.map(post =>{
+                                return(
+                                    <div className="post">
+                                        <img className="defaultpost" src={post.image?post.image:default_post} onClick = {() => history.push('manager/listTalent/'+post.id)}/>
+                                        <div className="post-body">
+                                            <div className="title" style = {{cursor:'pointer'}} onClick = {() => history.push('manager/listTalent/'+post.id)}>{post.title}</div>
+                                            <div className="description"><span className='text-bold'>記述:</span><p>{post.des}</p></div>
+                                            <div className="apply"><span className='text-bold'>適用数: </span><span>{post.numberApplied}</span></div>
+                                            <div className="buttons">
+                                                <button className="btn editButton" onClick={() =>handleEdit(post.id)}>編集</button>
+                                                <button className="btn seeButton" onClick={() =>handleShowDetail(post.id)}>もっと見せる</button>
+                                                <button className="btn deleteButton" disabled={deleteLoading} onClick={() => {
+                                                    if (window.confirm(`「${post.title}」が削除したいですか？`))
+                                                        handleDelete(post.id)
+                                                }}>{
+                                                    deleteLoading ?
+                                                        <Spinner
+                                                            as="span"
+                                                            animation="border"
+                                                            size="sm"
+                                                            role="status"
+                                                            aria-hidden="true"
+                                                        /> : '削除'
+                                                }</button>
+                                            </div>
 
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })
+                                )
+                            })
+                            :
+                            <h3 style={{
+                                margin: '20px 8%'
+                            }}>求人情報がまだありません。</h3>
                     }
                 </div>
             </div>
@@ -167,7 +208,10 @@ function ListPost() {
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
-                            <Col md='5' >
+                            <Col md='5' style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
                                 <Form.Text className="text-danger "　>
                                 {invalidImage
                                     ? 'イメージをアップロードしてください'
@@ -177,7 +221,7 @@ function ListPost() {
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col md='3' className='profile-card__avatar-change'>
-                                    <Form.Group controlId="avatar" className="mb-3">
+                                    <Form.Group controlId="avatar"className="mb-3">
                                         <Form.Control ref={imageRef} type="file" onChange={fileUploadHandle} hidden />
                                     </Form.Group>
                                     <span onClick={handleChangAvatar}>イメージを変更</span>
@@ -200,8 +244,17 @@ function ListPost() {
 
                             <Row className='justify-content-md-center'>
                                 <Col md='2'>
-                                    <Button style={{width: '80%'}} variant="primary" type="submit" >
-                                        作成
+                                    <Button style={{width: '80%'}} variant="primary" type="submit" disabled={createLoading} >
+                                        {
+                                            createLoading ?
+                                                <Spinner
+                                                    as="span"
+                                                    animation="border"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                /> : '作成'
+                                        }
                                     </Button>
                                 </Col>
                             </Row>

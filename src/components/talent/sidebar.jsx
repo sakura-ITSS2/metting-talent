@@ -81,7 +81,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                 <Menu iconShape="circle">
                     <MenuItem
                         style={{
-                            padding: "20px",
+                            padding: "20px 15px 20px 10px",
                             fontSize: 20,
                             letterSpacing: "1px",
                             overflow: "hidden",
@@ -91,7 +91,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         onClick={() => history.push('/talent/posts')}
                         className={history.location.pathname.includes('/talent/posts') ? 'isActive' : ''}
                     >
-                        <FaGem style={{fontSize: '20px'}} /> 投稿
+                        <FaGem style={{fontSize: '20px'}} /> 求人情報
                     </MenuItem>
                 </Menu>
             </SidebarContent>
