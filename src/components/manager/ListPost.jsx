@@ -185,7 +185,13 @@ function ListPost() {
                                             <span className="text-bold">
                                                 記述:
                                             </span>
-                                            <p>{post.des}</p>
+                                            <p
+                                                style={{
+                                                    whiteSpace: 'pre-wrap',
+                                                }}
+                                            >
+                                                {post.des}
+                                            </p>
                                         </div>
                                         <div className="apply">
                                             <span className="text-bold">
@@ -208,7 +214,7 @@ function ListPost() {
                                                     handleShowDetail(post.id)
                                                 }
                                             >
-                                                もっと見せる
+                                                もっと見る
                                             </button>
                                             <button
                                                 className="btn deleteButton"
