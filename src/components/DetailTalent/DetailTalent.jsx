@@ -8,6 +8,7 @@ import DatePicker from 'react-date-picker';
 import TimePicker from 'react-time-picker';
 import {useHistory} from "react-router-dom";
 import Header from '../Header/Header';
+import {BiArrowBack} from 'react-icons/bi'
 
 export const DetailTalent = (props) => {
     const [user, setUser] = useState({})
@@ -79,6 +80,11 @@ export const DetailTalent = (props) => {
         <div className='detail-talent-profile'>
             <Header />
             <Row className='justify-content-md-center' style={{height: '100%', verticalAlign: 'center'}}>
+                <Col style={{marginTop:90}} lg='1'>
+                    <Row onClick={() => history.goBack()}>
+                        <BiArrowBack style={{fontSize:50}}/>
+                    </Row>
+                </Col>
                 <Col lg='8' className='profile'>
                     <Row className='profile-card'>
                         <hr />

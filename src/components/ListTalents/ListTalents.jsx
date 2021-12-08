@@ -62,7 +62,6 @@ function ListTalents(props) {
                                                 pathname: `detail-talent/${talent.id_talent}`,
                                                 idPost: id,
                                             }}
-                                            target='_blank'
                                             className="profile"
                                             params={{ idPost: id }}
                                         >
@@ -94,7 +93,6 @@ function ListTalents(props) {
                                             }}
                                             className={`status--${talent.status}`}
                                             params={{ idPost: id }}
-                                            target='_blank'
                                         >
                                             {talent.status === 'accept'
                                                 ? STATUS_ACCEPT
