@@ -159,19 +159,10 @@ function ListPost() {
                                             <div className="buttons">
                                                 <button className="btn editButton" onClick={() =>handleEdit(post.id)}>編集</button>
                                                 <button className="btn seeButton" onClick={() =>handleShowDetail(post.id)}>もっと見せる</button>
-                                                <button className="btn deleteButton" disabled={deleteLoading} onClick={() => {
+                                                <button className="btn deleteButton" onClick={() => {
                                                     if (window.confirm(`「${post.title}」が削除したいですか？`))
                                                         handleDelete(post.id)
-                                                }}>{
-                                                    deleteLoading ?
-                                                        <Spinner
-                                                            as="span"
-                                                            animation="border"
-                                                            size="sm"
-                                                            role="status"
-                                                            aria-hidden="true"
-                                                        /> : '削除'
-                                                }</button>
+                                                }}>削除</button>
                                             </div>
 
                                         </div>

@@ -81,7 +81,7 @@ export const DetailTalent = (props) => {
             <Header />
             <Row className='justify-content-md-center' style={{height: '100%', verticalAlign: 'center'}}>
                 <Col style={{marginTop:90}} lg='1'>
-                    <Row onClick={() => history.goBack()}>
+                    <Row style={{cursor: 'pointer'}} onClick={() => history.goBack()}>
                         <BiArrowBack style={{fontSize:50}}/>
                     </Row>
                 </Col>
@@ -143,7 +143,8 @@ export const DetailTalent = (props) => {
                             </Modal.Footer>
                         </Modal>
                     </div>
-                    </Col>
+                </Col>
+                <Col lg='1' />
             </Row>
         </div>
     )
