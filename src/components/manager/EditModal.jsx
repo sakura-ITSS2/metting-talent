@@ -66,68 +66,96 @@ function EditModal(props){
         setLoading(false);
     }
 
-    return(
+    return (
         <Modal
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                show={props.show}
-                centered
-                onHide={props.handleCloseEditModal}
-                scrollable
-                className='modal'
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        投稿編集
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Container>
-                        <Form onSubmit={handleSubmit}>
-                            <Row className="justify-content-md-center">
-                                <Col md='3' className='profile-card__avatar'>
-                                    <Image src={post?.image? post.image : ""} rounded />
-                                </Col>
-                            </Row>
-                            <Row className="justify-content-md-center">
-                                <Col md='3' className='profile-card__avatar-change'>
-                                    <Form.Group controlId="avatar" className="mb-3">
-                                        <Form.Control ref={imageRef} type="file" onChange={fileUploadHandle} hidden />
-                                    </Form.Group>
-                                    <span onClick={handleChangeImage}>イメージを変更</span>
-                                </Col>
-                            </Row>
-                            <Form.Group className="mb-3" controlId="title">
-                                <Form.Label>タイトル</Form.Label>
-                                <Form.Control type="text" value={post?.title} onChange={handleChangeTitle} placeholder="タイトルを入力します" />
-                            </Form.Group>
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            show={props.show}
+            centered
+            onHide={props.handleCloseEditModal}
+            scrollable
+            className="modal"
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    投稿編集
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Container>
+                    <Form onSubmit={handleSubmit}>
+                        <Row className="justify-content-md-center">
+                            <Col md="3" className="profile-card__avatar">
+                                <Image
+                                    src={post?.image ? post.image : ''}
+                                    rounded
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-md-center">
+                            <Col md="3" className="profile-card__avatar-change">
+                                <Form.Group controlId="avatar" className="mb-3">
+                                    <Form.Control
+                                        ref={imageRef}
+                                        type="file"
+                                        onChange={fileUploadHandle}
+                                        hidden
+                                    />
+                                </Form.Group>
+                                <span onClick={handleChangeImage}>
+                                    イメージを変更
+                                </span>
+                            </Col>
+                        </Row>
+                        <Form.Group className="mb-3" controlId="title">
+                            <Form.Label>タイトル</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={post?.title}
+                                onChange={handleChangeTitle}
+                                placeholder="タイトルを入力します"
+                            />
+                        </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="description">
-                                <Form.Label>説明</Form.Label>
-                                <Form.Control type="text" value={post?.des} onChange={handleChangeDescription} placeholder="説明を入力します" />
-                            </Form.Group>
+                        <Form.Group className="mb-3" controlId="description">
+                            <Form.Label>説明</Form.Label>
+                            <Form.Control
+                                type="text"
+                                as="textarea"
+                                rows={5}
+                                value={post?.des}
+                                onChange={handleChangeDescription}
+                                placeholder="説明を入力します"
+                            />
+                        </Form.Group>
 
-                            <Row className='justify-content-md-center'>
-                                <Col md='2'>
-                                    <Button style={{width: '80%'}} variant="primary" type="submit" disabled={loading}>
-                                        {
-                                            loading ?
-                                                <Spinner
-                                                    as="span"
-                                                    animation="border"
-                                                    size="sm"
-                                                    role="status"
-                                                    aria-hidden="true"
-                                                /> : '編集'
-                                        }
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Form>
-                    </Container>
-                </Modal.Body>
-            </Modal>
-    )
+                        <Row className="justify-content-md-center">
+                            <Col md="2">
+                                <Button
+                                    style={{ width: '80%' }}
+                                    variant="primary"
+                                    type="submit"
+                                    disabled={loading}
+                                >
+                                    {loading ? (
+                                        <Spinner
+                                            as="span"
+                                            animation="border"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                        />
+                                    ) : (
+                                        '編集'
+                                    )}
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Container>
+            </Modal.Body>
+        </Modal>
+    );
 }
 
 export default EditModal;
