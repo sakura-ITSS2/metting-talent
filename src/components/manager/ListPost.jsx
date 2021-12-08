@@ -126,14 +126,19 @@ function ListPost() {
         setDeleteLoading(false);
     }
 
-    return(
+    return (
         <div className="wrapper">
             <Header />
             <div className="listPost">
-                <button className="btn btn-success createButton" type="button" onClick={() => setCreate(true)}>新しい投稿</button>
+                <button
+                    className="btn btn-lg btn-success createButton"
+                    type="button"
+                    onClick={() => setCreate(true)}
+                >
+                    新しい投稿
+                </button>
                 <div className="posts">
-                    {
-                        isLoading　?
+                    {isLoading ? (
                         <Loader
                             type="Oval"
                             color="#00BFFF"
@@ -143,37 +148,95 @@ function ListPost() {
                                 position: 'fixed',
                                 top: '50%',
                                 left: '50%',
-                                transform: 'translate(-50%, -50%)'
+                                transform: 'translate(-50%, -50%)',
                             }}
                         />
-                        :
-                        listPost.length ?
-                            listPost.map(post =>{
-                                return(
-                                    <div className="post">
-                                        <img className="defaultpost" src={post.image?post.image:default_post} onClick = {() => history.push('manager/listTalent/'+post.id)}/>
-                                        <div className="post-body">
-                                            <div className="title" style = {{cursor:'pointer'}} onClick = {() => history.push('manager/listTalent/'+post.id)}>{post.title}</div>
-                                            <div className="description"><span className='text-bold'>記述:</span><p>{post.des}</p></div>
-                                            <div className="apply"><span className='text-bold'>適用数: </span><span>{post.numberApplied}</span></div>
-                                            <div className="buttons">
-                                                <button className="btn editButton" onClick={() =>handleEdit(post.id)}>編集</button>
-                                                <button className="btn seeButton" onClick={() =>handleShowDetail(post.id)}>もっと見せる</button>
-                                                <button className="btn deleteButton" onClick={() => {
-                                                    if (window.confirm(`「${post.title}」が削除したいですか？`))
-                                                        handleDelete(post.id)
-                                                }}>削除</button>
-                                            </div>
-
+                    ) : listPost.length ? (
+                        listPost.map((post) => {
+                            return (
+                                <div className="post">
+                                    <img
+                                        className="defaultpost"
+                                        src={
+                                            post.image
+                                                ? post.image
+                                                : default_post
+                                        }
+                                        onClick={() =>
+                                            history.push(
+                                                'manager/listTalent/' + post.id
+                                            )
+                                        }
+                                    />
+                                    <div className="post-body">
+                                        <div
+                                            className="title"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() =>
+                                                history.push(
+                                                    'manager/listTalent/' +
+                                                        post.id
+                                                )
+                                            }
+                                        >
+                                            {post.title}
+                                        </div>
+                                        <div className="description">
+                                            <span className="text-bold">
+                                                記述:
+                                            </span>
+                                            <p>{post.des}</p>
+                                        </div>
+                                        <div className="apply">
+                                            <span className="text-bold">
+                                                適用数:{' '}
+                                            </span>
+                                            <span>{post.numberApplied}</span>
+                                        </div>
+                                        <div className="buttons">
+                                            <button
+                                                className="btn editButton"
+                                                onClick={() =>
+                                                    handleEdit(post.id)
+                                                }
+                                            >
+                                                編集
+                                            </button>
+                                            <button
+                                                className="btn seeButton"
+                                                onClick={() =>
+                                                    handleShowDetail(post.id)
+                                                }
+                                            >
+                                                もっと見せる
+                                            </button>
+                                            <button
+                                                className="btn deleteButton"
+                                                onClick={() => {
+                                                    if (
+                                                        window.confirm(
+                                                            `「${post.title}」が削除したいですか？`
+                                                        )
+                                                    )
+                                                        handleDelete(post.id);
+                                                }}
+                                            >
+                                                削除
+                                            </button>
                                         </div>
                                     </div>
-                                )
-                            })
-                            :
-                            <h3 style={{
-                                margin: '20px 8%'
-                            }}>求人情報がまだありません。</h3>
-                    }
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <h3
+                            style={{
+                                margin: '20px 8%',
+                            }}
+                        >
+                            求人情報をまだ投稿していません。タレント志望者を見つけるために、新しい投稿を作成してください。
+                        </h3>
+                    )}
                 </div>
             </div>
             <Modal
@@ -183,7 +246,7 @@ function ListPost() {
                 centered
                 onHide={handleCloseModal}
                 scrollable
-                className='modal'
+                className="modal"
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -194,58 +257,95 @@ function ListPost() {
                     <Container>
                         <Form onSubmit={handleSubmit}>
                             <Row className="justify-content-md-center">
-                                <Col md='3' className='profile-card__avatar'>
+                                <Col md="3" className="profile-card__avatar">
                                     <Image src={avatar} rounded />
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
-                            <Col md='5' style={{
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>
-                                <Form.Text className="text-danger "　>
-                                {invalidImage
-                                    ? 'イメージをアップロードしてください'
-                                    : ''}
-                                </Form.Text>
+                                <Col
+                                    md="5"
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <Form.Text className="text-danger ">
+                                        {invalidImage
+                                            ? 'イメージをアップロードしてください'
+                                            : ''}
+                                    </Form.Text>
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
-                                <Col md='3' className='profile-card__avatar-change'>
-                                    <Form.Group controlId="avatar"className="mb-3">
-                                        <Form.Control ref={imageRef} type="file" onChange={fileUploadHandle} hidden />
+                                <Col
+                                    md="3"
+                                    className="profile-card__avatar-change"
+                                >
+                                    <Form.Group
+                                        controlId="avatar"
+                                        className="mb-3"
+                                    >
+                                        <Form.Control
+                                            ref={imageRef}
+                                            type="file"
+                                            onChange={fileUploadHandle}
+                                            hidden
+                                        />
                                     </Form.Group>
-                                    <span onClick={handleChangAvatar}>イメージを変更</span>
+                                    <span onClick={handleChangAvatar}>
+                                        イメージを変更
+                                    </span>
                                 </Col>
                             </Row>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>タイトル</Form.Label>
-                                <Form.Control type="text" value={title} onChange={handleChangeTitle} placeholder="タイトルを入力します" />
-                                <Form.Text className="text-danger"　>
-                                {invalidTitle
-                                    ? 'タイトルを入力してください'
-                                    : ''}
+                                <Form.Control
+                                    type="text"
+                                    value={title}
+                                    onChange={handleChangeTitle}
+                                    placeholder="タイトルを入力します"
+                                />
+                                <Form.Text className="text-danger">
+                                    {invalidTitle
+                                        ? 'タイトルを入力してください'
+                                        : ''}
                                 </Form.Text>
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="description">
+                            <Form.Group
+                                className="mb-3"
+                                controlId="description"
+                            >
                                 <Form.Label>説明</Form.Label>
-                                <Form.Control type="text" value={description} onChange={handleChangeDescription} placeholder="説明を入力します" />
+                                <Form.Control
+                                    type="text"
+                                    as="textarea"
+                                    rows={5}
+                                    value={description}
+                                    onChange={handleChangeDescription}
+                                    placeholder="説明を入力します"
+                                />
                             </Form.Group>
 
-                            <Row className='justify-content-md-center'>
-                                <Col md='2'>
-                                    <Button style={{width: '80%'}} variant="primary" type="submit" disabled={createLoading} >
-                                        {
-                                            createLoading ?
-                                                <Spinner
-                                                    as="span"
-                                                    animation="border"
-                                                    size="sm"
-                                                    role="status"
-                                                    aria-hidden="true"
-                                                /> : '作成'
-                                        }
+                            <Row className="justify-content-md-center">
+                                <Col md="2">
+                                    <Button
+                                        style={{ width: '80%' }}
+                                        variant="primary"
+                                        type="submit"
+                                        disabled={createLoading}
+                                    >
+                                        {createLoading ? (
+                                            <Spinner
+                                                as="span"
+                                                animation="border"
+                                                size="sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            />
+                                        ) : (
+                                            '作成'
+                                        )}
                                     </Button>
                                 </Col>
                             </Row>
@@ -253,11 +353,19 @@ function ListPost() {
                     </Container>
                 </Modal.Body>
             </Modal>
-            <DetailModal detail = {detail} id = {currentPost} handleCloseDetailModal = {handleCloseDetailModal} />
-            <EditModal show = {edit} id = {currentPost} handleCloseEditModal = {handleCloseEditModal} setListPost = {setListPost}/>
+            <DetailModal
+                detail={detail}
+                id={currentPost}
+                handleCloseDetailModal={handleCloseDetailModal}
+            />
+            <EditModal
+                show={edit}
+                id={currentPost}
+                handleCloseEditModal={handleCloseEditModal}
+                setListPost={setListPost}
+            />
         </div>
-
-    )
+    );
 }
 
 export default ListPost;
