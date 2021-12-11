@@ -98,7 +98,7 @@ function SignUp() {
                     <br />
                     <Link to="/login">ここからログインしてください。</Link>
                 </div>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="email">
                         <Form.Label>メールアドレス</Form.Label>
                         <Form.Control
@@ -173,9 +173,10 @@ function SignUp() {
                         </div>
                     )}
                     <Button
+                        type='submit'
                         variant="primary"
                         className="rounded-pill w-100"
-                        onClick={handleSubmit}
+                        // onClick={handleSubmit}
                         disabled={
                             user.pass !== user.rePass ||
                             invalidEmail ||

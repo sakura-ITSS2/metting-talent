@@ -76,7 +76,7 @@ function Login() {
                     <br />
                     <Link to="/signup">ここから登録してください。</Link>
                 </div>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="email">
                         <Form.Label>メールアドレス</Form.Label>
                         <Form.Control
@@ -105,9 +105,10 @@ function Login() {
                         </div>
                     )}
                     <Button
+                        type='submit'
                         variant="primary"
                         className="rounded-pill w-100 mt-5"
-                        onClick={handleSubmit}
+                        // onClick={handleSubmit}
                         disabled={invalidEmail ? true : false}
                     >
                         ログイン
