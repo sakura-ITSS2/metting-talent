@@ -23,6 +23,7 @@ export const updateProfile = async (data) => {
         const listUser = userSnapshot.docs.map(doc => doc.data());
         let listTalent = [...listUser[1].Data];
 
+
         listTalent = listTalent.map(user => {
             return localStorage.getItem('id') === user.id ?
             {
@@ -32,11 +33,15 @@ export const updateProfile = async (data) => {
                 advantage: data.advantage,
                 disAdvantage: data.disAdvantage,
                 phone: data.phone,
-                hobby: data.hobby
+                hobby: data.hobby,
+                height: data.height,
+                weight: data.weight
             }
             :
             user
         })
+
+        console.log(listTalent);
 
         const talentRef = doc(db, 'User/Talent');
         await updateDoc(talentRef, "Data", listTalent);
@@ -51,6 +56,7 @@ export const updateProfile = async (data) => {
         });
         return true;
     }catch(err){
+        console.log(err);
         return false;
     }
 }

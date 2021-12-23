@@ -4,6 +4,7 @@ import { collection, getDocs, updateDoc, doc } from 'firebase/firestore/lite';
 export const checkAuth = async (email, pass, role) => {
     try{
         const userSnapshot = await getDocs(collection(db, 'User'));
+        console.log(email, pass);
         const listUser = userSnapshot.docs.map(doc => doc.data());
 
         let checkManager = listUser[0].Data.filter(user => user.email===email && user.pass === pass);

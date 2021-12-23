@@ -27,19 +27,30 @@
                 padding-top: 3%;
 
                 .row {
-                    height: 60px;
+                    min-height: 60px;
                     font-size: 20px;
                 }
                 .col-3 {
                     width: 30%;
                 }
                 .col-8 {
-                    line-height: 1.5em;
-                    height: 1.5em;
+                    // line-height: 1.5em;
+                    // min-height: 1.5em;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     color: gray;
+                }
+
+                &-skill {
+                    > div {
+                        > p {
+                            border-radius: 10px;
+                            border: 1px solid gray;
+                            text-align: center;
+                            padding: 1px 5px;
+                        }
+                    }
                 }
             }
         }

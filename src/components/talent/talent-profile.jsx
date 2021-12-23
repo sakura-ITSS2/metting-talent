@@ -11,6 +11,7 @@ import {
     Form,
     Spinner
 } from "react-bootstrap";
+import Select from 'react-select'
 
 import {
     FaEdit
@@ -18,6 +19,7 @@ import {
 
 import './talent-profile.scss'
 import DefaultAvatar from './default-avatar.png'
+import {SKILLS} from '../../utils/constants'
 
 const TalentProfile = ({profile}) => {
     const [edit, setEdit] = useState(false)
@@ -33,10 +35,6 @@ const TalentProfile = ({profile}) => {
             value: user.name
         },
         {
-            name: 'スキル',
-            value: user.skill
-        },
-        {
             name: '長所',
             value: user.advantage
         },
@@ -49,11 +47,28 @@ const TalentProfile = ({profile}) => {
             value: user.hobby
         },
         {
+            name: 'スキル',
+            value: user.skills
+        },
+        {
+            name: '年齢',
+            value: user.age
+        },
+        {
+            name: '身長',
+            value: user.height
+        },
+        {
+            name: '体重',
+            value: user.weight
+        },
+        {
             name: '電話番号',
             value: user.phone
         }
     ]
     const imageRef = useRef();
+    const cvRef = useRef();
     const [imageAvatar, setImageAvatar] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({
@@ -69,7 +84,11 @@ const TalentProfile = ({profile}) => {
             advantage: profile.advantage,
             disAdvantage: profile.disAdvantage,
             phone: profile.phone,
-            hobby: profile.hobby
+            hobby: profile.hobby,
+            height: profile.height,
+            weight: profile.weight,
+            skills: profile.skills,
+            age: profile.age
         })
     }, [profile])
 
@@ -88,6 +107,13 @@ const TalentProfile = ({profile}) => {
         setUserEdit({
             ...userEdit,
             [event.target.id]: event.target.value
+        })
+    }
+
+    const handleChangeSkills = (e) => {
+        setUserEdit({
+            ...userEdit,
+            skills: e
         })
     }
 
@@ -118,7 +144,8 @@ const TalentProfile = ({profile}) => {
             });
             setUser({...userEdit, avatar: image.data.url})
         } else {
-            await updateProfile(userEdit);
+            const a = await updateProfile(userEdit);
+            console.log(a);
             setUser({...userEdit})
         }
         setLoading(false);
@@ -140,13 +167,51 @@ const TalentProfile = ({profile}) => {
                         </Col>
                         <Col md='8' className='profile-card__info'>
                             {
-                                userShow.map(user => (
-                                    <Row>
-                                        <Col xs='3'>{user.name}</Col>
-                                        <Col xs='8'>{user.value ? user.value : '未登録'}</Col>
-                                    </Row>
-                                ))
+                                userShow.map(user => {
+                                    if (user.name != 'スキル')
+                                        return (
+                                            <Row>
+                                                <Col xs='3'>{user.name}</Col>
+                                                <Col xs='8'>{user.value ? user.value : '未登録'}</Col>
+                                            </Row>
+                                        )
+                                    else {
+                                        return (
+                                            <Row>
+                                                <Col xs='3'>{user.name}</Col>
+                                                <Col xs='8'>
+
+                                                        {
+                                                            user.value && user.value.length ?
+                                                                (
+                                                                    <Row className='profile-card__info-skill'>
+                                                                        {
+                                                                            user.value.map(item => (
+                                                                                <Col><p>{item.label}</p></Col>
+                                                                            ))
+                                                                        }
+                                                                    </Row>
+                                                                )
+                                                                :
+                                                                '未登録'
+                                                        }
+                                                </Col>
+                                            </Row>
+                                        )
+                                    }
+                                })
                             }
+                            <Row
+                                style={{
+                                    textAlign: 'right',
+                                    justifyContent: 'right'
+                                }}
+                            >
+                                <Col md='5'>
+                                    <input type="file" ref={cvRef} hidden />
+                                    <Button onClick={() => cvRef.current.click()} >Upload CV</Button>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Col>
@@ -194,12 +259,6 @@ const TalentProfile = ({profile}) => {
                                 <Form.Label>ユーザ名</Form.Label>
                                 <Form.Control type="text" value={userEdit.name} onChange={handleChangeInput} placeholder="ユーザ名を入力します" />
                             </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="skill">
-                                <Form.Label>スキル</Form.Label>
-                                <Form.Control type="text" value={userEdit.skill} onChange={handleChangeInput} placeholder="スキルを入力します" />
-                            </Form.Group>
-
                             <Form.Group className="mb-3" controlId="advantage">
                                 <Form.Label>長所</Form.Label>
                                 <Form.Control type="text" value={userEdit.advantage} onChange={handleChangeInput} placeholder="長所を入力します" />
@@ -214,7 +273,42 @@ const TalentProfile = ({profile}) => {
                                 <Form.Label>趣味</Form.Label>
                                 <Form.Control type="text" value={userEdit.hobby} onChange={handleChangeInput} placeholder="趣味を入力します" />
                             </Form.Group>
-
+                            <Form.Group className="mb-3">
+                                <Form.Label>スキル</Form.Label>
+                                <Select
+                                    value={userEdit.skills}
+                                    onChange={handleChangeSkills}
+                                    closeMenuOnSelect={false}
+                                    isMulti
+                                    name="colors"
+                                    options={SKILLS}
+                                    placeholder='スキルを洗濯します'
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                    disabled
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="age">
+                                <Form.Label>年齢</Form.Label>
+                                <Form.Control type="number" required min={0} value={userEdit.age} onChange={handleChangeInput} placeholder="年齢を入力します" isInvalid={!!error.age} />
+                                <Form.Control.Feedback type="invalid">
+                                    {error.age}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="height">
+                                <Form.Label>身長(cm)</Form.Label>
+                                <Form.Control type="number" required min={0} value={userEdit.height} onChange={handleChangeInput} placeholder="身長を入力します" isInvalid={!!error.height} />
+                                <Form.Control.Feedback type="invalid">
+                                    {error.height}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="weight">
+                                <Form.Label>体重(kg)</Form.Label>
+                                <Form.Control type="number" required min={0} value={userEdit.weight} onChange={handleChangeInput} placeholder="体重を入力します" isInvalid={!!error.weight} />
+                                <Form.Control.Feedback type="invalid">
+                                    {error.weight}
+                                </Form.Control.Feedback>
+                            </Form.Group>
                             <Form.Group className="mb-3" controlId="phone">
                                 <Form.Label>電話番号</Form.Label>
                                 <Form.Control type="text" value={userEdit.phone} onChange={handleChangeInput} placeholder="電話番号を入力します" isInvalid={!!error.phone} />
