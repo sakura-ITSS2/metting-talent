@@ -145,7 +145,6 @@ const TalentProfile = ({profile}) => {
             setUser({...userEdit, avatar: image.data.url})
         } else {
             const a = await updateProfile(userEdit);
-            console.log(a);
             setUser({...userEdit})
         }
         setLoading(false);

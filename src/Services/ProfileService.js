@@ -29,13 +29,14 @@ export const updateProfile = async (data) => {
             {
                 ...user,
                 avt: data.avatar,
-                skill: data.skill,
-                advantage: data.advantage,
-                disAdvantage: data.disAdvantage,
-                phone: data.phone,
-                hobby: data.hobby,
+                skills: data.skills ? data.skills : '',
+                advantage: data.advantage ? data.advantage : '',
+                disAdvantage: data.disAdvantage ? data.disAdvantage : '',
+                phone: data.phone ? data.phone : '',
+                hobby: data.hobby ? data.hobby : '',
                 height: data.height,
-                weight: data.weight
+                weight: data.weight,
+                age: data.age
             }
             :
             user
