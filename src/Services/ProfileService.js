@@ -1,7 +1,8 @@
-import {db} from '../utils/firebase'
+import { db, storage } from '../utils/firebase'
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore/lite';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 export const getProfile = async (id, role) => {
     try{
@@ -36,7 +37,9 @@ export const updateProfile = async (data) => {
                 hobby: data.hobby ? data.hobby : '',
                 height: data.height,
                 weight: data.weight,
-                age: data.age
+                age: data.age,
+                cv: data.cv,
+                cvURL: data.cvURL
             }
             :
             user
@@ -71,4 +74,21 @@ export const uploadAvatar = async (formData) => {
         .then(res => data = res.data);
 
     return data;
+}
+
+export const uploadCv = async (formData) => {
+    try {
+        if(formData == null) {
+            return "hihi";
+        }
+        let id = localStorage.getItem('id');
+        
+        const cvRef =  ref(storage, `/${id}/${formData.name}`);
+    
+        await uploadBytes (cvRef, formData);
+    
+        return getDownloadURL(cvRef);
+    } catch (err) {
+        return err;
+    }
 }
