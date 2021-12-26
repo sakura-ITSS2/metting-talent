@@ -38,14 +38,12 @@ export const updateProfile = async (data) => {
                 height: data.height,
                 weight: data.weight,
                 age: data.age,
-                cv: data.cv,
-                cvURL: data.cvURL
+                cv: data.cv ? data.cv : '',
+                cvURL: data.cvURL ? data.cvURL : ''
             }
             :
             user
         })
-
-        console.log(listTalent);
 
         const talentRef = doc(db, 'User/Talent');
         await updateDoc(talentRef, "Data", listTalent);
