@@ -20,6 +20,7 @@ import {
 import './talent-profile.scss'
 import DefaultAvatar from './default-avatar.png'
 import {SKILLS} from '../../utils/constants'
+import { uploadCv } from '../../Services/ProfileService';
 
 const TalentProfile = ({profile}) => {
     const [edit, setEdit] = useState(false)
@@ -65,6 +66,11 @@ const TalentProfile = ({profile}) => {
         {
             name: '電話番号',
             value: user.phone
+        },
+        {
+            name: 'CV',
+            value: user.cv,
+            url: user.cvURL
         }
     ]
     const imageRef = useRef();
@@ -74,6 +80,13 @@ const TalentProfile = ({profile}) => {
     const [error, setError] = useState({
         phone: null
     })
+    
+
+    const handleUploadCv = async (e) => {
+        let cvURL = await uploadCv(e.target.files[0]);
+        await updateProfile({...user, cv :e.target.files[0].name, cvURL});
+        setUser({...user, cv :e.target.files[0].name, cvURL});
+    }
 
     useEffect(() => {
         setUser({
@@ -88,7 +101,9 @@ const TalentProfile = ({profile}) => {
             height: profile.height,
             weight: profile.weight,
             skills: profile.skills,
-            age: profile.age
+            age: profile.age,
+            cv: profile.cv,
+            cvURL: profile.cvURL
         })
     }, [profile])
 
@@ -167,11 +182,22 @@ const TalentProfile = ({profile}) => {
                         <Col md='8' className='profile-card__info'>
                             {
                                 userShow.map(user => {
-                                    if (user.name != 'スキル')
+                                    if (user.name != 'スキル' && user.name != 'CV')
                                         return (
                                             <Row>
                                                 <Col xs='3'>{user.name}</Col>
                                                 <Col xs='8'>{user.value ? user.value : '未登録'}</Col>
+                                            </Row>
+                                        )
+                                    else if (user.name === 'CV')
+                                        return (
+                                            <Row>
+                                                <Col xs='3'>{user.name}</Col>
+                                                {
+                                                    user.url ?
+                                                    <Col xs='8' ><a href = {user.url} target="_blank">{user.value}</a></Col>:
+                                                    <Col xs='8'>{'未登録'}</Col>
+                                                }
                                             </Row>
                                         )
                                     else {
@@ -207,8 +233,8 @@ const TalentProfile = ({profile}) => {
                                 }}
                             >
                                 <Col md='5'>
-                                    <input type="file" ref={cvRef} hidden />
-                                    <Button onClick={() => cvRef.current.click()} >Upload CV</Button>
+                                    <input type="file" ref={cvRef} onChange={(e)=>handleUploadCv(e)} hidden />
+                                    <Button onClick= {() =>cvRef.current.click()} >Upload CV</Button>
                                 </Col>
                             </Row>
                         </Col>
