@@ -80,7 +80,6 @@ const TalentProfile = ({profile}) => {
     const [error, setError] = useState({
         phone: null
     })
-    
 
     const handleUploadCv = async (e) => {
         let cvURL = await uploadCv(e.target.files[0]);
@@ -103,8 +102,32 @@ const TalentProfile = ({profile}) => {
             skills: profile.skills,
             age: profile.age,
             cv: profile.cv,
-            cvURL: profile.cvURL
+            cvURL: profile.cvURL,
+            completed: !!profile.completed
         })
+
+        if (Object.keys(profile).length && !profile.completed) {
+            setEdit(true);
+            setUserEdit({
+                email: profile.email,
+                name: profile.name,
+                avatar: profile.avt ? profile.avt : DefaultAvatar,
+                skill: profile.skill,
+                advantage: profile.advantage,
+                disAdvantage: profile.disAdvantage,
+                phone: profile.phone,
+                hobby: profile.hobby,
+                height: profile.height,
+                weight: profile.weight,
+                skills: profile.skills,
+                age: profile.age,
+                cv: profile.cv,
+                cvURL: profile.cvURL,
+                completed: !!profile.completed
+            })
+        } else {
+            setEdit(false);
+        }
     }, [profile])
 
     const handleCloseModal = () => {
@@ -155,12 +178,13 @@ const TalentProfile = ({profile}) => {
             const image = await uploadAvatar(formData);
             await updateProfile({
                 ...userEdit,
-                avatar: image.data.url
+                avatar: image.data.url,
+                completed: true
             });
-            setUser({...userEdit, avatar: image.data.url})
+            setUser({...userEdit, avatar: image.data.url, completed: true})
         } else {
-            const a = await updateProfile(userEdit);
-            setUser({...userEdit})
+            await updateProfile({...userEdit, completed: true});
+            setUser({...userEdit, completed: true})
         }
         setLoading(false);
         handleCloseModal();
@@ -247,11 +271,11 @@ const TalentProfile = ({profile}) => {
                 aria-labelledby="contained-modal-title-vcenter"
                 show={edit}
                 centered
-                onHide={handleCloseModal}
+                onHide={userEdit.completed ? handleCloseModal : null}
                 scrollable
                 className='modal'
             >
-                <Modal.Header closeButton>
+                <Modal.Header closeButton={userEdit.completed}>
                     <Modal.Title id="contained-modal-title-vcenter">
                         情報編集
                     </Modal.Title>

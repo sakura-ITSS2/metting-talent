@@ -9,6 +9,7 @@ import {
     DropdownButton
 } from "react-bootstrap";
 import { useState, useEffect } from 'react';
+import {useHistory} from "react-router-dom";
 import { getAllPost, sendRequestPost } from '../../Services/TalentPostService';
 import Loader from "react-loader-spinner";
 import DefaultPost from './default-post.jpeg'
@@ -126,6 +127,7 @@ function TalentPost({ profile }) {
     const [dataDetail, setDataDetail] = useState({});
     const [loading, setLoading] = useState(false);
     const [filter, setFilter] = useState('all');
+    const history = useHistory();
 
     useEffect(() => {
         async function fetchData() {
@@ -138,6 +140,11 @@ function TalentPost({ profile }) {
             }, 1500);
         }
 
+        console.log(profile);
+        if (Object.keys(profile).length && !profile.completed) {
+            alert('プロフィルを完成してください。');
+            history.push('/')
+        }
         fetchData();
     }, [profile]);
 

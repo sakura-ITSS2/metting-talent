@@ -39,7 +39,8 @@ export const updateProfile = async (data) => {
                 weight: data.weight,
                 age: data.age,
                 cv: data.cv ? data.cv : '',
-                cvURL: data.cvURL ? data.cvURL : ''
+                cvURL: data.cvURL ? data.cvURL : '',
+                completed: data.completed ? data.completed : ''
             }
             :
             user
@@ -80,11 +81,11 @@ export const uploadCv = async (formData) => {
             return "hihi";
         }
         let id = localStorage.getItem('id');
-        
+
         const cvRef =  ref(storage, `/${id}/${formData.name}`);
-    
+
         await uploadBytes (cvRef, formData);
-    
+
         return getDownloadURL(cvRef);
     } catch (err) {
         return err;
