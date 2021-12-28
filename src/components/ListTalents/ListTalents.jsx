@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Image } from 'react-bootstrap';
+import { Image, Button, Modal, Form } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import defaultAvatar from '../../images/default-avatar.png';
-import { getListTalents, getPostTitle } from '../../Services/PostService';
+import {getListTalents, getPostTitle, reviewTalent} from '../../Services/PostService';
 import {
     STATUS_ACCEPT,
     STATUS_DECLINE,
     STATUS_PENDING,
+    STATUS_REVIEW,
 } from '../../utils/constants';
 import Header from '../Header/Header';
 import './ListTalents.scss';
@@ -16,7 +17,34 @@ function ListTalents() {
     const [listTalents, setListTalents] = useState([]);
     const [postTitle, setPostTitle] = useState('');
     const [loading, setLoading] = useState(false);
+    const [show, setShow] = useState(false);
+    const [showReview, setShowReview] = useState(false);
+    const [score, setScore] = useState(0);
+    const [scoreReview, setScoreReview] = useState(0);
+    const [review, setReview] = useState('');
+    const [reviewReview, setReviewReview] = useState('');
+    const [idTalent, setIdTalent] = useState();
     const { id } = useParams();
+
+    const handleAcceptModal = () => {
+        reviewTalent(id, idTalent, score, review ).then(
+            () => {
+                window.location.reload()
+                setShow(false)
+            }
+        )
+    }
+
+    const handleOpenModal = (id) => {
+        setIdTalent(id)
+        setShow(true)
+    }
+
+    const handleOpenModalReview = (score, review) => {
+        setScoreReview(score)
+        setReviewReview(review)
+        setShowReview(true)
+    }
 
     useEffect(() => {
         const fetchlistTalents = async (id) => {
@@ -90,6 +118,20 @@ function ListTalents() {
                                         <p>日時：{talent.time}</p>
                                     </div>
                                 )}
+                                {
+                                    talent?.status === 'review'
+                                        ?<div>スコア: {talent?.score}</div> : null
+                                }
+                                {
+                                    talent.status === 'accept'
+                                        ? <Button variant="primary" onClick={() => handleOpenModal(talent?.id_talent)}>評価</Button>
+                                        : talent.status === 'review'
+                                        ? <Button variant="primary"
+                                                  style={{height:34, width:130}}
+                                                  onClick={() => handleOpenModalReview(talent?.score, talent?.review)}
+                                        >評価を見る</Button>
+                                        : null
+                                }
                                 <Link
                                     to={{
                                         pathname: `detail-talent/${talent.id_talent}`,
@@ -102,6 +144,8 @@ function ListTalents() {
                                         ? STATUS_ACCEPT
                                         : talent.status === 'decline'
                                         ? STATUS_DECLINE
+                                        : talent.status === 'review'
+                                        ? STATUS_REVIEW
                                         : STATUS_PENDING}
                                 </Link>
                             </div>
@@ -111,6 +155,55 @@ function ListTalents() {
                     )}
                 </div>
             </div>
+
+            <Modal show={show} onHide={() => setShow(false)}>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>スコア</Form.Label>
+                            <Form.Control
+                                type="number"
+                                placeholder="Score"
+                                min={0}
+                                max={10}
+                                value={score}
+                                onChange={(e) => setScore(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>評価</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                value={review}
+                                onChange={(e) => setReview(e.target.value)}
+                            />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShow(false)}>
+                        キャンセル
+                    </Button>
+                    <Button variant="primary" onClick={() => handleAcceptModal()}>
+                        保存
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showReview} onHide={() => setShowReview(false)}>
+                <Modal.Header closeButton/>
+                <Modal.Body>
+                    スコア: {scoreReview}
+                    <br/>
+                    評価: {reviewReview}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowReview(false)}>
+                        キャンセル
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

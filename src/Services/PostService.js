@@ -42,7 +42,6 @@ export const getListTalents = async (id) => {
 export const acceptTalent = async (idPost, idTalent, type, time) => {
     try {
         if (idPost){
-            console.log('abc');
             let ref = doc(db, 'UserPost/Data');
             let postSnap = await getDoc(doc(db, 'UserPost', 'Data'));
             let listPosts = postSnap.data();
@@ -215,3 +214,28 @@ export const deletePost = async (id) => {
         return err;
     }
 }
+
+export const reviewTalent = async (idPost, idTalent, score, review) => {
+    try {
+        if (idPost){
+            let ref = doc(db, 'UserPost/Data');
+            let postSnap = await getDoc(doc(db, 'UserPost', 'Data'));
+            let listPosts = postSnap.data();
+            let found = listPosts[idPost].find(item => item?.id_talent === idTalent)
+            let index = listPosts[idPost].indexOf(found)
+            let dataReview = {...found,
+                score: score,
+                review: review,
+                status: 'review',
+            }
+            listPosts[idPost][index] = dataReview;
+            await updateDoc(ref, idPost, listPosts[idPost])
+            return true
+        }
+        return false
+    }catch (err) {
+        console.log(err);
+        return false
+    }
+}
+

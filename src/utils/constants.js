@@ -1,6 +1,7 @@
 export const STATUS_ACCEPT = '承認';
 export const STATUS_PENDING = 'ペンディング';
 export const STATUS_DECLINE = 'リジェクト';
+export const STATUS_REVIEW = '評価済';
 export const SKILLS = [
     { value: 1, label: '歌う' },
     { value: 2, label: 'ダンス' },
