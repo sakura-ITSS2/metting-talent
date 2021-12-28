@@ -80,6 +80,10 @@
           @extend .status;
           background-color: #f39c12;
         }
+        .status--review {
+          @extend .status;
+          background-color: green;
+        }
       }
     }
   }
