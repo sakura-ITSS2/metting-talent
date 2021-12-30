@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
-import ManagerHome from './components/ManagerHome';
 import SignUp from './components/Signup/Signup';
 import Talent from './pages/Talent';
 import ManagerRoute from './routes/ManagerRoute';
@@ -11,6 +10,8 @@ import TalentRoute from './routes/TalentRoute';
 import ListTalents from "./components/ListTalents/ListTalents";
 import {DetailTalent} from "./components/DetailTalent/DetailTalent";
 import ListPost from "./components/manager/ListPost";
+import Profile from "./components/manager/profile";
+import Management from "./components/manager/management";
 
 function App() {
     // window.onunload = function() {
@@ -39,6 +40,12 @@ function App() {
                     <ManagerRoute
                         path="/manager"
                         exact
+                        component={Profile}
+                    />
+
+                    <ManagerRoute
+                        path="/manager/listPost"
+                        exact
                         component={ListPost}
                     />
                     <ManagerRoute
@@ -50,6 +57,12 @@ function App() {
                         path="/manager/listTalent/detail-talent/:id"
                         exact
                         component={DetailTalent}
+                    />
+
+                    <ManagerRoute
+                        path="/manager/management"
+                        exact
+                        component={Management}
                     />
 
                     {/* Talent routes */}

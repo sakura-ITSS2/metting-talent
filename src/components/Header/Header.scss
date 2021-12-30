@@ -8,6 +8,7 @@ header {
     justify-content: center;
     box-shadow: 1px 1px 1px 1px rgba(116, 110, 110, 0.199);
     background: linear-gradient(0deg, rgba(28,112,147,1) 6%, rgba(34,193,195,1) 100%);
+    z-index: 100;
 }
 
 .logo {
@@ -28,8 +29,8 @@ header {
     background-color: #add8e6;
     font-size: 16px;
     margin-bottom: 17px;
-    border-style: solid; 
-    border-color: white; 
+    border-style: solid;
+    border-color: white;
     border-radius: 5px;
     border-width: 1px;
     width: 150px;
@@ -42,8 +43,8 @@ header {
     background-color: #add8e6;
     font-size: 16px;
     margin-bottom: 17px;
-    border-style: solid; 
-    border-color: white; 
+    border-style: solid;
+    border-color: white;
     border-radius: 5px;
     border-width: 1px;
     width: 150px;
@@ -56,8 +57,8 @@ header {
     background-color: #add8e6;
     font-size: 16px;
     margin-bottom: 17px;
-    border-style: solid; 
-    border-color: white; 
+    border-style: solid;
+    border-color: white;
     border-radius: 5px;
     border-width: 1px;
     width: 150px;

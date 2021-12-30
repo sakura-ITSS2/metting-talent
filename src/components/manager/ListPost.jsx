@@ -2,6 +2,7 @@ import {useState, useEffect, useRef} from 'react';
 import {getListPosts, createPost,  deletePost} from '../../Services/PostService';
 import {useHistory} from 'react-router-dom';
 import Header from '../Header/Header';
+import Sidebar from '../ManagerSidebar/sidebar'
 import { uploadAvatar } from '../../Services/ProfileService';
 import './ListPost.scss';
 import default_post from '../../images/default-post.jpeg';
@@ -127,124 +128,140 @@ function ListPost() {
     }
 
     return (
-        <div className="wrapper">
-            <Header />
-            <div className="listPost">
-                <button
-                    className="btn btn-lg btn-success createButton"
-                    type="button"
-                    onClick={() => setCreate(true)}
+        <Container fluid>
+            <Row style={{backgroundColor: '#E5E5E5'}}>
+                <Header />
+                <Col lg='2'
+                    style={{paddingLeft: '0'}}
                 >
-                    新しい投稿
-                </button>
-                <div className="posts">
-                    {isLoading ? (
-                        <Loader
-                            type="Oval"
-                            color="#00BFFF"
-                            height={100}
-                            width={100}
-                            style={{
-                                position: 'fixed',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                            }}
-                        />
-                    ) : listPost.length ? (
-                        listPost.map((post) => {
-                            return (
-                                <div className="post">
-                                    <img
-                                        className="defaultpost"
-                                        src={
-                                            post.image
-                                                ? post.image
-                                                : default_post
-                                        }
-                                        onClick={() =>
-                                            history.push(
-                                                'manager/listTalent/' + post.id
-                                            )
-                                        }
-                                    />
-                                    <div className="post-body">
-                                        <div
-                                            className="title"
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() =>
-                                                history.push(
-                                                    'manager/listTalent/' +
-                                                        post.id
-                                                )
-                                            }
-                                        >
-                                            {post.title}
-                                        </div>
-                                        <div className="description">
-                                            <span className="text-bold">
-                                                記述:
-                                            </span>
-                                            <p
+                    <Sidebar />
+                </Col>
+                <Col lg='10'>
+                    <Row>
+                        <Col lg='11'>
+                            <div className="wrapper">
+                                <div className="listPost">
+                                    <button
+                                        className="btn btn-lg btn-success createButton"
+                                        type="button"
+                                        onClick={() => setCreate(true)}
+                                    >
+                                        新しい投稿
+                                    </button>
+                                    <div className="posts">
+                                        {isLoading ? (
+                                            <Loader
+                                                type="Oval"
+                                                color="#00BFFF"
+                                                height={100}
+                                                width={100}
                                                 style={{
-                                                    whiteSpace: 'pre-wrap',
+                                                    position: 'fixed',
+                                                    top: '50%',
+                                                    left: '50%',
+                                                    transform: 'translate(-50%, -50%)',
+                                                }}
+                                            />
+                                        ) : listPost.length ? (
+                                            listPost.map((post) => {
+                                                return (
+                                                    <div className="post">
+                                                        <img
+                                                            className="defaultpost"
+                                                            src={
+                                                                post.image
+                                                                    ? post.image
+                                                                    : default_post
+                                                            }
+                                                            onClick={() =>
+                                                                history.push(
+                                                                    '/manager/listTalent/' + post.id
+                                                                )
+                                                            }
+                                                        />
+                                                        <div className="post-body">
+                                                            <div
+                                                                className="title"
+                                                                style={{ cursor: 'pointer' }}
+                                                                onClick={() =>
+                                                                    history.push(
+                                                                        'manager/listTalent/' +
+                                                                            post.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                {post.title}
+                                                            </div>
+                                                            <div className="description">
+                                                                <span className="text-bold">
+                                                                    記述:
+                                                                </span>
+                                                                <p
+                                                                    style={{
+                                                                        whiteSpace: 'pre-wrap',
+                                                                    }}
+                                                                >
+                                                                    {post.des}
+                                                                </p>
+                                                            </div>
+                                                            <div className="apply">
+                                                                <span className="text-bold">
+                                                                    適用数:{' '}
+                                                                </span>
+                                                                <span>{post.numberApplied}</span>
+                                                            </div>
+                                                            <div className="buttons">
+                                                                <button
+                                                                    className="btn editButton"
+                                                                    onClick={() =>
+                                                                        handleEdit(post.id)
+                                                                    }
+                                                                >
+                                                                    編集
+                                                                </button>
+                                                                <button
+                                                                    className="btn seeButton"
+                                                                    onClick={() =>
+                                                                        handleShowDetail(post.id)
+                                                                    }
+                                                                >
+                                                                    もっと見る
+                                                                </button>
+                                                                <button
+                                                                    className="btn deleteButton"
+                                                                    onClick={() => {
+                                                                        if (
+                                                                            window.confirm(
+                                                                                `「${post.title}」が削除したいですか？`
+                                                                            )
+                                                                        )
+                                                                            handleDelete(post.id);
+                                                                    }}
+                                                                >
+                                                                    削除
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <h3
+                                                style={{
+                                                    margin: '20px 8%',
                                                 }}
                                             >
-                                                {post.des}
-                                            </p>
-                                        </div>
-                                        <div className="apply">
-                                            <span className="text-bold">
-                                                適用数:{' '}
-                                            </span>
-                                            <span>{post.numberApplied}</span>
-                                        </div>
-                                        <div className="buttons">
-                                            <button
-                                                className="btn editButton"
-                                                onClick={() =>
-                                                    handleEdit(post.id)
-                                                }
-                                            >
-                                                編集
-                                            </button>
-                                            <button
-                                                className="btn seeButton"
-                                                onClick={() =>
-                                                    handleShowDetail(post.id)
-                                                }
-                                            >
-                                                もっと見る
-                                            </button>
-                                            <button
-                                                className="btn deleteButton"
-                                                onClick={() => {
-                                                    if (
-                                                        window.confirm(
-                                                            `「${post.title}」が削除したいですか？`
-                                                        )
-                                                    )
-                                                        handleDelete(post.id);
-                                                }}
-                                            >
-                                                削除
-                                            </button>
-                                        </div>
+                                                求人情報をまだ投稿していません。タレント志望者を見つけるために、新しい投稿を作成してください。
+                                            </h3>
+                                        )}
                                     </div>
                                 </div>
-                            );
-                        })
-                    ) : (
-                        <h3
-                            style={{
-                                margin: '20px 8%',
-                            }}
-                        >
-                            求人情報をまだ投稿していません。タレント志望者を見つけるために、新しい投稿を作成してください。
-                        </h3>
-                    )}
-                </div>
-            </div>
+                            </div>
+                        </Col>
+                        <Col lg='1' />
+                    </Row>
+                </Col>
+            </Row>
             <Modal
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
@@ -370,7 +387,7 @@ function ListPost() {
                 handleCloseEditModal={handleCloseEditModal}
                 setListPost={setListPost}
             />
-        </div>
+        </Container>
     );
 }
 

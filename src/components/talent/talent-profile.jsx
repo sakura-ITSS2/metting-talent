@@ -12,7 +12,9 @@ import {
     Spinner
 } from "react-bootstrap";
 import Select from 'react-select'
-
+import {
+    AiFillEye
+} from "react-icons/ai";
 import {
     FaEdit
 } from "react-icons/fa";
@@ -205,21 +207,21 @@ const TalentProfile = ({profile}) => {
                         </Col>
                         <Col md='8' className='profile-card__info'>
                             {
-                                userShow.map(user => {
-                                    if (user.name != 'スキル' && user.name != 'CV')
+                                userShow.map(field => {
+                                    if (field.name != 'スキル' && field.name != 'CV')
                                         return (
                                             <Row>
-                                                <Col xs='3'>{user.name}</Col>
-                                                <Col xs='8'>{user.value ? user.value : '未登録'}</Col>
+                                                <Col xs='3'>{field.name}</Col>
+                                                <Col xs='8'>{field.value ? field.value : '未登録'}</Col>
                                             </Row>
                                         )
-                                    else if (user.name === 'CV')
+                                    else if (field.name === 'CV')
                                         return (
                                             <Row>
-                                                <Col xs='3'>{user.name}</Col>
+                                                <Col xs='3'>{field.name}</Col>
                                                 {
-                                                    user.url ?
-                                                    <Col xs='8' ><a href = {user.url} target="_blank">{user.value}</a></Col>:
+                                                    field.url ?
+                                                    <Col xs='8' >{`${user.email}の履歴書  `}<a href = {field.url} target="_blank"> <AiFillEye style={{fontSize: '25px'}} /></a></Col>:
                                                     <Col xs='8'>{'未登録'}</Col>
                                                 }
                                             </Row>
@@ -227,15 +229,15 @@ const TalentProfile = ({profile}) => {
                                     else {
                                         return (
                                             <Row>
-                                                <Col xs='3'>{user.name}</Col>
+                                                <Col xs='3'>{field.name}</Col>
                                                 <Col xs='8'>
 
                                                         {
-                                                            user.value && user.value.length ?
+                                                            field.value && field.value.length ?
                                                                 (
                                                                     <Row className='profile-card__info-skill'>
                                                                         {
-                                                                            user.value.map(item => (
+                                                                            field.value.map(item => (
                                                                                 <Col><p>{item.label}</p></Col>
                                                                             ))
                                                                         }
@@ -258,7 +260,7 @@ const TalentProfile = ({profile}) => {
                             >
                                 <Col md='5'>
                                     <input type="file" ref={cvRef} onChange={(e)=>handleUploadCv(e)} hidden />
-                                    <Button onClick= {() =>cvRef.current.click()} >Upload CV</Button>
+                                    <Button onClick= {() =>cvRef.current.click()} >履歴書をアップロード</Button>
                                 </Col>
                             </Row>
                         </Col>
@@ -331,7 +333,7 @@ const TalentProfile = ({profile}) => {
                                     isMulti
                                     name="colors"
                                     options={SKILLS}
-                                    placeholder='スキルを洗濯します'
+                                    placeholder='スキルを選択'
                                     className="basic-multi-select"
                                     classNamePrefix="select"
                                     disabled
