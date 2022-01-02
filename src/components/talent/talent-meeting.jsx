@@ -1,5 +1,16 @@
+import {
+    Row,
+    Col,
+    Card,
+    Button,
+    Modal,
+    Spinner,
+    Dropdown,
+    DropdownButton
+} from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import { getAllPost } from '../../Services/TalentPostService';
+import './talent-meeting.scss'
 
 function ListMeeeting({ profile}) {
     const [listPost, setListPost] = useState([]);
@@ -13,24 +24,77 @@ function ListMeeeting({ profile}) {
         fetchData();
     },[profile])
     return(
-        <div>
-            {
-                listPost.map((post) =>{
-                    return(
-                        <div>
-                            <img src={ post.image } style = {{ width: '50px', height: '50px'}}></img>
-                            <div>Title: { post.title }</div>
-                            <div>Status: { post.status }</div>
-                            <div>Time: {post.time ? post.time : 'null' }</div>
-                            <div>MeetingURL: {post.link_meeting ? post.link_meeting : 'null' }</div>
-                            <div>Pass: {post.pass_meeting ? post.pass_meeting : 'null' }</div>
-                            <div>Score: {post.score ? post.score : 'null' }</div>
-                            <div>Review: {post.review ? post.review : 'null' }</div>
-                        </div>
-                    )
-                })
-            }
-        </div>
+        <Row
+            xs={1}
+            md={3}
+            className="g-4"
+            style={{ marginRight: '6%' }}
+        >
+            {listPost.map((post) => (
+                <Col key={post.id}>
+                    <Card className="post-card">
+                        <Card.Img
+                            variant="top"
+                            src={post.image}
+                            className="post-card__image"
+                        />
+                        <Card.Body>
+                            <Row>
+                                <Col
+                                    className="post-card__title"
+                                >
+                                    <Card.Title>
+                                        {post.title}
+                                    </Card.Title>
+                                </Col>
+                            </Row>
+                            <Row className="post-card__description">
+                                <Card.Text
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                >
+                                    Status: {post.status}
+                                </Card.Text>
+                            </Row>
+                            <Row className="post-card__description">
+                                <Card.Text
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                >
+                                    Time: {post.time ? post.time : 'null' }
+                                </Card.Text>
+                            </Row>
+                            <Row className="post-card__description">
+                                <Card.Text
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                >
+                                    MeetingURL: {post.link_meeting ? post.link_meeting : 'null' }
+                                </Card.Text>
+                            </Row>
+                            <Row className="post-card__description">
+                                <Card.Text
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                >
+                                    Pass: {post.pass_meeting ? post.pass_meeting : 'null' }
+                                </Card.Text>
+                            </Row>
+                            <Row className="post-card__description">
+                                <Card.Text
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                >
+                                    Score: {post.score ? post.score : 'null'}
+                                </Card.Text>
+                            </Row>
+                            <Row className="post-card__description">
+                                <Card.Text
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                >
+                                    Review: {post.review ? post.review : 'null'}
+                                </Card.Text>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            ))}
+        </Row>
     )
 }
 

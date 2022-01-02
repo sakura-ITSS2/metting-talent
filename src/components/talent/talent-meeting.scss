@@ -1,0 +1,43 @@
+.talent-post {
+        margin-bottom: 20px;
+
+        .post-card {
+            height: 1000px;
+
+            &__image {
+                width: 100%;
+                height: 295px;
+                object-fit: cover;
+            }
+
+            &__title {
+                padding-right: 0;
+
+                .h5 {
+                    font-size: 24px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+
+            &__description {
+                margin-top: 10px;
+                height: 75px;
+
+                > span {
+                    color: #6E798C;
+                    font-size: 16px;
+                }
+
+                > p {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+        }
+
+}
