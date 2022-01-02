@@ -11,6 +11,7 @@ import { getProfile } from '../Services/ProfileService'
 import Sidebar from '../components/talent/sidebar'
 import TalentProfile from '../components/talent/talent-profile';
 import TalentPost from '../components/talent/talent-post';
+import TalentMeeting from '../components/talent/talent-meeting';
 
 function Talent() {
     let { path } = useRouteMatch();
@@ -40,6 +41,7 @@ function Talent() {
                     <Switch>
                         <Route path={path} exact ><TalentProfile profile={profile} /></Route>
                         <Route path={`${path}/posts`} exact ><TalentPost profile={profile} /></Route>
+                        <Route path ={`${path}/list-meeting`} exact><TalentMeeting profile={profile} /></Route>
                     </Switch>
                 </Col>
             </Row>

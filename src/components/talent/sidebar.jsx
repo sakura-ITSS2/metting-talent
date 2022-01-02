@@ -19,6 +19,7 @@ import {
     // FaHeart,
     // FaEdit
 } from "react-icons/fa";
+import {AiFillCalendar} from "react-icons/ai"
 import {RiLogoutBoxLine} from 'react-icons/ri'
 import {CgProfile} from "react-icons/cg"
 
@@ -92,6 +93,23 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         className={history.location.pathname.includes('/talent/posts') ? 'isActive' : ''}
                     >
                         <FaGem style={{fontSize: '20px'}} /> 求人情報
+                    </MenuItem>
+                </Menu>
+
+                <Menu iconShape="circle">
+                    <MenuItem
+                        style={{
+                            padding: "20px 15px 20px 10px",
+                            fontSize: 20,
+                            letterSpacing: "1px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                        }}
+                        onClick={() => history.push('/talent/list-meeting')}
+                        className={history.location.pathname.includes('/talent/list-meeting') ? 'isActive' : ''}
+                    >
+                        <AiFillCalendar style={{fontSize: '20px'}} /> オーディション時間
                     </MenuItem>
                 </Menu>
             </SidebarContent>

@@ -23,7 +23,7 @@ export const getAllPost = async (registerPost) => {
                         }
                     }
 
-                    return {...post, status: post?.status, link_meeting: post?.link_meeting, time: post?.time, pass_meeting: post?.pass_meeting}
+                    return {...post, status: post?.status, link_meeting: post?.link_meeting, time: post?.time, pass_meeting: post?.pass_meeting, score: post?.score, review: post?.review}
                 })
             })
 
