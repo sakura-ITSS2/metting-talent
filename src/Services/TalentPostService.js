@@ -19,7 +19,10 @@ export const getAllPost = async (registerPost) => {
                             status: temp?.status,
                             link_meeting: temp?.link_meeting,
                             time: temp?.time,
-                            pass_meeting: temp?.pass_meeting
+                            pass_meeting: temp?.pass_meeting,
+                            score: temp?.score,
+                            review: temp?.review
+
                         }
                     }
 
