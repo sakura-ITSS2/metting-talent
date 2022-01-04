@@ -9,6 +9,7 @@ import TimePicker from 'react-time-picker';
 import {useHistory} from "react-router-dom";
 import Header from '../Header/Header';
 import {BiArrowBack} from 'react-icons/bi'
+import {AiFillEye} from "react-icons/ai";
 
 export const DetailTalent = (props) => {
     const [user, setUser] = useState({})
@@ -24,27 +25,48 @@ export const DetailTalent = (props) => {
     const userShow = [
         {
             name: 'メール',
-            value: user.email
+            value: user?.email
         },
         {
-            name: 'スキル',
-            value: user.skill
+            name: 'ユーザ名',
+            value: user?.name
         },
         {
             name: '長所',
-            value: user.advantage
+            value: user?.advantage
         },
         {
             name: '短所',
-            value: user.disAdvantage
+            value: user?.disAdvantage
         },
         {
             name: '趣味',
-            value: user.hobby
+            value: user?.hobby
+        },
+        {
+            name: 'スキル',
+            value: user?.skills
+        },
+        {
+            name: '年齢',
+            value: user?.age
+        },
+        {
+            name: '身長',
+            value: user?.height
+        },
+        {
+            name: '体重',
+            value: user?.weight
         },
         {
             name: '電話番号',
             value: user.phone
+        },
+        {
+            name: 'CV',
+            value: user?.cv,
+            url: user?.cvURL
         }
     ]
 
@@ -93,12 +115,50 @@ export const DetailTalent = (props) => {
                         </Col>
                         <Col md='12' className='profile-card__info'>
                             {
-                                userShow.map(user => (
-                                    <Row>
-                                        <Col xs='2' style={{color: 'lightslategray'}}>{user.name}</Col>
-                                        <Col xs='10'>{user.value ? user.value : '未登録'}</Col>
-                                    </Row>
-                                ))
+                                userShow.map(field => {
+                                    if (field.name !== 'スキル' && field.name !== 'CV')
+                                        return (
+                                            <Row>
+                                                <Col xs='3'>{field.name}</Col>
+                                                <Col xs='8'>{field.value ? field.value : '未登録'}</Col>
+                                            </Row>
+                                        )
+                                    else if (field.name === 'CV')
+                                        return (
+                                            <Row>
+                                                <Col xs='3'>{field.name}</Col>
+                                                {
+                                                    field.url ?
+                                                        <Col xs='8' >{`${user.email}の履歴書  `}<a href = {field.url} target="_blank"> <AiFillEye style={{fontSize: '25px'}} /></a></Col>:
+                                                        <Col xs='8'>{'未登録'}</Col>
+                                                }
+                                            </Row>
+                                        )
+                                    else {
+                                        return (
+                                            <Row>
+                                                <Col xs='3'>{field.name}</Col>
+                                                <Col xs='8'>
+
+                                                    {
+                                                        field.value && field.value.length ?
+                                                            (
+                                                                <Row className='profile-card__info-skill'>
+                                                                    {
+                                                                        field.value.map(item => (
+                                                                            <Col><p>{item.label}</p></Col>
+                                                                        ))
+                                                                    }
+                                                                </Row>
+                                                            )
+                                                            :
+                                                            '未登録'
+                                                    }
+                                                </Col>
+                                            </Row>
+                                        )
+                                    }
+                                })
                             }
                         </Col>
                     </Row>
