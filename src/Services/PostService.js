@@ -30,6 +30,10 @@ export const getListTalents = async (id) => {
                 ...item,
                 name: talent.name,
                 avt: talent.avt,
+                skills: talent.skills,
+                age: talent.age,
+                height: talent.height,
+                weight: talent.weight,
             };
         });
 
@@ -238,4 +242,27 @@ export const reviewTalent = async (idPost, idTalent, score, review) => {
         return false
     }
 }
+
+export const clickLinkMeeting = async (idPost, idTalent) => {
+    try {
+        if (idPost){
+            let ref = doc(db, 'UserPost/Data');
+            let postSnap = await getDoc(doc(db, 'UserPost', 'Data'));
+            let listPosts = postSnap.data();
+            let found = listPosts[idPost].find(item => item?.id_talent === idTalent)
+            let index = listPosts[idPost].indexOf(found)
+            let dataReview = {...found,
+                clickLink: true
+            }
+            listPosts[idPost][index] = dataReview;
+            await updateDoc(ref, idPost, listPosts[idPost])
+            return true
+        }
+        return false
+    }catch (err) {
+        console.log(err);
+        return false
+    }
+}
+
 
