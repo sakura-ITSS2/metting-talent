@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef} from 'react';
+import moment, { locale } from 'moment'
 import {getListPosts, createPost,  deletePost} from '../../Services/PostService';
 import {useHistory} from 'react-router-dom';
-import Header from '../Header/Header';
 import Sidebar from '../ManagerSidebar/sidebar'
 import { uploadAvatar } from '../../Services/ProfileService';
 import './ListPost.scss';
@@ -17,13 +17,16 @@ import {
     Modal,
     Form,
     Image,
-    Spinner
+    Spinner,
+    Dropdown,
+    DropdownButton
 } from "react-bootstrap";
 
 function ListPost() {
     const history = useHistory();
     const imageRef = useRef();
     const [listPost, setListPost] = useState([]);
+    const [listPostShow, setListPostShow] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [createLoading, setCreateLoading] = useState(false);
     const [deleteLoading, setDeleteLoading] = useState(false);
@@ -32,11 +35,13 @@ function ListPost() {
     const [edit, setEdit] = useState(false);
     const [description, setDescription] = useState('');
     const [title, setTitle] = useState('');
+    const [target, setTarget] = useState('');
     const [avatar, setAvatar] = useState('');
     const [imgFile, setImgFile] = useState();
     const [currentPost, setCurrentPost] = useState();
     const [invalidImage, setInvalidImage] = useState(false);
     const [invalidTitle, setInvalidTitle] = useState(false);
+    const [invalidTarget, setInvalidTarget] = useState(false);
 
     useEffect(() =>{
         const id = localStorage.getItem('id');
@@ -44,6 +49,7 @@ function ListPost() {
             setIsLoading(true);
             const posts = await getListPosts(id);
             setListPost(posts);
+            setListPostShow(posts);
             setTimeout(() => {
                 setIsLoading(false);
             }, 1000)
@@ -53,6 +59,13 @@ function ListPost() {
 
     const handleCloseModal = () => {
         setCreate(false);
+        setTitle('');
+        setDescription('');
+        setTarget('');
+        setInvalidTitle(false);
+        setInvalidTarget(false);
+        setImgFile();
+        setInvalidImage(false);
     }
 
     const handleCloseDetailModal = () => {
@@ -70,15 +83,20 @@ function ListPost() {
         if (title.length===0) {
             setInvalidTitle(true);
         }
+
+        if (!target) {
+            setInvalidTarget(true)
+        }
         if(imgFile&&title.length!==0){
             formData.append('image', imgFile);
             const image = await uploadAvatar(formData);
-            const newPost = await createPost(description, title, id, image.data.url);
+            const newPost = await createPost(description, title, id, image.data.url, target);
             handleCloseModal();
             setListPost([...listPost, newPost]);
             setAvatar('');
             setDescription('');
             setTitle('');
+            setTarget('');
             setImgFile();
         }
         setCreateLoading(false);
@@ -91,6 +109,11 @@ function ListPost() {
 
     const handleChangeDescription = (event) =>{
         setDescription(event.target.value);
+    }
+
+    const handleChangeTarget = (event) => {
+        setTarget(event.target.value)
+        setInvalidTarget(false);
     }
 
     const handleChangAvatar = () => {
@@ -127,10 +150,30 @@ function ListPost() {
         setDeleteLoading(false);
     }
 
+    const status = {
+        all: 'すべて',
+        self: '自社の求人',
+        other: '他社の求人'
+    }
+    const [filter, setFilter] = useState('all');
+
+    const handleSelect = (e) => {
+        setFilter(e);
+        setIsLoading(true);
+        setListPostShow(
+            listPost.filter((p) => {
+
+                return e === 'all' || (e === 'self' && p.isCurrentManager) || (e === 'other' && !p.isCurrentManager) ? true : false;
+            })
+        );
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 500);
+    }
+
     return (
         <Container fluid>
             <Row style={{backgroundColor: '#E5E5E5'}}>
-                <Header />
                 <Col lg='2'
                     style={{paddingLeft: '0'}}
                 >
@@ -141,6 +184,19 @@ function ListPost() {
                         <Col lg='11'>
                             <div className="wrapper">
                                 <div className="listPost">
+                                    <DropdownButton onSelect={handleSelect} title={status[filter]} className='btn-lg'>
+                                        {/* <Dropdown.Item eventKey="all">{status.all}</Dropdown.Item>
+                                        <Dropdown.Divider /> */}
+                                        <Dropdown.Item eventKey="all">
+                                            すべて
+                                        </Dropdown.Item>
+                                        <Dropdown.Item eventKey="self">
+                                            自社の求人
+                                        </Dropdown.Item>
+                                        <Dropdown.Item eventKey="other">
+                                            他社の求人
+                                        </Dropdown.Item>
+                                    </DropdownButton>
                                     <button
                                         className="btn btn-lg btn-success createButton"
                                         type="button"
@@ -163,7 +219,7 @@ function ListPost() {
                                                 }}
                                             />
                                         ) : listPost.length ? (
-                                            listPost.map((post) => {
+                                            listPostShow.map((post) => {
                                                 return (
                                                     <div className="post">
                                                         <img
@@ -185,12 +241,24 @@ function ListPost() {
                                                                 style={{ cursor: 'pointer' }}
                                                                 onClick={() =>
                                                                     history.push(
-                                                                        'manager/listTalent/' +
+                                                                        '/manager/listTalent/' +
                                                                             post.id
                                                                     )
                                                                 }
                                                             >
                                                                 {post.title}
+                                                            </div>
+                                                            <div className="company">
+                                                                <span className="text-bold">
+                                                                    会社名:
+                                                                </span>
+                                                                <p
+                                                                    style={{
+                                                                        whiteSpace: 'pre-wrap',
+                                                                    }}
+                                                                >
+                                                                    {post.company ? post.company.name : '未登録'}
+                                                                </p>
                                                             </div>
                                                             <div className="description">
                                                                 <span className="text-bold">
@@ -208,8 +276,15 @@ function ListPost() {
                                                                 <span className="text-bold">
                                                                     適用数:{' '}
                                                                 </span>
-                                                                <span>{post.numberApplied}</span>
+                                                                <span>{`${post.numberApplied} / ${post.targetMax ?? '~'}`}</span>
                                                             </div>
+                                                            <div className="apply">
+                                                                <span className="text-bold">
+                                                                    投稿日:{' '}
+                                                                </span>
+                                                                <span>{post.publish ? post.publish : moment().format('DD/MM/YYYY')}</span>
+                                                            </div>
+
                                                             <div className="buttons">
                                                                 <button
                                                                     className="btn seeButton"
@@ -327,6 +402,22 @@ function ListPost() {
                                     onChange={handleChangeDescription}
                                     placeholder="説明を入力します"
                                 />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="targetMax">
+                                <Form.Label>応募者数制限</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    value={target}
+                                    onChange={handleChangeTarget}
+                                    placeholder="応募者数制限を入力します"
+                                    min='1'
+                                />
+                                <Form.Text className="text-danger">
+                                    {invalidTarget
+                                        ? '応募者数制限を入力してください'
+                                        : ''}
+                                </Form.Text>
                             </Form.Group>
 
                             <Row className="justify-content-md-center">

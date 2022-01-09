@@ -103,7 +103,6 @@ const Profile = () => {
     return (
         <Container fluid>
             <Row style={{backgroundColor: '#E5E5E5'}}>
-                <Header />
                 <Col lg='2'
                     style={{paddingLeft: '0'}}
                 >

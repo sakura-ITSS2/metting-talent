@@ -38,7 +38,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             toggled={toggled}
             breakPoint="md"
             onToggle={handleToggleSidebar}
-            style={{width: '200px', minWidth: '200px', color: '#fff', zIndex: '50', marginTop: '20px'}}
+            style={{width: '200px', minWidth: '200px', color: '#fff', zIndex: '50'}}
         >
             <SidebarHeader>
                 <div
@@ -111,6 +111,33 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                     </MenuItem>
                 </Menu>
             </SidebarContent>
+            <SidebarFooter style={{ textAlign: 'center' }}>
+                <div
+                    className="sidebar-btn-wrapper"
+                    style={{
+                        padding: '20px 24px',
+                        cursor: 'pointer',
+                    }}
+                >
+                    <a
+                        onClick={handleLogout}
+                        target="_blank"
+                        className="sidebar-btn"
+                        rel="noopener noreferrer"
+                        style={{
+                            textDecoration: 'none',
+                            padding: '5px',
+                            border: '1px solid',
+                            color:'#fff',
+                        }}
+                    >
+                        <RiLogoutBoxLine />
+                        <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', marginLeft: '4px', color:'#fff' }}>
+                            ログアウト
+                        </span>
+                    </a>
+                </div>
+            </SidebarFooter>
         </ProSidebar>
     );
 };

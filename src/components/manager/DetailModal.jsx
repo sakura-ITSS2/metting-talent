@@ -43,6 +43,13 @@ function DetailModal(props) {
                             <p>{currentPost?.title}</p>
                         </Form.Group>
 
+                        {/* <Form.Group className="mb-3" controlId="title">
+                            <Form.Label style={{ color: 'dodgerblue' }}>
+                                会社名
+                            </Form.Label>
+                            <p>{currentPost.company ? currentPost.company.name : '未登録'}</p>
+                        </Form.Group> */}
+
                         <Form.Group className="mb-3" controlId="description">
                             <Form.Label style={{ color: 'dodgerblue' }}>
                                 説明
