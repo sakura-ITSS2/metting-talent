@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Button, Modal, Form, Dropdown } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Modal, Form, Dropdown } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import defaultAvatar from '../../images/default-avatar.png';
 import {clickLinkMeeting, getListTalents, getPostTitle, reviewTalent} from '../../Services/PostService';
@@ -111,112 +111,110 @@ function ListTalents() {
             <Header />
             <div className="list-talents-container">
                 <h2>{postTitle}</h2>
+                <Container>
+                    <Row xs="auto">
+                        <Col>
+                            <div>
+                                <p>年齢</p>
+                                <Dropdown onSelect={(e) => setFilterAge(e)}>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
 
-                <div>
-                    <p>
-                        Age
-                    </p>
-                    <Dropdown onSelect={(e) => setFilterAge(e)}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {
-                                {
-                                    '全て': '全て',
-                                    '10-14': '10-14歳',
-                                    '14-18': '14-18歳',
-                                    '18-22': '18-22歳',
-                                    '22-26': '22-26歳',
-                                    '>26': '26歳以上',
-                                }[filterAge]
-                            }
-                        </Dropdown.Toggle>
+                                        {
+                                            {
+                                                '全て': '全て',
+                                                '10-14': '10-14歳',
+                                                '14-18': '14-18歳',
+                                                '18-22': '18-22歳',
+                                                '22-26': '22-26歳',
+                                                '>26': '26歳以上',
+                                            }[filterAge]
+                                        }
+                                    </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
-                            <Dropdown.Item eventKey="10-14">10-14歳</Dropdown.Item>
-                            <Dropdown.Item eventKey="14-18">14-18歳</Dropdown.Item>
-                            <Dropdown.Item eventKey="18-22">18-22歳</Dropdown.Item>
-                            <Dropdown.Item eventKey="22-26">22-26歳</Dropdown.Item>
-                            <Dropdown.Item eventKey=">26">26歳以上</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
+                                        <Dropdown.Item eventKey="10-14">10-14歳</Dropdown.Item>
+                                        <Dropdown.Item eventKey="14-18">14-18歳</Dropdown.Item>
+                                        <Dropdown.Item eventKey="18-22">18-22歳</Dropdown.Item>
+                                        <Dropdown.Item eventKey="22-26">22-26歳</Dropdown.Item>
+                                        <Dropdown.Item eventKey=">26">26歳以上</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
+                        </Col>
+                        <Col>
+                            <p>体重</p>
+                            <Dropdown onSelect={(e) => setFilterWeight(e)}>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    {
+                                        {
+                                            '全て': '全て',
+                                            '40-50': '40-50kg',
+                                            '50-60': '50-60kg',
+                                            '60-70': '60-70kg',
+                                            '>70': '70kg以上',
+                                        }[filterWeight]
+                                    }
+                                </Dropdown.Toggle>
 
-                <div>
-                    <p>
-                        Weight
-                    </p>
-                    <Dropdown onSelect={(e) => setFilterWeight(e)}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {
-                                {
-                                    '全て': '全て',
-                                    '40-50': '40-50kg',
-                                    '50-60': '50-60kg',
-                                    '60-70': '60-70kg',
-                                    '>70': '70kg以上',
-                                }[filterWeight]
-                            }
-                        </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
+                                    <Dropdown.Item eventKey="40-50">40-50kg</Dropdown.Item>
+                                    <Dropdown.Item eventKey="50-60">50-60kg</Dropdown.Item>
+                                    <Dropdown.Item eventKey="60-70">60-70kg</Dropdown.Item>
+                                    <Dropdown.Item eventKey=">70">70kg以上</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                        <Col>
+                            <p>身長</p>
+                            <Dropdown onSelect={(e) => setFilterHeight(e)}>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    {
+                                        {
+                                            '全て': '全て',
+                                            '>190': '1m9以上',
+                                            '180-190': '1m8-1m9',
+                                            '170-180': '1m7-1m8',
+                                            '160-170': '1m6-1m7',
+                                        }[filterHeight]
+                                    }
+                                </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
-                            <Dropdown.Item eventKey="40-50">40-50kg</Dropdown.Item>
-                            <Dropdown.Item eventKey="50-60">50-60kg</Dropdown.Item>
-                            <Dropdown.Item eventKey="60-70">60-70kg</Dropdown.Item>
-                            <Dropdown.Item eventKey=">70">70kg以上</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
+                                    <Dropdown.Item eventKey=">190">1m9以上</Dropdown.Item>
+                                    <Dropdown.Item eventKey="180-190">1m8-1m9</Dropdown.Item>
+                                    <Dropdown.Item eventKey="170-180">1m7-1m8</Dropdown.Item>
+                                    <Dropdown.Item eventKey="160-170">1m6-1m7</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                        <Col>
+                            <p>スキル</p>
+                            <Dropdown onSelect={(e) => setFilterSkill(e)}>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    {filterSkill}
+                                </Dropdown.Toggle>
 
-                <div>
-                    <p>
-                        Height
-                    </p>
-                    <Dropdown onSelect={(e) => setFilterHeight(e)}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {
-                                {
-                                    '全て': '全て',
-                                    '>190': '1m9以上',
-                                    '180-190': '1m8-1m9',
-                                    '170-180': '1m7-1m8',
-                                    '160-170': '1m6-1m7',
-                                }[filterHeight]
-                            }
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
-                            <Dropdown.Item eventKey=">190">1m9以上</Dropdown.Item>
-                            <Dropdown.Item eventKey="180-190">1m8-1m9</Dropdown.Item>
-                            <Dropdown.Item eventKey="170-180">1m7-1m8</Dropdown.Item>
-                            <Dropdown.Item eventKey="160-170">1m6-1m7</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
-
-                <div>
-                    <p>
-                        Skills
-                    </p>
-                    <Dropdown onSelect={(e) => setFilterSkill(e)}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {filterSkill}
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
-                            {
-                                SKILLS.map(item =>
-                                    <Dropdown.Item eventKey={item.label}>{item.label}</Dropdown.Item>
-                                )
-                            }
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
-
-                <Button variant="primary" onClick={() => handleFilter()}>Filter</Button>
-
+                                <Dropdown.Menu>
+                                    <Dropdown.Item eventKey="全て">全て</Dropdown.Item>
+                                    {
+                                        SKILLS.map(item =>
+                                            <Dropdown.Item eventKey={item.label}>{item.label}</Dropdown.Item>
+                                        )
+                                    }
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                        <Col>
+                            <Button className ="filter" variant="primary" onClick={() => handleFilter()}>
+                                Filter
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+                <br />
                 <div className="list-talents">
                     {loading ? (
                         <Loader

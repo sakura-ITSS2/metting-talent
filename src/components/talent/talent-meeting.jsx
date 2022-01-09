@@ -39,47 +39,58 @@ function ListMeeeting({ profile}) {
                     {listPost.map((post) => {
                         return(
                             <div className="post-item" key={post.id}>
-                            <Link className="profile">
-                                <Image
-                                    src={post.image}
-                                    roundedCircle
-                                />
-                            </Link>
-                            <h5>
-                                {post.title}
-                            </h5>
 
-                            <p  className="post-status"
-                                style={{ whiteSpace: 'pre-wrap'}}
-                                >
-                                    状態:
-                                    {post.status === 'accept'
-                                        ? STATUS_ACCEPT
-                                        : post.status === 'decline'
-                                        ? STATUS_DECLINE
-                                        : post.status === 'review'
-                                        ? STATUS_REVIEW
-                                        : STATUS_PENDING}
-                            </p>
-                                {post.status === 'accept' && (
-                                    <div className="link-meeting">
-                                        <p>
-                                            ミーティングURL：
-                                            <a
-                                                href={post.link_meeting ? post.link_meeting : 'null' }
-                                                target="_blank"
+
+                                    <Link className="profile">
+                                        <Image
+                                            src={post.image}
+                                            roundedCircle
+                                        />
+                                    </Link>
+
+                                    <Col md="4">
+                                        <h5>
+                                            {post.title}
+                                        </h5>
+                                    </Col>
+
+                                    {post.status === 'accept' && (
+                                        <div className="link-meeting">
+                                            <p>
+                                                ミーティングURL：
+                                                <a
+                                                    href={post.link_meeting ? post.link_meeting : 'null' }
+                                                    target="_blank"
+                                                >
+                                                    {post.link_meeting ? post.link_meeting : 'null' }
+                                                </a>
+                                            </p>
+                                            <p>パスワード：{post.pass_meeting ? post.pass_meeting : 'null'}</p>
+                                            <p>日時：{post.time ? post.time : 'null'}</p>
+                                        </div>
+                                    )}
+                                    {
+                                        post.status === 'review' && (
+                                            <div>
+                                                <p>スコア: {post.score ? post.score : 'null'}</p>
+                                                <p>
+                                                    Review: {post.review ? post.review: 'null'}</p>
+                                            </div>
+                                    )}
+                                    <Col md={{ span: 2, offset: 1 }}>
+                                        <Button  className="status--${post.status}"
+                                            style={{ whiteSpace: 'pre-wrap'}}
                                             >
-                                                {post.link_meeting ? post.link_meeting : 'null' }
-                                            </a>
-                                        </p>
-                                        <p>パスワード：{post.pass_meeting ? post.pass_meeting : 'null'}</p>
-                                        <p>日時：{post.time ? post.time : 'null'}</p>
-                                    </div>
-                                )}
-                                {
-                                    post?.status === 'review'
-                                        ?<div>スコア: {post?.score}</div> : null
-                                }
+                                                状態:
+                                                {post.status === 'accept'
+                                                    ? STATUS_ACCEPT
+                                                    : post.status === 'decline'
+                                                    ? STATUS_DECLINE
+                                                    : post.status === 'review'
+                                                    ? STATUS_REVIEW
+                                                    : STATUS_PENDING}
+                                        </Button>
+                                    </Col>
                             </div>
                             )
                         })
