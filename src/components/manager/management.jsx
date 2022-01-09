@@ -165,84 +165,91 @@ function Management() {
                                         ) : listPost.length ? (
                                             listPost.map((post) => {
                                                 return (
-                                                    <div className="post">
-                                                        <img
-                                                            className="defaultpost"
-                                                            src={
-                                                                post.image
-                                                                    ? post.image
-                                                                    : default_post
-                                                            }
-                                                            onClick={() =>
-                                                                history.push(
-                                                                    '/manager/listTalent/' + post.id
-                                                                )
-                                                            }
-                                                        />
-                                                        <div className="post-body">
-                                                            <div
-                                                                className="title"
-                                                                style={{ cursor: 'pointer' }}
-                                                                onClick={() =>
-                                                                    history.push(
-                                                                        'manager/listTalent/' +
-                                                                            post.id
-                                                                    )
-                                                                }
-                                                            >
-                                                                {post.title}
-                                                            </div>
-                                                            <div className="description">
-                                                                <span className="text-bold">
-                                                                    記述:
-                                                                </span>
-                                                                <p
-                                                                    style={{
-                                                                        whiteSpace: 'pre-wrap',
-                                                                    }}
-                                                                >
-                                                                    {post.des}
-                                                                </p>
-                                                            </div>
-                                                            <div className="apply">
-                                                                <span className="text-bold">
-                                                                    適用数:{' '}
-                                                                </span>
-                                                                <span>{post.numberApplied}</span>
-                                                            </div>
-                                                            <div className="buttons">
-                                                                <button
-                                                                    className="btn editButton"
-                                                                    onClick={() =>
-                                                                        handleEdit(post.id)
+                                                    <Container fluid>
+                                                      <Row>
+                                                        <Col>
+                                                            <div className="post">
+                                                                <img
+                                                                    className="defaultpost"
+                                                                    src={
+                                                                        post.image
+                                                                            ? post.image
+                                                                            : default_post
                                                                     }
-                                                                >
-                                                                    編集
-                                                                </button>
-                                                                <button
-                                                                    className="btn seeButton"
                                                                     onClick={() =>
-                                                                        handleShowDetail(post.id)
-                                                                    }
-                                                                >
-                                                                    もっと見る
-                                                                </button>
-                                                                <button
-                                                                    className="btn deleteButton"
-                                                                    onClick={() => {
-                                                                        if (
-                                                                            window.confirm(
-                                                                                `「${post.title}」が削除したいですか？`
-                                                                            )
+                                                                        history.push(
+                                                                            '/manager/listTalent/' + post.id
                                                                         )
-                                                                            handleDelete(post.id);
-                                                                    }}
-                                                                >
-                                                                    削除
-                                                                </button>
+                                                                    }
+                                                                />
+                                                                <div className="post-body">
+                                                                    <div
+                                                                        className="title"
+                                                                        style={{ cursor: 'pointer' }}
+                                                                        onClick={() =>
+                                                                            history.push(
+                                                                                'manager/listTalent/' +
+                                                                                    post.id
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        {post.title}
+                                                                    </div>
+                                                                    <div className="description">
+                                                                        <span className="text-bold">
+                                                                            記述:
+                                                                        </span>
+                                                                        <p
+                                                                            style={{
+                                                                                whiteSpace: 'pre-wrap',
+                                                                            }}
+                                                                        >
+                                                                            {post.des}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className="apply">
+                                                                        <span className="text-bold">
+                                                                            適用数:{' '}
+                                                                        </span>
+                                                                        <span>{post.numberApplied}</span>
+                                                                    </div>
+                                                                    <div className="buttons">
+                                                                        <button
+                                                                            className="btn editButton"
+                                                                            onClick={() =>
+                                                                                handleEdit(post.id)
+                                                                            }
+                                                                        >
+                                                                            編集
+                                                                        </button>
+                                                                        <button
+                                                                            className="btn seeButton"
+                                                                            onClick={() =>
+                                                                                handleShowDetail(post.id)
+                                                                            }
+                                                                        >
+                                                                            もっと見る
+                                                                        </button>
+                                                                        <button
+                                                                            className="btn deleteButton"
+                                                                            onClick={() => {
+                                                                                if (
+                                                                                    window.confirm(
+                                                                                        `「${post.title}」が削除したいですか？`
+                                                                                    )
+                                                                                )
+                                                                                    handleDelete(post.id);
+                                                                            }}
+                                                                        >
+                                                                            削除
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                        </Col>
+                                                      </Row>
+                                                      <hr />
+                                                    </Container>
                                                 );
                                             })
                                         ) : (
