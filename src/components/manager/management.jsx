@@ -129,8 +129,7 @@ function Management() {
 
     return (
         <Container fluid>
-            <Row style={{backgroundColor: '#E5E5E5'}}>
-                <Header />
+            <Row style={{backgroundColor: '#E5E5E5', height: '100vh'}}>
                 <Col lg='2'
                     style={{paddingLeft: '0'}}
                 >
@@ -139,7 +138,7 @@ function Management() {
                 <Col lg='10'>
                     <Row>
                         <Col lg='11'>
-                            <div className="wrapper">
+                            <div className=".wrapper__list-talent">
                                 <div className="listPost">
                                     <button
                                         className="btn btn-lg btn-success createButton"
@@ -166,7 +165,7 @@ function Management() {
                                             listPost.map((post) => {
                                                 return (
                                                     <Container fluid>
-                                                      <Row>
+                                                    <Row>
                                                         <Col>
                                                             <div className="post">
                                                                 <img
@@ -399,4 +398,3 @@ function Management() {
 }
 
 export default Management;
-

@@ -1,4 +1,5 @@
 import {collection, doc, getDoc, getDocs, updateDoc,deleteField} from 'firebase/firestore/lite';
+import moment from 'moment'
 import { db } from '../utils/firebase';
 import { toast } from 'react-toastify';
 
@@ -83,18 +84,28 @@ export const getListPosts = async (id) => {
         const postSnap = await getDoc(doc(db, 'Post', 'Post'));
         const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
 
-        const listAllPost = postSnap.data().Data;
-        const currentManager = managerSnap.data().Data.filter(manager => manager.id ===id)[0];
-        const listPostById = listAllPost.filter(post => currentManager.list_post.includes(post.id));
+        let listAllPost = postSnap.data().Data;
+        const listManager = managerSnap.data().Data
 
-        return listPostById;
+        listAllPost = listAllPost.map(post => {
+            const postManager = listManager.filter(manager => manager.list_post.includes(post.id))[0];
+            return {
+                ...post,
+                company: postManager?.company,
+                isCurrentManager: postManager.id === id
+            }
+        })
+        // const currentManager = managerSnap.data().Data.filter(manager => manager.id ===id)[0];
+        // const listPostById = listAllPost.filter(post => currentManager.list_post.includes(post.id));
+
+        return listAllPost;
 
     }catch (err) {
         return err;
     }
 }
 
-export const createPost = async (description, title, id, image) => {
+export const createPost = async (description, title, id, image, target) => {
     try {
         const postSnap = await getDoc(doc(db, 'Post', 'Post'));
         const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
@@ -104,7 +115,7 @@ export const createPost = async (description, title, id, image) => {
         const currentManagerIndex = listAllManager.findIndex(manager => manager.id ===id);
 
         const randomID = Math.random().toString(32).substring(2);
-        const newPost = {des: description, title, id: randomID, numberApplied: 0, image}
+        const newPost = {des: description, title, id: randomID, numberApplied: 0, image, targetMax: parseInt(target), publish: moment().format('DD/MM/YYYY')}
         const newlistPost = [...listAllPost, newPost];
         const postRef = doc(db, 'Post/Post');
         await updateDoc(postRef, 'Data', newlistPost);
@@ -264,5 +275,3 @@ export const clickLinkMeeting = async (idPost, idTalent) => {
         return false
     }
 }
-
-
