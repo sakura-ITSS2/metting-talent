@@ -212,33 +212,12 @@ function ListPost() {
                                                             </div>
                                                             <div className="buttons">
                                                                 <button
-                                                                    className="btn editButton"
-                                                                    onClick={() =>
-                                                                        handleEdit(post.id)
-                                                                    }
-                                                                >
-                                                                    編集
-                                                                </button>
-                                                                <button
                                                                     className="btn seeButton"
                                                                     onClick={() =>
                                                                         handleShowDetail(post.id)
                                                                     }
                                                                 >
                                                                     もっと見る
-                                                                </button>
-                                                                <button
-                                                                    className="btn deleteButton"
-                                                                    onClick={() => {
-                                                                        if (
-                                                                            window.confirm(
-                                                                                `「${post.title}」が削除したいですか？`
-                                                                            )
-                                                                        )
-                                                                            handleDelete(post.id);
-                                                                    }}
-                                                                >
-                                                                    削除
                                                                 </button>
                                                             </div>
                                                         </div>
