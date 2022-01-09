@@ -17,7 +17,7 @@
         }
 
         .post-card {
-            height: 500px;
+            height: 680px;
 
             &__image {
                 width: 100%;
@@ -80,6 +80,16 @@
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
+                }
+            }
+
+            &__inline {
+                margin-top: 10px;
+                height: 30px;
+
+                > span {
+                    color: #6E798C;
+                    font-size: 16px;
                 }
             }
 

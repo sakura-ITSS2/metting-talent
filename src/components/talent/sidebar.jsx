@@ -39,7 +39,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             toggled={toggled}
             breakPoint="md"
             onToggle={handleToggleSidebar}
-            style={{width: '200px', minWidth: '200px', color: '#fff'}}
+            style={{width: '245px', minWidth: '200px', color: '#fff'}}
         >
             <SidebarHeader>
                 <div
@@ -66,10 +66,10 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         style={{
                             padding: "20px",
                             fontSize: 20,
-                            letterSpacing: "1px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap"
+                            // letterSpacing: "1px",
+                            // overflow: "hidden",
+                            // textOverflow: "ellipsis",
+                            // whiteSpace: "nowrap"
                         }}
                         onClick={() => history.push('/talent')}
                         className={history.location.pathname === '/talent' ? 'isActive' : ''}
@@ -101,15 +101,15 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         style={{
                             padding: "20px 15px 20px 10px",
                             fontSize: 20,
-                            letterSpacing: "1px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
+                            // letterSpacing: "1px",
+                            // overflow: "hidden",
+                            // textOverflow: "ellipsis",
+                            // whiteSpace: "nowrap",
                         }}
                         onClick={() => history.push('/talent/list-meeting')}
                         className={history.location.pathname.includes('/talent/list-meeting') ? 'isActive' : ''}
                     >
-                        <AiFillCalendar style={{fontSize: '20px'}} /> オーディション時間
+                        <AiFillCalendar style={{fontSize: '16px'}} /> オーディション
                     </MenuItem>
                 </Menu>
             </SidebarContent>

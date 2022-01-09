@@ -8,6 +8,7 @@ import {
     Dropdown,
     DropdownButton
 } from "react-bootstrap";
+import moment from 'moment';
 import { useState, useEffect } from 'react';
 import {useHistory} from "react-router-dom";
 import { getAllPost, sendRequestPost } from '../../Services/TalentPostService';
@@ -140,7 +141,6 @@ function TalentPost({ profile }) {
             }, 1500);
         }
 
-        console.log(profile);
         if (Object.keys(profile).length && !profile.completed) {
             alert('プロフィルを完成してください。');
             history.push('/')
@@ -248,6 +248,14 @@ function TalentPost({ profile }) {
                                         ) : null}
                                     </Row>
                                     <Row className="post-card__description">
+                                        <span>会社名</span>
+                                        <Card.Text
+                                            style={{ whiteSpace: 'pre-wrap' }}
+                                        >
+                                            {post.company ? post.company.name : '未登録'}
+                                        </Card.Text>
+                                    </Row>
+                                    <Row className="post-card__description">
                                         <span>記述</span>
                                         <Card.Text
                                             style={{ whiteSpace: 'pre-wrap' }}
@@ -256,6 +264,12 @@ function TalentPost({ profile }) {
                                         </Card.Text>
                                     </Row>
                                     <Row></Row>
+                                    <Row className="post-card__inline">
+                                        <span>適用数: {`${post.numberApplied} / ${post.targetMax ?? '~'}`}</span>
+                                    </Row>
+                                    <Row className="post-card__inline">
+                                        <span>投稿日: {post.publish ? post.publish : moment().format('DD/MM/YYYY')}</span>
+                                    </Row>
                                     <Row
                                         className="justify-content-md-center"
                                         style={{ marginTop: '15px' }}

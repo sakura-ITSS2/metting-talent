@@ -1,5 +1,5 @@
 import {db} from '../utils/firebase'
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore/lite';
+import { collection, getDocs, updateDoc, doc, getDoc } from 'firebase/firestore/lite';
 import { toast } from 'react-toastify';
 
 export const getAllPost = async (registerPost) => {
@@ -10,10 +10,13 @@ export const getAllPost = async (registerPost) => {
             const userPostSnapshot = await getDocs(collection(db, 'UserPost'));
             const listUserPost = userPostSnapshot.docs.map(doc => doc.data())[0];
             let resultPost = listPost;
+            const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
+            const listManager = managerSnap.data().Data
 
             registerPost.forEach(postId => {
                 const temp = getDataCurrentPost(listUserPost[postId]);
                 resultPost = resultPost.map(post => {
+                    const postManager = listManager.filter(manager => manager.list_post.includes(post.id))[0];
                     if (post.id === postId) {
                         return {...post,
                             status: temp?.status,
@@ -21,12 +24,12 @@ export const getAllPost = async (registerPost) => {
                             time: temp?.time,
                             pass_meeting: temp?.pass_meeting,
                             score: temp?.score,
-                            review: temp?.review
-
+                            review: temp?.review,
+                            company: postManager?.company
                         }
                     }
 
-                    return {...post, status: post?.status, link_meeting: post?.link_meeting, time: post?.time, pass_meeting: post?.pass_meeting, score: post?.score, review: post?.review}
+                    return {...post, status: post?.status, link_meeting: post?.link_meeting, time: post?.time, pass_meeting: post?.pass_meeting, score: post?.score, review: post?.review, company: postManager?.company}
                 })
             })
 
