@@ -268,13 +268,18 @@ function ListTalents() {
                                 }
                                 {
                                     talent.status === 'accept' && talent?.clickLink
-                                        ? <Button variant="primary" onClick={() => handleOpenModal(talent?.id_talent)}>評価</Button>
+                                        ? <Button variant="primary"
+                                                  onClick={() => handleOpenModal(talent?.id_talent)}
+                                                  style={{ width:130, marginLeft:50}}
+                                        >
+                                            評価
+                                    </Button>
                                         : talent.status === 'review'
                                         ? <Button variant="primary"
-                                                  style={{height:34, width:130}}
+                                                  style={{width:130, marginLeft:500}}
                                                   onClick={() => handleOpenModalReview(talent?.score, talent?.review)}
                                         >評価を見る</Button>
-                                        : null
+                                        : <div style={{height:34, width:190}}/>
                                 }
                                 <Link
                                     to={{
@@ -282,6 +287,7 @@ function ListTalents() {
                                         idPost: id,
                                     }}
                                     className={`status--${talent.status}`}
+                                    style={{borderRadius:20}}
                                     params={{ idPost: id }}
                                 >
                                     {talent.status === 'accept'
