@@ -105,6 +105,22 @@ export const getListPosts = async (id) => {
     }
 }
 
+export const getListPostsId = async (id) => {
+    try {
+        const postSnap = await getDoc(doc(db, 'Post', 'Post'));
+        const managerSnap = await getDoc(doc(db, 'User', 'Manager'));
+
+        const listAllPost = postSnap.data().Data;
+        const currentManager = managerSnap.data().Data.filter(manager => manager.id ===id)[0];
+        const listPostById = listAllPost.filter(post => currentManager.list_post.includes(post.id));
+
+        return listPostById;
+
+    }catch (err) {
+        return err;
+    }
+}
+
 export const createPost = async (description, title, id, image, target) => {
     try {
         const postSnap = await getDoc(doc(db, 'Post', 'Post'));

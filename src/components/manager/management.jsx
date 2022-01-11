@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef} from 'react';
-import {getListPosts, createPost,  deletePost} from '../../Services/PostService';
+import {getListPostsId, createPost,  deletePost} from '../../Services/PostService';
 import {useHistory} from 'react-router-dom';
 import Header from '../Header/Header';
 import Sidebar from '../ManagerSidebar/sidebar'
@@ -42,7 +42,7 @@ function Management() {
         const id = localStorage.getItem('id');
         async function fetchData() {
             setIsLoading(true);
-            const posts = await getListPosts(id);
+            const posts = await getListPostsId(id);
             setListPost(posts);
             setTimeout(() => {
                 setIsLoading(false);
@@ -122,7 +122,7 @@ function Management() {
         setDeleteLoading(true);
         await deletePost(postId);
         const id = localStorage.getItem('id');
-        const posts = await getListPosts(id);
+        const posts = await getListPostsId(id);
         setListPost(posts);
         setDeleteLoading(false);
     }
@@ -138,7 +138,7 @@ function Management() {
                 <Col lg='10'>
                     <Row>
                         <Col lg='11'>
-                            <div className=".wrapper__list-talent">
+                            <div className="wrapper__list-talent">
                                 <div className="listPost">
                                     <button
                                         className="btn btn-lg btn-success createButton"
