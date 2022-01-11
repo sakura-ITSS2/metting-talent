@@ -38,7 +38,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             toggled={toggled}
             breakPoint="md"
             onToggle={handleToggleSidebar}
-            style={{width: '200px', minWidth: '200px', color: '#fff', zIndex: '50'}}
+            style={{width: '85%', minWidth: '200px', color: '#fff', zIndex: '50'}}
         >
             <SidebarHeader>
                 <div
@@ -88,7 +88,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             whiteSpace: "nowrap",
                         }}
                         onClick={() => history.push('/manager/listPost')}
-                        className={history.location.pathname.includes('/manager/listPost') ? 'isActive' : ''}
+                        className={history.location.pathname.includes('/manager/listPost') || history.location.pathname.includes('/manager/listTalent/')  ? 'isActive' : ''}
                     >
                         <FaList style={{fontSize: '20px'}} /> 求人情報
                     </MenuItem>

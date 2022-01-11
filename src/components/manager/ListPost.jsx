@@ -50,6 +50,7 @@ function ListPost() {
             const posts = await getListPosts(id);
             setListPost(posts);
             setListPostShow(posts);
+            console.log(posts);
             setTimeout(() => {
                 setIsLoading(false);
             }, 1000)
@@ -223,27 +224,30 @@ function ListPost() {
                                                 return (
                                                     <div className="post">
                                                         <img
-                                                            className="defaultpost"
+                                                            className={`defaultpost ${post.isCurrentManager ? 'click' : 'none-click'}`}
                                                             src={
                                                                 post.image
                                                                     ? post.image
                                                                     : default_post
                                                             }
-                                                            onClick={() =>
-                                                                history.push(
-                                                                    '/manager/listTalent/' + post.id
-                                                                )
+                                                            onClick={() => {
+                                                                if (post.isCurrentManager)
+                                                                    history.push(
+                                                                        '/manager/listTalent/' + post.id
+                                                                    )
+                                                                }
                                                             }
                                                         />
                                                         <div className="post-body">
                                                             <div
                                                                 className="title"
-                                                                style={{ cursor: 'pointer' }}
-                                                                onClick={() =>
-                                                                    history.push(
-                                                                        '/manager/listTalent/' +
-                                                                            post.id
-                                                                    )
+                                                                style={{ cursor: `${post.isCurrentManager ? 'pointer' : 'default'}` }}
+                                                                onClick={() => {
+                                                                    if (post.isCurrentManager)
+                                                                        history.push(
+                                                                            '/manager/listTalent/' + post.id
+                                                                        )
+                                                                    }
                                                                 }
                                                             >
                                                                 {post.title}
