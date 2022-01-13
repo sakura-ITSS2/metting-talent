@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 import Header from '../Header/Header';
 import Sidebar from '../ManagerSidebar/sidebar'
 import { uploadAvatar } from '../../Services/ProfileService';
+import { getUserPostById } from '../../Services/TalentPostService';
 import './management.scss';
 import default_post from '../../images/default-post.jpeg';
 import DetailModal from './DetailModal';
@@ -19,6 +20,26 @@ import {
     Image,
     Spinner
 } from "react-bootstrap";
+
+import {Bar} from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
 function Management() {
     const history = useHistory();
@@ -37,6 +58,8 @@ function Management() {
     const [currentPost, setCurrentPost] = useState();
     const [invalidImage, setInvalidImage] = useState(false);
     const [invalidTitle, setInvalidTitle] = useState(false);
+    const [userPost, setUserPost] = useState();
+    
 
     useEffect(() =>{
         const id = localStorage.getItem('id');
@@ -127,6 +150,105 @@ function Management() {
         setDeleteLoading(false);
     }
 
+    const renderBar = (postId) => {
+        if(userPost){
+            let pending=0
+            let accepted=0
+            let rejected =0
+            let review =0
+            for (let i=0; i<userPost[postId]?.length; i++) {
+                if (userPost[postId][i].status === 'pending') pending += 1
+                if (userPost[postId][i].status === 'decline')  rejected += 1
+                if (userPost[postId][i].status === 'accept') accepted += 1
+                if (userPost[postId][i].status === 'review') review += 1
+            }
+            return  <Bar
+            data={{
+              labels: [
+               "Pending",
+               "Accepted",
+               "Rejected",
+               "Review",
+              ],
+              datasets: [
+                {
+                  label: ['','',''],
+                  backgroundColor: [
+                    "#3e95cd",
+                    "#8e5ea2",
+                    "#3cba9f",
+                    "red"
+                  ],
+                  data: [pending, accepted, rejected, review]
+                }
+              ]
+            }}
+            options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Status Bar',
+                  },
+                }
+            }}
+          />
+        }
+       
+    }
+    const renderScoreBar = (postId) => {
+        if(userPost){
+            const labels = ['1','2','3','4','5','6','7','8','9', '10']
+            const data = [0,0,0,0,0,0,0,0,0,0]
+            for (let i=0; i<userPost[postId]?.length; i++) {
+                if (userPost[postId][i].score === '1') data[0] +=1
+                if (userPost[postId][i].score === '2') data[1] +=1
+                if (userPost[postId][i].score === '3') data[2] +=1
+                if (userPost[postId][i].score === '4') data[3] +=1
+                if (userPost[postId][i].score === '5') data[4] +=1
+                if (userPost[postId][i].score === '6') data[5] +=1
+                if (userPost[postId][i].score === '7') data[6] +=1
+                if (userPost[postId][i].score === '8') data[7] +=1
+                if (userPost[postId][i].score === '9') data[8] +=1
+                if (userPost[postId][i].score === '10') data[9] +=1
+            }
+            return  <Bar
+            data={{
+              labels:labels,
+              datasets: [
+                {
+                  label: 'Score',
+                  data: data,
+                }
+              ]
+            }}
+            options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Status Bar',
+                  },
+                }
+            }}
+          />
+        }
+       
+    }
+    useEffect(() => {
+        async function fetchData() {
+            const userPost = await getUserPostById();
+            setUserPost(userPost);
+        }
+        fetchData();
+    }, [])
+
     return (
         <Container fluid>
             <Row style={{backgroundColor: '#E5E5E5', height: '100vh'}}>
@@ -166,7 +288,7 @@ function Management() {
                                                 return (
                                                     <Container fluid>
                                                     <Row>
-                                                        <Col>
+                                                        <Col >
                                                             <div className="post">
                                                                 <img
                                                                     className="defaultpost"
@@ -245,7 +367,9 @@ function Management() {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </Col>
+                                                        </Col> 
+                                                        {renderBar(post.id)} 
+                                                        {renderScoreBar(post.id)} 
                                                       </Row>
                                                       <hr />
                                                     </Container>

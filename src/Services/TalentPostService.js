@@ -128,3 +128,9 @@ export const sendRequestPost = async (postId) => {
         return false;
     }
 }
+
+export const getUserPostById = async () => {
+    const userPostSnapshot = await getDocs(collection(db, 'UserPost'));
+    const listUserPost = userPostSnapshot.docs.map(doc => doc.data())[0];
+    return listUserPost;
+}
