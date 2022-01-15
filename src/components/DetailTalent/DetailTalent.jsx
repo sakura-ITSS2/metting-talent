@@ -21,7 +21,7 @@ export const DetailTalent = (props) => {
 
     const { id } = useParams()
     const history = useHistory();
-    const {idPost} = props.location
+    const {idPost, status} = props.location
     const userShow = [
         {
             name: 'メール',
@@ -163,21 +163,26 @@ export const DetailTalent = (props) => {
                         </Col>
                     </Row>
                     <div class="btns">
-                        <button className="btn btn-primary accept" onClick={() => setShow(true)}>
-                            承認
-                        </button>
-                        <button className="btn btn-danger reject" disabled={loading.reject} onClick={() => handleDecline()}>
-                            {
-                                loading.reject ?
-                                    <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    /> : 'リジェクト'
-                            }
-                        </button>
+                        {
+                            status === 'accept' || status === 'review' ? null :
+                                <>
+                                    <button className="btn btn-primary accept" onClick={() => setShow(true)}>
+                                        承認
+                                    </button>
+                                    <button className="btn btn-danger reject" disabled={loading.reject} onClick={() => handleDecline()}>
+                                        {
+                                            loading.reject ?
+                                                <Spinner
+                                                    as="span"
+                                                    animation="border"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                /> : 'リジェクト'
+                                        }
+                                    </button>
+                                </>
+                        }
 
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>

@@ -246,6 +246,7 @@ function ListTalents() {
                                                     to={{
                                                         pathname: `detail-talent/${talent.id_talent}`,
                                                         idPost: id,
+                                                        status: talent?.status
                                                     }}
                                                     className="profile"
                                                     params={{ idPost: id }}
@@ -286,7 +287,7 @@ function ListTalents() {
                                                     </Button>
                                                         : talent.status === 'review'
                                                         ? <Button variant="primary"
-                                                            style={{width:130, marginLeft:500, backgroundColor: 'rgb(64,115,158)', borderColor: 'rgb(64,115,158)'}}
+                                                            style={{width:130, marginLeft:436, backgroundColor: 'rgb(64,115,158)', borderColor: 'rgb(64,115,158)'}}
                                                             onClick={() => handleOpenModalReview(talent?.score, talent?.review)}
                                                         >評価を見る</Button>
                                                         : <div style={{height:34, width:190}}/>
@@ -295,9 +296,11 @@ function ListTalents() {
                                                     to={{
                                                         pathname: `detail-talent/${talent.id_talent}`,
                                                         idPost: id,
+                                                        status: talent?.status
                                                     }}
                                                     className={`status--${talent.status}`}
                                                     params={{ idPost: id }}
+                                                    style={{borderRadius: 20, width:130, marginLeft: 20}}
                                                 >
                                                     {talent.status === 'accept'
                                                         ? STATUS_ACCEPT
