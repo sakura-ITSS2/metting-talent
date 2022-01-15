@@ -73,7 +73,7 @@ function ListMeeeting({ profile}) {
                                     )}
                                 </div>
                                 <div className="status-button">
-                                    <Button  className="status--${post.status}"
+                                    <Button  className={`status--${post.status}`}
                                         style={{ whiteSpace: 'pre-wrap'}}
                                         >
                                             状態:

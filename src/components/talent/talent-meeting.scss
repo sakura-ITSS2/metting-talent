@@ -76,25 +76,31 @@
             text-align: center;
             color: white;
             text-decoration: none;
+            cursor: default;
           }
 
           .status--accept {
             @extend .status;
             background-color: #00a8ff;
+            border-color: #00a8ff;
           }
 
           .status--decline {
             @extend .status;
             background-color: #e74c3c;
+            border-color: #e74c3c;
           }
 
           .status--pending {
             @extend .status;
             background-color: #f39c12;
+            border-color: #f39c12;
           }
           .status--review {
             @extend .status;
             background-color: green;
+            border-color: green;
+            cursor: pointer;
           }
         }
       }

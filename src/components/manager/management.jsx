@@ -1,4 +1,5 @@
 import {useState, useEffect, useRef} from 'react';
+import moment, { locale } from 'moment'
 import {getListPostsId, createPost,  deletePost} from '../../Services/PostService';
 import {useHistory} from 'react-router-dom';
 import Header from '../Header/Header';
@@ -165,14 +166,14 @@ function Management() {
             return  <Bar
             data={{
               labels: [
-               "Pending",
-               "Accepted",
-               "Rejected",
-               "Review",
+               "ペンディング",
+               "承認",
+               "リジェクト",
+               "面接済",
               ],
               datasets: [
                 {
-                  label: ['','',''],
+                  label: [''],
                   backgroundColor: [
                     "#3e95cd",
                     "#8e5ea2",
@@ -191,7 +192,7 @@ function Management() {
                   },
                   title: {
                     display: true,
-                    text: 'Status Bar',
+                    text: '求人投稿を分析するグラフ',
                   },
                 }
             }}
@@ -233,7 +234,7 @@ function Management() {
                   },
                   title: {
                     display: true,
-                    text: 'Status Bar',
+                    text: 'スコア',
                   },
                 }
             }}
@@ -288,7 +289,10 @@ function Management() {
                                                 return (
                                                     <Container fluid>
                                                     <Row>
-                                                        <Col lg='4'>
+                                                        <Col lg='4' style={{
+                                                            marginTop: 'auto',
+                                                            marginBottom: 'auto'
+                                                        }}>
                                                             <div className="post">
                                                                 <img
                                                                     className="defaultpost"
@@ -297,22 +301,10 @@ function Management() {
                                                                             ? post.image
                                                                             : default_post
                                                                     }
-                                                                    onClick={() =>
-                                                                        history.push(
-                                                                            '/manager/listTalent/' + post.id
-                                                                        )
-                                                                    }
                                                                 />
                                                                 <div className="post-body">
                                                                     <div
                                                                         className="title"
-                                                                        style={{ cursor: 'pointer' }}
-                                                                        onClick={() =>
-                                                                            history.push(
-                                                                                'manager/listTalent/' +
-                                                                                    post.id
-                                                                            )
-                                                                        }
                                                                     >
                                                                         {post.title}
                                                                     </div>
@@ -332,7 +324,13 @@ function Management() {
                                                                         <span className="text-bold">
                                                                             適用数:{' '}
                                                                         </span>
-                                                                        <span>{post.numberApplied}</span>
+                                                                        <span>{`${post.numberApplied} / ${post.targetMax ?? '~'}`}</span>
+                                                                    </div>
+                                                                    <div className="apply">
+                                                                        <span className="text-bold">
+                                                                            投稿日:{' '}
+                                                                        </span>
+                                                                        <span>{post.publish ? post.publish : moment().format('DD/MM/YYYY')}</span>
                                                                     </div>
                                                                     <div className="buttons">
                                                                         <button
@@ -363,6 +361,16 @@ function Management() {
                                                                             }}
                                                                         >
                                                                             削除
+                                                                        </button>
+                                                                        <button
+                                                                            className="btn btn-success adoptButton"
+                                                                            onClick={() =>
+                                                                                history.push(
+                                                                                    '/manager/listTalent/' + post.id
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            採用管理
                                                                         </button>
                                                                     </div>
                                                                 </div>
