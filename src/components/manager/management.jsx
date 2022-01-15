@@ -59,7 +59,7 @@ function Management() {
     const [invalidImage, setInvalidImage] = useState(false);
     const [invalidTitle, setInvalidTitle] = useState(false);
     const [userPost, setUserPost] = useState();
-    
+
 
     useEffect(() =>{
         const id = localStorage.getItem('id');
@@ -197,7 +197,7 @@ function Management() {
             }}
           />
         }
-       
+
     }
     const renderScoreBar = (postId) => {
         if(userPost){
@@ -239,7 +239,7 @@ function Management() {
             }}
           />
         }
-       
+
     }
     useEffect(() => {
         async function fetchData() {
@@ -259,7 +259,7 @@ function Management() {
                 </Col>
                 <Col lg='10'>
                     <Row>
-                        <Col lg='11'>
+                        <Col lg='12'>
                             <div className="wrapper__list-talent">
                                 <div className="listPost">
                                     <button
@@ -288,7 +288,7 @@ function Management() {
                                                 return (
                                                     <Container fluid>
                                                     <Row>
-                                                        <Col >
+                                                        <Col lg='4'>
                                                             <div className="post">
                                                                 <img
                                                                     className="defaultpost"
@@ -367,9 +367,19 @@ function Management() {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </Col> 
-                                                        {renderBar(post.id)} 
-                                                        {renderScoreBar(post.id)} 
+                                                        </Col>
+                                                        <Col lg='1'>
+                                                        </Col>
+                                                        <Col lg='6'>
+                                                            <div className="scoreChart">
+                                                                <Row>
+                                                                    {renderBar(post.id)}
+                                                                </Row>
+                                                                <Row>
+                                                                    {renderScoreBar(post.id)}
+                                                                </Row>
+                                                            </div>
+                                                        </Col>
                                                       </Row>
                                                       <hr />
                                                     </Container>

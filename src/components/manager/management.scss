@@ -20,7 +20,7 @@
 
     .post {
       float: left;
-      width: 35%;
+      width: 100%;
       margin-right: 50px;
       margin-left: 5%;
       height: 530px;
@@ -96,6 +96,9 @@
           }
         }
       }
+    }
+    .scoreChart {
+      width: 100%;
     }
   }
 

@@ -39,21 +39,15 @@ function ListMeeeting({ profile}) {
                     {listPost.map((post) => {
                         return(
                             <div className="post-item" key={post.id}>
+                                <Link className="profile">
+                                    <Image
+                                        src={post.image}
+                                        roundedCircle
+                                    />
+                                </Link>
 
-
-                                    <Link className="profile">
-                                        <Image
-                                            src={post.image}
-                                            roundedCircle
-                                        />
-                                    </Link>
-
-                                    <Col md="4">
-                                        <h5>
-                                            {post.title}
-                                        </h5>
-                                    </Col>
-
+                                <h5 className="post-title"> {post.title} </h5>
+                                <div className="post-detail">
                                     {post.status === 'accept' && (
                                         <div className="link-meeting">
                                             <p>
@@ -77,20 +71,21 @@ function ListMeeeting({ profile}) {
                                                     Review: {post.review ? post.review: 'null'}</p>
                                             </div>
                                     )}
-                                    <Col md={{ span: 2, offset: 1 }}>
-                                        <Button  className="status--${post.status}"
-                                            style={{ whiteSpace: 'pre-wrap'}}
-                                            >
-                                                状態:
-                                                {post.status === 'accept'
-                                                    ? STATUS_ACCEPT
-                                                    : post.status === 'decline'
-                                                    ? STATUS_DECLINE
-                                                    : post.status === 'review'
-                                                    ? STATUS_REVIEW
-                                                    : STATUS_PENDING}
-                                        </Button>
-                                    </Col>
+                                </div>
+                                <div className="status-button">
+                                    <Button  className="status--${post.status}"
+                                        style={{ whiteSpace: 'pre-wrap'}}
+                                        >
+                                            状態:
+                                            {post.status === 'accept'
+                                                ? STATUS_ACCEPT
+                                                : post.status === 'decline'
+                                                ? STATUS_DECLINE
+                                                : post.status === 'review'
+                                                ? STATUS_REVIEW
+                                                : STATUS_PENDING}
+                                    </Button>
+                                </div>
                             </div>
                             )
                         })
